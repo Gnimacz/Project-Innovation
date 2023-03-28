@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <h2>WebSocket Test</h2>
+    <div id=zone_joystick style="width:100px; height:100px; color: aqua; position:relative;"></div>
+    <button>send</button>
+    <button id="jump">Jump</button>
+    <div id=output></div>
+
+    <script>
+
+        var origin = window.location.origin;
+        var words = origin.split(':'); // typically: words[0]= "http", words[1] = something like "//192.168.0.1", words[2] = "8000" (the http server port)	
+        var wsUri = "ws:" + words[1] + "/";
+        console.log(origin);
+
+        // http://www.websocket.org/echo.html
+
+        var button = document.querySelector("button"),
+            output = document.querySelector("#output"),
+            textarea = document.querySelector("textarea"),
+            // wsUri = "ws://127.0.0.1/",    // works
+            wsUri = "ws://192.168.137.1/",  // This works if this is the LAN address of the web socket server
+            websocket = new WebSocket(wsUri),
+            pressedJump = 0,
+            directionX = 0.0,
+            directionY = 0.0,
+            finalMessage = "";
+
+        // button.addEventListener("click", onClickButton);
+        document.getElementById("jump").addEventListener("click", onJumpPressed);
+
+        websocket.onopen = function (e) {
+            writeToScreen("CONNECTED");
+        };
+
+        websocket.onclose = function (e) {
+            writeToScreen("DISCONNECTED");
+        };
+
+        websocket.onmessage = function (e) {
+            writeToScreen("<span>RESPONSE: " + e.data + "</span>");
+        };
+
+        websocket.onerror = function (e) {
+            writeToScreen("<span class=error>ERROR:</span> " + e.data);
+        };
+
+        function doSend(message) {
+            writeToScreen("SENT: " + message);
+            websocket.send(message);
+        }
+
+        function writeToScreen(message) {
+            output.insertAdjacentHTML("afterbegin", "<p>" + message + "</p>");
+        }
+
+        function onClickButton() {
+            var text = textarea.value;
+
+            text && doSend(text);
+            textarea.value = "";
+            textarea.focus();
+        }
+
+        function onJumpPressed() {
+            pressedJump = 1;
+            onEndFrame();
+        }
+
+        function onEndFrame() {
+            finalMessage = "";
+            finalMessage = directionX + " " + directionY + " " + pressedJump;
+            pressedJump = 0;
+            doSend(finalMessage);
+        }
+
+        writeToScreen("Websocket address: " + wsUri);
+
+    </script>
+</body>
+
+</html>
