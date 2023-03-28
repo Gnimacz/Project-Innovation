@@ -17,7 +17,7 @@ namespace WebSockets {
         // Contains the TcpClients that are upgraded to a websocket connection, until they are returned by an Accept call:
 		List<TcpClient> ready;
 		
-		public WebsocketListener(int port=80) {
+		public WebsocketListener(int port=8001) {
 			listener = new TcpListener(IPAddress.Any, port);
 
 			processing = new List<TcpClient>();

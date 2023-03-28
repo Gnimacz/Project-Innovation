@@ -12,16 +12,30 @@
 
 <body>
     <h2>WebSocket Test</h2>
-    <div id=zone_joystick style="width:100px; height:100px; color: aqua; position:relative;"></div>
+    <div id=zone_joystick class="zone_joystick"></div>
     <button>send</button>
     <button id="jump">Jump</button>
     <div id=output></div>
 
+    <script src="node_modules/nipplejs/dist/nipplejs.js"></script>
+
     <script>
+
+        var joystick = nipplejs.create({
+            zone: document.getElementById('zone_joystick'),
+            mode: 'semi',
+            color: 'red',
+            multitouch: true
+        });
+
+        joystick.on('move', function (evt, data) {
+            console.log(data.position.x);
+        });
+
 
         var origin = window.location.origin;
         var words = origin.split(':'); // typically: words[0]= "http", words[1] = something like "//192.168.0.1", words[2] = "8000" (the http server port)	
-        var wsUri = "ws:" + words[1] + "/";
+        var wsUri = "ws:" + words[1] + ":8001" + "/";
         console.log(origin);
 
         // http://www.websocket.org/echo.html
@@ -30,7 +44,7 @@
             output = document.querySelector("#output"),
             textarea = document.querySelector("textarea"),
             // wsUri = "ws://127.0.0.1/",    // works
-            wsUri = "ws://192.168.137.1/",  // This works if this is the LAN address of the web socket server
+            // wsUri = "ws://192.168.137.1:8001/",  // This works if this is the LAN address of the web socket server
             websocket = new WebSocket(wsUri),
             pressedJump = 0,
             directionX = 0.0,
@@ -86,6 +100,7 @@
         }
 
         writeToScreen("Websocket address: " + wsUri);
+        writeToScreen(origin);
 
     </script>
 </body>

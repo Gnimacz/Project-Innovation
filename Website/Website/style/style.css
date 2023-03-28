@@ -6,3 +6,10 @@ body{
     margin: 0;
     padding: 0;
 }
+#zone_joystick{
+    background-color: #000000;
+    border: 1px solid #ffffff;
+    height: 100vh;
+    width: 50vw;
+    position:relative;
+}
