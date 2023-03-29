@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 using System.Text;
 using WebSockets;
@@ -9,6 +10,9 @@ public class SimpleServerDemo : MonoBehaviour
 {
     List<WebSocketConnection> clients;
     WebsocketListener listener;
+
+    public delegate void MessageReceived(string message);
+    public static MessageReceived OnMessageReceived;
 
     void Start()
     {
@@ -52,6 +56,7 @@ public class SimpleServerDemo : MonoBehaviour
     void OnPacketReceive(NetworkPacket packet, WebSocketConnection connection) {
         string text = Encoding.UTF8.GetString(packet.Data);
         Console.WriteLine("Received a packet: {0}", text);
+        OnMessageReceived?.Invoke(text);
 
         byte[] bytes;
 
@@ -60,10 +65,10 @@ public class SimpleServerDemo : MonoBehaviour
         bytes = Encoding.UTF8.GetBytes(response);
         connection.Send(new NetworkPacket(bytes));
 
-        //// broadcast:
-        string message = connection.RemoteEndPoint.ToString() + " says: " + text;
-        bytes = Encoding.UTF8.GetBytes(message);
-        Broadcast(new NetworkPacket(bytes));
+        // //// broadcast:
+        // string message = connection.RemoteEndPoint.ToString() + " says: " + text;
+        // bytes = Encoding.UTF8.GetBytes(message);
+        // Broadcast(new NetworkPacket(bytes));
     }
 
     void Broadcast(NetworkPacket packet) {

@@ -12,97 +12,27 @@
 
 <body>
     <h2>WebSocket Test</h2>
-    <div id=zone_joystick class="zone_joystick"></div>
-    <button>send</button>
-    <button id="jump">Jump</button>
+    <button id="fullscreen">FullScreen</button>
+    <div class="Inputs" id="Inputs">
+        <div id=zone_joystick class="zone_joystick"></div>
+        <div class="ButtonContainer">
+            <button id="attack">Attack</button>
+            <button id="jump">Jump</button>
+        </div>
+        <!-- <button id="click">click</button> -->
+    </div>
     <div id=output></div>
 
-    <script src="node_modules/nipplejs/dist/nipplejs.js"></script>
+    <!-- <script src="node_modules/nipplejs/dist/nipplejs.js"></script>
 
     <script>
 
-        var joystick = nipplejs.create({
-            zone: document.getElementById('zone_joystick'),
-            mode: 'semi',
-            color: 'red',
-            multitouch: true
-        });
 
-        joystick.on('move', function (evt, data) {
-            console.log(data.position.x);
-        });
-
-
-        var origin = window.location.origin;
-        var words = origin.split(':'); // typically: words[0]= "http", words[1] = something like "//192.168.0.1", words[2] = "8000" (the http server port)	
-        var wsUri = "ws:" + words[1] + ":8001" + "/";
-        console.log(origin);
-
-        // http://www.websocket.org/echo.html
-
-        var button = document.querySelector("button"),
-            output = document.querySelector("#output"),
-            textarea = document.querySelector("textarea"),
-            // wsUri = "ws://127.0.0.1/",    // works
-            // wsUri = "ws://192.168.137.1:8001/",  // This works if this is the LAN address of the web socket server
-            websocket = new WebSocket(wsUri),
-            pressedJump = 0,
-            directionX = 0.0,
-            directionY = 0.0,
-            finalMessage = "";
-
-        // button.addEventListener("click", onClickButton);
-        document.getElementById("jump").addEventListener("click", onJumpPressed);
-
-        websocket.onopen = function (e) {
-            writeToScreen("CONNECTED");
-        };
-
-        websocket.onclose = function (e) {
-            writeToScreen("DISCONNECTED");
-        };
-
-        websocket.onmessage = function (e) {
-            writeToScreen("<span>RESPONSE: " + e.data + "</span>");
-        };
-
-        websocket.onerror = function (e) {
-            writeToScreen("<span class=error>ERROR:</span> " + e.data);
-        };
-
-        function doSend(message) {
-            writeToScreen("SENT: " + message);
-            websocket.send(message);
-        }
-
-        function writeToScreen(message) {
-            output.insertAdjacentHTML("afterbegin", "<p>" + message + "</p>");
-        }
-
-        function onClickButton() {
-            var text = textarea.value;
-
-            text && doSend(text);
-            textarea.value = "";
-            textarea.focus();
-        }
-
-        function onJumpPressed() {
-            pressedJump = 1;
-            onEndFrame();
-        }
-
-        function onEndFrame() {
-            finalMessage = "";
-            finalMessage = directionX + " " + directionY + " " + pressedJump;
-            pressedJump = 0;
-            doSend(finalMessage);
-        }
-
-        writeToScreen("Websocket address: " + wsUri);
-        writeToScreen(origin);
-
-    </script>
+    </script> -->
 </body>
+<script src="./scripts/buttonInputs.js"></script>
+<script src="./scripts/webSocketHandler.js"></script>
+<script type="module" src="./scripts/joystick.js"></script>
+<script src="./scripts/Updated.js"></script>
 
 </html>
