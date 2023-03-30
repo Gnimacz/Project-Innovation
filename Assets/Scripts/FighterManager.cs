@@ -27,7 +27,7 @@ public class FighterManager : MonoBehaviour
 
     public void SpawnFighter(object sender, int fighterId)
     {
-        GameObject newFighter = Instantiate(fighterPrefabs[0], new Vector3(0,1,0), quaternion.identity);
+        GameObject newFighter = Instantiate(fighterPrefabs[0], transform.position, quaternion.identity);
         newFighter.transform.parent = transform;
         newFighter.GetComponent<FighterController>().playerId = fighterId;
         activeFighters.Add(newFighter);

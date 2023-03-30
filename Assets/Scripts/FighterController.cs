@@ -6,7 +6,7 @@ using UnityEngine;
 public class FighterController : MonoBehaviour
 {
     Animator animator;
-    Rigidbody rigidbody;
+    Rigidbody rb;
     public Transform feet;
     public int playerId = 0;
     public float moveSpeed = 10f;
@@ -20,7 +20,7 @@ public class FighterController : MonoBehaviour
     void Start()
     {
         animator = transform.GetComponent<Animator>();
-        rigidbody = transform.GetComponent<Rigidbody>();
+        rb = transform.GetComponent<Rigidbody>();
         InputEvents.JumpButtonPressed += OnJumpButtonPressed;
         InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
@@ -35,7 +35,7 @@ public class FighterController : MonoBehaviour
     private void FixedUpdate()
     {
         //gravity
-        rigidbody.AddForce(new Vector3(0, -gravityPower, 0), ForceMode.Acceleration);
+        rb.AddForce(new Vector3(0, -gravityPower, 0), ForceMode.Acceleration);
     }
 
     public void OnJumpButtonPressed(object sender, int id)
@@ -64,7 +64,7 @@ public class FighterController : MonoBehaviour
         if (input.PlayerId != playerId) return;
         Vector2 direction = input.JoystickPosition;
         
-        rigidbody.velocity = new Vector3(direction.x * moveSpeed, rigidbody.velocity.y, 0);
+        rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
     }
 
     bool IsOnFloor()
@@ -74,7 +74,7 @@ public class FighterController : MonoBehaviour
 
     void Jump()
     {
-        rigidbody.velocity = new Vector3(rigidbody.velocity.x, jumpPower, 0);
+        rb.velocity = new Vector3(rb.velocity.x, jumpPower, 0);
     }
     
 }
