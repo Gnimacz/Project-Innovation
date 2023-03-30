@@ -14,7 +14,8 @@ public class RemoteControlTest : MonoBehaviour
     void Start()
     {
         SimpleServerDemo.OnMessageReceived += /**/(string message) => {
-            RemoteInput = message;
+            // RemoteInput = message;
+            ParseInput(message);
         };
         /**/
     }
@@ -22,7 +23,7 @@ public class RemoteControlTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ParseInput(RemoteInput);
+        // ParseInput(RemoteInput);
         transform.Translate(velocity * speed * Time.deltaTime);
     }
 
