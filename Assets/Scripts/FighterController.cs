@@ -15,6 +15,7 @@ public class FighterController : MonoBehaviour
     public float groundDetectionradius = 0.2f;
 
     bool doubleJumped = false;
+    Vector2 direction;
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +37,12 @@ public class FighterController : MonoBehaviour
     {
         //gravity
         rb.AddForce(new Vector3(0, -gravityPower, 0), ForceMode.Acceleration);
+        
+        if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        
+        if ((direction.x > 0 && rb.velocity.x < moveSpeed) || (direction.x < 0 && rb.velocity.x > -moveSpeed))
+            rb.velocity += new Vector3(direction.x * moveSpeed, 0, 0);
+
     }
 
     public void OnJumpButtonPressed(object sender, int id)
@@ -62,9 +69,7 @@ public class FighterController : MonoBehaviour
     public void OnJoystickMoved(object sender, DirectionalEventArgs input)
     {
         if (input.PlayerId != playerId) return;
-        Vector2 direction = input.JoystickPosition;
-        
-        rb.velocity = new Vector3(direction.x * moveSpeed, rb.velocity.y, 0);
+        direction = input.JoystickPosition;
     }
 
     bool IsOnFloor()

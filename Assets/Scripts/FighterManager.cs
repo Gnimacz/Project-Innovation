@@ -11,8 +11,8 @@ public class FighterManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // GameObject newFighter = Instantiate(fighterPrefabs[0], new Vector3(0,1,0), quaternion.identity);
-        // newFighter.transform.parent = transform;
+        GameObject newFighter = Instantiate(fighterPrefabs[0], new Vector3(0,1,0), quaternion.identity);
+        newFighter.transform.parent = transform;
 
         //subscribe to events
         InputEvents.ClientConnected += SpawnFighter;
