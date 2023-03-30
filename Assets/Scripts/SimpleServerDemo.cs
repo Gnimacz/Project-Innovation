@@ -9,7 +9,11 @@ using WebSockets;
 public class SimpleServerDemo : MonoBehaviour
 {
     List<WebSocketConnection> clients;
+    Dictionary<WebSocketConnection, int> clientNames = new Dictionary<WebSocketConnection, int>();
+    int currentId = 0;
     WebsocketListener listener;
+    [SerializeField] FighterManager fighterManager;
+ 
 
     public delegate void MessageReceived(string message);
     public static MessageReceived OnMessageReceived;
@@ -32,7 +36,10 @@ public class SimpleServerDemo : MonoBehaviour
         while (listener.Pending()) {
             WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
             clients.Add(ws);
-            Console.WriteLine("A client connected from " + ws.RemoteEndPoint.Address);
+            clientNames.Add(ws, currentId);
+            InputEvents.ClientConnected?.Invoke(this, clientNames[ws]);
+            currentId++;
+            Console.WriteLine("A client connected from " + ws.RemoteEndPoint.Address + " with ID: " + clientNames[ws]);
         }
 
         // Process current connections (this may lead to a callback to OnPacketReceive):
@@ -41,6 +48,8 @@ public class SimpleServerDemo : MonoBehaviour
                 clients[i].Update();
             } else {
                 clients.RemoveAt(i);
+                clientNames.Remove(clients[i]);  
+                InputEvents.ClientDisconnected?.Invoke(this, clientNames[clients[i]]);
                 Console.WriteLine("Removing disconnected client. #active clients: {0}", clients.Count);
                 i--;
             }
@@ -55,15 +64,16 @@ public class SimpleServerDemo : MonoBehaviour
     /// </summary>
     void OnPacketReceive(NetworkPacket packet, WebSocketConnection connection) {
         string text = Encoding.UTF8.GetString(packet.Data);
-        Console.WriteLine("Received a packet: {0}", text);
-        OnMessageReceived?.Invoke(text);
+        Console.WriteLine("Received a packet: {0} from client ID {1}", text, clientNames[connection]);
+        // OnMessageReceived?.Invoke(text);
+        InvokeEvent(text, clientNames[connection]);
 
-        byte[] bytes;
+        // byte[] bytes;
 
-        //// echo:
-        string response = "You said: " + text;
-        bytes = Encoding.UTF8.GetBytes(response);
-        connection.Send(new NetworkPacket(bytes));
+        // //// echo:
+        // string response = "You said: " + text;
+        // bytes = Encoding.UTF8.GetBytes(response);
+        // connection.Send(new NetworkPacket(bytes));
 
         // //// broadcast:
         // string message = connection.RemoteEndPoint.ToString() + " says: " + text;
@@ -75,5 +85,21 @@ public class SimpleServerDemo : MonoBehaviour
         foreach (var cl in clients) {
             cl.Send(packet);
         }
+    }
+
+    //invoke the appropriate events
+    void InvokeEvent(string input, int id){
+        string[] splitInput = input.Split(' ');
+        float x = float.Parse(splitInput[0]);
+        float y = float.Parse(splitInput[1]);
+        int JumpButtonPressed = int.Parse(splitInput[2]);
+        int AttackButtonPressed = int.Parse(splitInput[3]);
+        if (JumpButtonPressed == 1){
+            InputEvents.JumpButtonPressed?.Invoke(this, id);
+        }
+        if (AttackButtonPressed == 1){
+            InputEvents.AttackButtonPressed?.Invoke(this, id);
+        }
+        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(id, new Vector2(x, y)));
     }
 }
