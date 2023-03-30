@@ -54,6 +54,18 @@ public class SimpleServerDemo : MonoBehaviour
                 i--;
             }
         }
+        
+        //keyboard tester code
+        if (Input.GetKeyDown(KeyCode.N)) InputEvents.JumpButtonPressed?.Invoke(this, 0);
+        if (Input.GetKeyDown(KeyCode.M)) InputEvents.AttackButtonPressed?.Invoke(this, 0);
+        Vector2 input = Vector2.zero;
+        if (Input.GetKey(KeyCode.D)) input.x += 1;
+        if (Input.GetKey(KeyCode.A)) input.x -= 1;
+        if (Input.GetKey(KeyCode.W)) input.y += 1;
+        if (Input.GetKey(KeyCode.S)) input.y -= 1;
+        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(0, input));
+        
+
     }
 
     /// <summary>

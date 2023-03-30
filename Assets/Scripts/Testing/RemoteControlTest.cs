@@ -24,7 +24,7 @@ public class RemoteControlTest : MonoBehaviour
     void Update()
     {
         // ParseInput(RemoteInput);
-        transform.Translate(velocity * speed * Time.deltaTime);
+        // transform.Translate(velocity * speed * Time.deltaTime);
     }
 
     void ParseInput(string input){
