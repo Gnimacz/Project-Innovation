@@ -38,6 +38,7 @@ function onClickButton() {
 
 function onJumpPressed() {
     pressedJump = 1;
+    vibrate();
 }
 function onJumpReleased() {
     pressedJump = 0;
@@ -45,6 +46,8 @@ function onJumpReleased() {
 
 function onAttackPressed() {
     pressedAttack = 1;
+    vibrate();
+
 }
 function OnAttackReleased() {
     pressedAttack = 0;
@@ -57,10 +60,11 @@ function onEndFrame() {
     doSend(finalMessage);
 }
 
-function vibrate(){
+function vibrate(number = 30){
     if(!("vibrate" in navigator)){
      alert("Vibrate not supported!");
       return;
      }
-    navigator.vibrate(5500);
+    // navigator.vibrate(30);
+    navigator.vibrate(number);
    }
