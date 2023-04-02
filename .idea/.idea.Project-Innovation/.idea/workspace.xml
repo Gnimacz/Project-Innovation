@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FighterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FighterController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +103,7 @@
       <workItem from="1680202118773" duration="2715000" />
       <workItem from="1680287367551" duration="338000" />
       <workItem from="1680383141230" duration="1158000" />
-      <workItem from="1680423747815" duration="1796000" />
+      <workItem from="1680423747815" duration="2043000" />
     </task>
     <servers />
   </component>
