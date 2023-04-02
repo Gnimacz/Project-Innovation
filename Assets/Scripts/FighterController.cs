@@ -66,6 +66,8 @@ public class FighterController : MonoBehaviour
     public void OnJumpButtonPressed(object sender, int id)
     {
         if (id != playerId) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
+        
         if (IsOnFloor())
         {
             Jump();
