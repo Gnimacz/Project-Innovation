@@ -125,7 +125,7 @@ BoxCollider:
   m_GameObject: {fileID: 4420526199693344828}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ff0ea88c18c200bea932fef57fe6921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 10
 --- !u!1 &5929760693481142459
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 5929760693481142459}
   m_LocalRotation: {x: -0, y: -0, z: 0.70710576, w: 0.70710784}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6561030998166628406}
@@ -277,9 +278,12 @@ MonoBehaviour:
   feet: {fileID: 9153818650433539905}
   playerId: 0
   moveSpeed: 5
+  airControlStrength: 0.2
   jumpPower: 10
   gravityPower: 20
   groundDetectionradius: 0.2
+  upwardKnockbackMultiplier: 0.5
+  knockbackPower: 10
 --- !u!54 &652751588484334944
 Rigidbody:
   m_ObjectHideFlags: 0

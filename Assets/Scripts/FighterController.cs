@@ -42,6 +42,9 @@ public class FighterController : MonoBehaviour
         //gravity
         rb.AddForce(new Vector3(0, -gravityPower, 0), ForceMode.Acceleration);
         
+        // the player has no input while stunned
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
+        
         if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
         
         if ((direction.x > 0 && rb.velocity.x < moveSpeed) || (direction.x < 0 && rb.velocity.x > -moveSpeed))
@@ -56,6 +59,8 @@ public class FighterController : MonoBehaviour
         Vector3 knockbackDirection = (transform.position - from).normalized;
         Vector3 knockback = knockbackDirection * knockbackPower * (health == 0 ? 0 : health / 100f);
         rb.AddForce(knockback + Vector3.up * knockback.magnitude * upwardKnockbackMultiplier, ForceMode.Impulse);
+        
+        animator.SetTrigger("Stunned");
     }
     
     public void OnJumpButtonPressed(object sender, int id)
