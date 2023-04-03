@@ -26,10 +26,16 @@ body{
     border: 1px solid #ffffff;
 }
 /*Here to make sure that the input buttons don't get displayed before going fullscreen*/
+/* .Inputs{
+    display: none;
+    visibility: hidden;
+} */
 .Inputs:not(:fullscreen) {
-    display:none;
+    display: none; 
+    visibility: hidden;
 }
-.Inputs:fullscreen{
+.Inputs{
+    
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -37,7 +43,29 @@ body{
     height: 100vh;
     width: 100vw;
     background-color: antiquewhite;
+    visibility: visible;
+
+    position:fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow:hidden;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    
 }
+
+.hide{
+    display: none;
+    visibility: hidden;
+}
+
+
 
 .ButtonContainer{
     display: flex;
@@ -92,5 +120,21 @@ button{
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.exit{
+    background-color: #ef0000;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 10%;
+    width: 10%;
+    margin: 5px;
+    padding: 0;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    right: 10%;
 }
 
