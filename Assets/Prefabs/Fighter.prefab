@@ -450,3 +450,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
   - {fileID: 8300000, guid: cda53c5e78dd15c388a7ffe453518a08, type: 3}
   - {fileID: 8300000, guid: 64aa24f7ccdfd4dc795f3d875464218b, type: 3}
+  jumpSounds:
+  - {fileID: 8300000, guid: 6bc38bd6f1877530f919d61e0cee0c12, type: 3}

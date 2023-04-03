@@ -115,6 +115,7 @@ public class FighterController : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, jumpPower, 0);
+        sfx.PlayJumpSound();
     }
     
 }
