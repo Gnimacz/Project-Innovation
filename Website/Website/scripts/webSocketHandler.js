@@ -19,6 +19,9 @@ websocket.onclose = function (e) {
 
 websocket.onmessage = function (e) {
     writeToScreen("<span>RESPONSE: " + e.data + "</span>");
+    if(e.data == "vibrate"){
+        vibrate();
+    }
 };
 
 websocket.onerror = function (e) {
@@ -26,7 +29,7 @@ websocket.onerror = function (e) {
 };
 
 function doSend(message) {
-    writeToScreen("SENT: " + message);
+    // writeToScreen("SENT: " + message);
     websocket.send(message);
 }
 
