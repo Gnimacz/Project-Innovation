@@ -7,6 +7,7 @@ public class FighterController : MonoBehaviour
 {
     Animator animator;
     Rigidbody rb;
+    SfxPlayer sfx;
     public Transform feet;
     public int playerId = 0;
     public float moveSpeed = 10f;
@@ -26,6 +27,7 @@ public class FighterController : MonoBehaviour
     {
         animator = transform.GetComponent<Animator>();
         rb = transform.GetComponent<Rigidbody>();
+        sfx = transform.GetComponent<SfxPlayer>();
         InputEvents.JumpButtonPressed += OnJumpButtonPressed;
         InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
@@ -55,6 +57,7 @@ public class FighterController : MonoBehaviour
     public void GetHit(Vector3 from, int damage)
     {
         health += damage;
+        sfx.PlayPunchSound();
 
         Vector3 knockbackDirection = (transform.position - from).normalized;
         Vector3 knockback = knockbackDirection * knockbackPower * (health == 0 ? 0 : health / 100f);
@@ -112,6 +115,7 @@ public class FighterController : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, jumpPower, 0);
+        sfx.PlayJumpSound();
     }
     
 }
