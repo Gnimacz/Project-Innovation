@@ -12,6 +12,9 @@ public class FighterManager : MonoBehaviour
     public delegate void FighterHurt(GameObject fighter, int damage);
     public static FighterHurt OnFighterHurt;
 
+    public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
+    public static onFighterSpawned fighterSpawned;
+
     void FighterWasHurt(GameObject fighter, int damage)
     {
         //TODO(PM): remove debug log statement
@@ -42,6 +45,7 @@ public class FighterManager : MonoBehaviour
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
         // newFighter.GetComponent<FighterController>().playerId = fighterId;
+        fighterSpawned?.Invoke(newFighter, activeFighters[newFighter]);
     }
     public void RemoveFighter(object sender, int fighterId)
     {
