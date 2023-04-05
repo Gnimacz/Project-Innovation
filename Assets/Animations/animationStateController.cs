@@ -8,7 +8,7 @@ public class animationStateController : MonoBehaviour
     int isWalkingHash;
     int isWalkingBHash;
     int isRunningHash;
-    int isTrowingHash;
+    int isPunchingHash;
     int isJumpingHash;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +17,7 @@ public class animationStateController : MonoBehaviour
         isWalkingHash = Animator.StringToHash("isWalking");
         isWalkingBHash = Animator.StringToHash("isWalkingB");
         isRunningHash = Animator.StringToHash("isRunning");
-        isTrowingHash = Animator.StringToHash("isTrowing");
+        isPunchingHash = Animator.StringToHash("isPunching");
         isJumpingHash = Animator.StringToHash("isJumping");
         Debug.Log(animator);
     }
@@ -28,14 +28,14 @@ public class animationStateController : MonoBehaviour
         bool isRunning = animator.GetBool(isRunningHash);
         bool isWalkingB = animator.GetBool(isWalkingBHash);
         bool isWalking = animator.GetBool(isWalkingHash);
-        bool isTrowing = animator.GetBool(isTrowingHash);
+        bool isPunching = animator.GetBool(isPunchingHash);
         bool isJumping = animator.GetBool(isJumpingHash);
 
         bool forwardPressed = Input.GetKey("d");
         bool jumpingPressed = Input.GetKey("space");
         bool backwardPressed = Input.GetKey("a");
         bool runPressed = Input.GetKey("left shift");
-        bool TrowingPressed = Input.GetMouseButtonDown(0);
+        bool PunchingPressed = Input.GetMouseButtonDown(0);
 
 //-----------------[jumping]------------------------------------------
         // if play presses left click
@@ -46,49 +46,49 @@ public class animationStateController : MonoBehaviour
         }
 
         // if play releases left click
-        if (isJumping && !TrowingPressed)
+        if (isJumping && !PunchingPressed)
         {
             // than set isWalking to false
             animator.SetBool(isJumpingHash,false);
         }
-//-----------------[Trowing]------------------------------------------
-        // if play presses left click
-        if (!isTrowing && TrowingPressed)
+//-----------------[Punching]------------------------------------------
+        // if player presses left click
+        if (!isPunching && PunchingPressed)
         {
-            // than set isWalking to true
-            animator.SetBool(isTrowingHash,true);
+            // than set ispunching to true
+            animator.SetBool(isPunchingHash,true);
         }
 
         // if play releases left click
-        if (isTrowing && !TrowingPressed)
+        if (isPunching && !PunchingPressed)
         {
-            // than set isWalking to false
-            animator.SetBool(isTrowingHash,false);
+            // than set ispunching to false
+            animator.SetBool(isPunchingHash,false);
         }
 //-----------------[walking backwards]------------------------------------------
-        // if play presses w
+        // if play presses a
         if (!isWalkingB && backwardPressed)
         {
-            // than set isWalking to true
+            // than set isWalkingB to true
             animator.SetBool(isWalkingBHash,true);
         }
 
-        // if play releases w
+        // if play releases a
         if (isWalkingB && !backwardPressed)
         {
-            // than set isWalking to false
+            // than set isWalkingb to false
             animator.SetBool(isWalkingBHash,false);
         }
 
 //-----------------[walking forward]------------------------------------------
-        // if play presses w
+        // if play presses d
         if (!isWalking && forwardPressed)
         {
             // than set isWalking to true
             animator.SetBool(isWalkingHash,true);
         }
 
-        // if play releases w
+        // if play releases d
         if (isWalking && !forwardPressed)
         {
             // than set isWalking to false
@@ -96,9 +96,10 @@ public class animationStateController : MonoBehaviour
         }
 
 //-----------------[RUNNING]------------------------------------------
-        // if player is pressing w and shift
+        // if player is pressing d and shift
         if (!isRunning && (forwardPressed && runPressed))
         {
+            //than set running forward to true
             animator.SetBool(isRunningHash, true);
         }
 
