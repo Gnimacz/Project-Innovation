@@ -10,7 +10,17 @@ public class FighterController : MonoBehaviour
     SfxPlayer sfx;
     FighterValues values;
     public Transform feet;
-    public int playerId = 0;
+
+    private int playerId;
+    public int PlayerId
+    {
+        set
+        {
+            playerId = value;
+            animator.SetInteger("PlayerId", value);
+        }
+        get { return playerId; }
+    }
     
     bool doubleJumped = false;
     Vector2 direction;
@@ -39,7 +49,17 @@ public class FighterController : MonoBehaviour
         //gravity
         rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
         
-        // the player has no input while stunned
+        animator.SetFloat("VelocityX", rb.velocity.x);
+        animator.SetFloat("VelocityY", rb.velocity.y);
+
+        if (IsOnFloor())
+        {
+            animator.SetTrigger("Land");
+            if (direction.x == 0) animator.SetBool("Running", false);
+            else animator.SetBool("Running", true);
+        }
+
+            // the player has no input while stunned
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
         
         if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
@@ -111,6 +131,7 @@ public class FighterController : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, values.jumpPower, 0);
         sfx.PlayJumpSound();
+        animator.SetTrigger("Jump");
     }
     
 }

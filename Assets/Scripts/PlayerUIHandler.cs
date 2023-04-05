@@ -8,7 +8,7 @@ public class PlayerUIHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private FighterController fighterController;
     private void Start() {
-        playerName.text = "P" + ((int)fighterController.playerId + 1);
+        playerName.text = "P" + ((int)fighterController.PlayerId + 1);
     }
 
     private void Update(){

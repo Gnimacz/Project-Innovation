@@ -711,7 +711,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   feet: {fileID: 9153818650433539905}
-  playerId: 0
 --- !u!54 &652751588484334944
 Rigidbody:
   m_ObjectHideFlags: 0
