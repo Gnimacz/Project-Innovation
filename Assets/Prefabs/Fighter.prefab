@@ -712,13 +712,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   feet: {fileID: 9153818650433539905}
   playerId: 0
-  moveSpeed: 6
-  airControlStrength: 0.3
-  jumpPower: 12
-  gravityPower: 30
-  groundDetectionradius: 0.2
-  upwardKnockbackMultiplier: 0.5
-  knockbackPower: 10
 --- !u!54 &652751588484334944
 Rigidbody:
   m_ObjectHideFlags: 0
