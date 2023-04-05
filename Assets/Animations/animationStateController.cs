@@ -31,9 +31,9 @@ public class animationStateController : MonoBehaviour
         bool isTrowing = animator.GetBool(isTrowingHash);
         bool isJumping = animator.GetBool(isJumpingHash);
 
-        bool forwardPressed = Input.GetKey("w");
+        bool forwardPressed = Input.GetKey("d");
         bool jumpingPressed = Input.GetKey("space");
-        bool backwardPressed = Input.GetKey("s");
+        bool backwardPressed = Input.GetKey("a");
         bool runPressed = Input.GetKey("left shift");
         bool TrowingPressed = Input.GetMouseButtonDown(0);
 
