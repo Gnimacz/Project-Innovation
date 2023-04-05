@@ -8,15 +8,9 @@ public class FighterController : MonoBehaviour
     Animator animator;
     Rigidbody rb;
     SfxPlayer sfx;
+    FighterValues values;
     public Transform feet;
     public int playerId = 0;
-    public float moveSpeed = 10f;
-    public float airControlStrength = 0.2f;
-    public float jumpPower = 10f;
-    public float gravityPower = 10f;
-    public float groundDetectionradius = 0.2f;
-    public float upwardKnockbackMultiplier = 0.5f;
-    public float knockbackPower = 10f;
     
     bool doubleJumped = false;
     Vector2 direction;
@@ -28,6 +22,7 @@ public class FighterController : MonoBehaviour
         animator = transform.GetComponent<Animator>();
         rb = transform.GetComponent<Rigidbody>();
         sfx = transform.GetComponent<SfxPlayer>();
+        values = transform.GetComponent<FighterValues>();
         InputEvents.JumpButtonPressed += OnJumpButtonPressed;
         InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
@@ -42,15 +37,15 @@ public class FighterController : MonoBehaviour
     private void FixedUpdate()
     {
         //gravity
-        rb.AddForce(new Vector3(0, -gravityPower, 0), ForceMode.Acceleration);
+        rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
         
         // the player has no input while stunned
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
         
         if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
         
-        if ((direction.x > 0 && rb.velocity.x < moveSpeed) || (direction.x < 0 && rb.velocity.x > -moveSpeed))
-            rb.velocity += new Vector3(direction.x * moveSpeed * (IsOnFloor() ? 1 : airControlStrength), 0, 0);
+        if ((direction.x > 0 && rb.velocity.x < values.moveSpeed) || (direction.x < 0 && rb.velocity.x > -values.moveSpeed))
+            rb.velocity += new Vector3(direction.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
 
     }
 
@@ -60,8 +55,8 @@ public class FighterController : MonoBehaviour
         sfx.PlayPunchSound();
 
         Vector3 knockbackDirection = (transform.position - from).normalized;
-        Vector3 knockback = knockbackDirection * knockbackPower * (health == 0 ? 0 : health / 100f);
-        rb.AddForce(knockback + Vector3.up * knockback.magnitude * upwardKnockbackMultiplier, ForceMode.Impulse);
+        Vector3 knockback = knockbackDirection * values.knockbackPower * (health == 0 ? 0 : health / 100f);
+        rb.AddForce(knockback + Vector3.up * knockback.magnitude * values.upwardKnockbackMultiplier, ForceMode.Impulse);
         
         animator.SetTrigger("Stunned");
     }
@@ -109,12 +104,12 @@ public class FighterController : MonoBehaviour
 
     bool IsOnFloor()
     {
-        return Physics.OverlapSphere(feet.position, groundDetectionradius, LayerMask.GetMask("Platforms")).Length > 0;
+        return Physics.OverlapSphere(feet.position, values.groundDetectionradius, LayerMask.GetMask("Platforms")).Length > 0;
     }
 
     void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, jumpPower, 0);
+        rb.velocity = new Vector3(rb.velocity.x, values.jumpPower, 0);
         sfx.PlayJumpSound();
     }
     

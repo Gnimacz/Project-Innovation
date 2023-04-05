@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 7233092092588018934}
   - component: {fileID: 8150271063775785458}
   - component: {fileID: 6294609577521714926}
+  - component: {fileID: 2106498989638753288}
   - component: {fileID: 7826980268216364302}
   - component: {fileID: 652751588484334944}
   - component: {fileID: 6963749327791168277}
@@ -678,6 +679,25 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2106498989638753288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430827712549120626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2279c197644891cf182a1d389902032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  airControlStrength: 0.3
+  jumpPower: 12
+  gravityPower: 30
+  groundDetectionradius: 0.2
+  upwardKnockbackMultiplier: 0.5
+  knockbackPower: 10
 --- !u!114 &7826980268216364302
 MonoBehaviour:
   m_ObjectHideFlags: 0
