@@ -94,3 +94,10 @@ function vibrate(number = 30){
     // navigator.vibrate(30);
     navigator.vibrate(number);
    }
+function vibrate(pattern = [30]){
+    if(!("vibrate" in navigator)){
+    //  alert("Vibrate not supported!");
+      return;
+     }
+    navigator.vibrate(pattern);
+}

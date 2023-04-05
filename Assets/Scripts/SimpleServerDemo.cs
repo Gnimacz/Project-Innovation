@@ -73,7 +73,7 @@ public class SimpleServerDemo : MonoBehaviour
         }
 
         //keyboard tester code
-        /**/
+        /**
         if (Input.GetKeyDown(KeyCode.F)) InputEvents.JumpButtonPressed?.Invoke(this, 0);
         if (Input.GetKeyDown(KeyCode.G)) InputEvents.AttackButtonPressed?.Invoke(this, 0);
         Vector2 input = Vector2.zero;

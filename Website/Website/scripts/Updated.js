@@ -10,7 +10,7 @@ function update() {
         directionY = 0.0;
     }
     else {
-        console.log("Not connected")
+        // console.log("Not connected")
         websocket.close();
         websocket = new WebSocket(wsUri)
     }

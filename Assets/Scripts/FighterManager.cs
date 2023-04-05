@@ -18,15 +18,15 @@ public class FighterManager : MonoBehaviour
         Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
         
         activeFighters[fighter].GetHit(transform.position, damage);
-        // SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
+        SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         //testers for keyboard
-        SpawnFighter(null, 0);
-        SpawnFighter(null, 1);
+        // SpawnFighter(null, 0);
+        // SpawnFighter(null, 1);
         
         OnFighterHurt += FighterWasHurt;
         //subscribe to events
