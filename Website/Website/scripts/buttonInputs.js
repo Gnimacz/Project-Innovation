@@ -3,6 +3,7 @@ var pressedJump = 0,
 pressedAttack = 0,
 directionX = 0.0,
 directionY = 0.0,
+directionEnum = "Right",
 finalMessage = "";
     // wsUri = "ws://127.0.0.1/",    // works
     // wsUri = "ws://192.168.137.1:8001/",  // This works if this is the LAN address of the web socket server

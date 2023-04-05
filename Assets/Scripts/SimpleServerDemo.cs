@@ -77,20 +77,21 @@ public class SimpleServerDemo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F)) InputEvents.JumpButtonPressed?.Invoke(this, 0);
         if (Input.GetKeyDown(KeyCode.G)) InputEvents.AttackButtonPressed?.Invoke(this, 0);
         Vector2 input = Vector2.zero;
-        if (Input.GetKey(KeyCode.D)) input.x += 1;
-        if (Input.GetKey(KeyCode.A)) input.x -= 1;
-        if (Input.GetKey(KeyCode.W)) input.y += 1;
-        if (Input.GetKey(KeyCode.S)) input.y -= 1;
-        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(0, input));
+        string direction = "Right";
+        if (Input.GetKey(KeyCode.D)) input.x += 1; direction = "Right";
+        if (Input.GetKey(KeyCode.A)) input.x -= 1; direction = "Left";
+        if (Input.GetKey(KeyCode.W)) input.y += 1; direction = "Up";
+        if (Input.GetKey(KeyCode.S)) input.y -= 1; direction = "Down";
+        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(0, input, direction));
 
         if (Input.GetKeyDown(KeyCode.M)) InputEvents.JumpButtonPressed?.Invoke(this, 1);
         if (Input.GetKeyDown(KeyCode.N)) InputEvents.AttackButtonPressed?.Invoke(this, 1);
         input = Vector2.zero;
-        if (Input.GetKey(KeyCode.RightArrow)) input.x += 1;
-        if (Input.GetKey(KeyCode.LeftArrow)) input.x -= 1;
-        if (Input.GetKey(KeyCode.UpArrow)) input.y += 1;
-        if (Input.GetKey(KeyCode.DownArrow)) input.y -= 1;
-        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(1, input));
+        if (Input.GetKey(KeyCode.RightArrow)) input.x += 1; direction = "Right";
+        if (Input.GetKey(KeyCode.LeftArrow)) input.x -= 1; direction = "Left";
+        if (Input.GetKey(KeyCode.UpArrow)) input.y += 1; direction = "Up";
+        if (Input.GetKey(KeyCode.DownArrow)) input.y -= 1; direction = "Down";
+        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(1, input, direction));
         /**/
 
     }
@@ -157,6 +158,7 @@ public class SimpleServerDemo : MonoBehaviour
         float y = float.Parse(splitInput[1]);
         int JumpButtonPressed = int.Parse(splitInput[2]);
         int AttackButtonPressed = int.Parse(splitInput[3]);
+        string joystickDirection = splitInput[4];
         if (JumpButtonPressed == 1)
         {
             InputEvents.JumpButtonPressed?.Invoke(this, id);
@@ -165,6 +167,6 @@ public class SimpleServerDemo : MonoBehaviour
         {
             InputEvents.AttackButtonPressed?.Invoke(this, id);
         }
-        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(id, new Vector2(x, y)));
+        InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(id, new Vector2(x, y), joystickDirection));
     }
 }
