@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PolyMesh:
-    name: PolybrushMesh-80324
+    name: PolybrushMesh27740
     vertices:
     - {x: -0.01, y: 0.01, z: -0.14397746}
     - {x: -0.01, y: -0.01, z: -0.14397746}
@@ -690,7 +690,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PolybrushMesh-80324
+  m_Name: PolybrushMesh27740
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
