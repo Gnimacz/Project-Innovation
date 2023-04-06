@@ -12,21 +12,24 @@ public class FighterManager : MonoBehaviour
     public delegate void FighterHurt(GameObject fighter, int damage);
     public static FighterHurt OnFighterHurt;
 
+    public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
+    public static onFighterSpawned fighterSpawned;
+
     void FighterWasHurt(GameObject fighter, int damage)
     {
         //TODO(PM): remove debug log statement
         Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
         
         activeFighters[fighter].GetHit(transform.position, damage);
-        // SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
+        SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         //testers for keyboard
-        SpawnFighter(null, 0);
-        SpawnFighter(null, 1);
+        // SpawnFighter(null, 0);
+        // SpawnFighter(null, 1);
         
         OnFighterHurt += FighterWasHurt;
         //subscribe to events
@@ -42,6 +45,7 @@ public class FighterManager : MonoBehaviour
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
         // newFighter.GetComponent<FighterController>().playerId = fighterId;
+        fighterSpawned?.Invoke(newFighter, activeFighters[newFighter]);
     }
     public void RemoveFighter(object sender, int fighterId)
     {

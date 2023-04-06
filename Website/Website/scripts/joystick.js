@@ -21,6 +21,12 @@ joystick.on('move', function (evt, data) {
     if(data.force < 1){
         hasVibrated = false;
     }
+    if(data.force > 0.1){
+        directionEnum = data.direction.angle;
+        console.log(directionEnum);
+    }
+    // if(data.)
+    // console.log(data);
 });
 
 joystick.on('end', function (evt, data) {
