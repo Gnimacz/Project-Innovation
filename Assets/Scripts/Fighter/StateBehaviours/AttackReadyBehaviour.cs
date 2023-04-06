@@ -1,33 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class AttackReadyBehaviour : StateMachineBehaviour
+public class AttackReadyBehaviour : FighterBehaviour
 {
-    Animator animator;
-    
+
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        this.animator = animator;
-    }
-    
-    
-    
-    void LightAttack()
-    {
-        animator.SetTrigger("LightAttack");
+        base.OnStateEnter(animator, stateInfo, layerIndex);
     }
 
-    void LongAttack()
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         
+    }
+
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        base.OnStateExit(animator, stateInfo, layerIndex);
+    }
+
+    override protected void AttackPressed()
+    {
+        animator.SetTrigger("LightAttack");
     }
     
-    public void OnAttackButtonPressed(object sender, int id)
-    {
-        if (id != animator.GetInteger("PlayerId")) return;
-        animator.SetTrigger("LightAttack");
-        
-    }
 }

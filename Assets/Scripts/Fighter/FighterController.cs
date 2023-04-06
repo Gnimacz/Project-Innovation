@@ -17,7 +17,7 @@ public class FighterController : MonoBehaviour
         set
         {
             playerId = value;
-            animator.SetInteger("PlayerId", value);
+            animator?.SetInteger("PlayerId", value);
         }
         get { return playerId; }
     }
@@ -34,8 +34,9 @@ public class FighterController : MonoBehaviour
         sfx = transform.GetComponent<SfxPlayer>();
         values = transform.GetComponent<FighterValues>();
         InputEvents.JumpButtonPressed += OnJumpButtonPressed;
-        InputEvents.AttackButtonPressed += OnAttackButtonPressed;
+        //InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
+        animator.SetInteger("PlayerId", playerId);
     }
 
     // Update is called once per frame
@@ -54,11 +55,18 @@ public class FighterController : MonoBehaviour
 
         if (IsOnFloor())
         {
-            animator.SetTrigger("Land");
+            animator.SetBool("IsOnFloor", true);
             if (direction.x == 0) animator.SetBool("Running", false);
             else animator.SetBool("Running", true);
         }
+        else
+        {
+            animator.SetBool("IsOnFloor", false);
+        }
 
+        if (!IsOnFloor() && rb.velocity.y < 0f) animator.SetBool("Falling", true);
+        else animator.SetBool("Falling", false);
+        
             // the player has no input while stunned
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
         
@@ -97,14 +105,14 @@ public class FighterController : MonoBehaviour
             doubleJumped = true;
         }
     }
-
+    /*
     public void OnAttackButtonPressed(object sender, int id)
     {
         if (id != playerId) return;
         animator.SetTrigger("LightAttack");
         
     }
-
+    */
     public void OnJoystickMoved(object sender, DirectionalEventArgs input)
     {
         if (input.PlayerId != playerId) return;
@@ -124,7 +132,9 @@ public class FighterController : MonoBehaviour
 
     bool IsOnFloor()
     {
-        return Physics.OverlapSphere(feet.position, values.groundDetectionradius, LayerMask.GetMask("Platforms")).Length > 0;
+        bool touchingGround =  Physics.OverlapSphere(feet.position, values.groundDetectionradius, LayerMask.GetMask("Platforms")).Length > 0;
+        if (touchingGround && rb.velocity.y <= 0) return true;
+        return false;
     }
 
     void Jump()
