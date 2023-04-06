@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/FighterBehaviour.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/FighterBehaviour.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/State Machine/Fighter.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/State Machine/Fighter.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/AttackReadyBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/AttackReadyBehaviour.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/JumpBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/JumpBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/FighterBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/StateBehaviours/FighterBehaviour.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +111,7 @@
       <workItem from="1680524449324" duration="1603000" />
       <workItem from="1680691765975" duration="8996000" />
       <workItem from="1680765877792" duration="57000" />
-      <workItem from="1680766171707" duration="4631000" />
+      <workItem from="1680766171707" duration="6710000" />
     </task>
     <servers />
   </component>

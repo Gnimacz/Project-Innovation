@@ -11,7 +11,7 @@ public class FighterBehaviour : StateMachineBehaviour
     public void OnEnable()
     {
         InputEvents.AttackButtonPressed += OnAttackButtonPressed;
-        InputEvents.AttackButtonPressed += OnJumpButtonPressed;
+        InputEvents.JumpButtonPressed += OnJumpButtonPressed;
     }
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
