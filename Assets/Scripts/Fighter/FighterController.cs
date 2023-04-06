@@ -33,7 +33,7 @@ public class FighterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        animator.SetBool("IsOnGround", IsOnFloor());
     }
 
     private void FixedUpdate()
