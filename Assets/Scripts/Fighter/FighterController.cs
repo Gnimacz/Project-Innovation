@@ -13,7 +13,8 @@ public class FighterController : MonoBehaviour
     [NonSerialized]
     public int playerId;
     
-    bool doubleJumped = false;
+    bool usedDoubleJump = false;
+    bool usedUpAttack = false;
     Vector2 joyInput;
     DirectionalEventArgs.JoystickAngle inputDirection;
     int health = 0;
@@ -42,9 +43,12 @@ public class FighterController : MonoBehaviour
     {
         //gravity
         rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
+
+        if (IsOnFloor())
+            usedUpAttack = false;
         
         // the player has no input while stunned
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned"))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Movement.Stunned"))
         {
             //overrider horizontal velocity when on ground so player doesn't slide
             if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
@@ -71,17 +75,18 @@ public class FighterController : MonoBehaviour
     public void OnJumpButtonPressed(object sender, int id)
     {
         if (id != playerId) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Movement.Stunned")) return; // no jumping while stunned
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Ready")) return; // no jumping while attacking
         
         if (IsOnFloor())
         {
             Jump();
-            doubleJumped = false;
+            usedDoubleJump = false;
         }
-        else if (!doubleJumped)
+        else if (!usedDoubleJump)
         {
             Jump();
-            doubleJumped = true;
+            usedDoubleJump = true;
         }
     }
     
@@ -95,6 +100,18 @@ public class FighterController : MonoBehaviour
         
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Left || inputDirection == DirectionalEventArgs.JoystickAngle.Right)
             animator.SetTrigger("HeavyAttack");
+        
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && IsOnFloor())
+            animator.SetTrigger("Block");
+        
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && !IsOnFloor())
+            animator.SetTrigger("DownAttack");
+
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.Up && !usedUpAttack)
+        {
+            animator.SetTrigger("UpAttack");
+            usedUpAttack = true;
+        }
         
     }
     
