@@ -40,7 +40,7 @@ public class FighterManager : MonoBehaviour
         GameObject newFighter = Instantiate(fighterPrefabs[0], transform.position, quaternion.identity);
         newFighter.transform.parent = transform;
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
-        activeFighters[newFighter].PlayerId = fighterId;
+        activeFighters[newFighter].playerId = fighterId;
         // newFighter.GetComponent<FighterController>().playerId = fighterId;
     }
     public void RemoveFighter(object sender, int fighterId)
@@ -48,7 +48,7 @@ public class FighterManager : MonoBehaviour
         Debug.LogWarning("Removing fighter with id: " + fighterId);
         foreach (GameObject fighter in activeFighters.Keys)
         {
-            if (activeFighters[fighter].PlayerId == fighterId)
+            if (activeFighters[fighter].playerId == fighterId)
             {
                 activeFighters.Remove(fighter);
                 Destroy(fighter);

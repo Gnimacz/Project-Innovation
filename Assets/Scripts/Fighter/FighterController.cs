@@ -10,17 +10,8 @@ public class FighterController : MonoBehaviour
     SfxPlayer sfx;
     FighterValues values;
     public Transform feet;
-
-    private int playerId;
-    public int PlayerId
-    {
-        set
-        {
-            playerId = value;
-            animator?.SetInteger("PlayerId", value);
-        }
-        get { return playerId; }
-    }
+    [NonSerialized]
+    public int playerId;
     
     bool doubleJumped = false;
     Vector2 direction;
@@ -50,31 +41,17 @@ public class FighterController : MonoBehaviour
         //gravity
         rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
         
-        animator.SetFloat("VelocityX", rb.velocity.x);
-        animator.SetFloat("VelocityY", rb.velocity.y);
-
-        if (IsOnFloor())
+        // the player has no input while stunned
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned"))
         {
-            animator.SetBool("IsOnFloor", true);
-            if (direction.x == 0) animator.SetBool("Running", false);
-            else animator.SetBool("Running", true);
+            //overrider horizontal velocity when on ground so player doesn't slide
+            if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
+        
+            //player input
+            if ((direction.x > 0 && rb.velocity.x < values.moveSpeed) || (direction.x < 0 && rb.velocity.x > -values.moveSpeed))
+                rb.velocity += new Vector3(direction.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
         }
-        else
-        {
-            animator.SetBool("IsOnFloor", false);
-        }
-
-        if (!IsOnFloor() && rb.velocity.y < 0f) animator.SetBool("Falling", true);
-        else animator.SetBool("Falling", false);
         
-            // the player has no input while stunned
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.Stunned")) return;
-        
-        if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
-        
-        if ((direction.x > 0 && rb.velocity.x < values.moveSpeed) || (direction.x < 0 && rb.velocity.x > -values.moveSpeed))
-            rb.velocity += new Vector3(direction.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
-
     }
 
     public void GetHit(Vector3 from, int damage)
@@ -105,14 +82,14 @@ public class FighterController : MonoBehaviour
             doubleJumped = true;
         }
     }
-    /*
+    
     public void OnAttackButtonPressed(object sender, int id)
     {
         if (id != playerId) return;
         animator.SetTrigger("LightAttack");
         
     }
-    */
+    
     public void OnJoystickMoved(object sender, DirectionalEventArgs input)
     {
         if (input.PlayerId != playerId) return;
