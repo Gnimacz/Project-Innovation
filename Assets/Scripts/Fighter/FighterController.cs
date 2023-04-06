@@ -14,7 +14,8 @@ public class FighterController : MonoBehaviour
     public int playerId;
     
     bool doubleJumped = false;
-    Vector2 direction;
+    Vector2 joyInput;
+    DirectionalEventArgs.JoystickAngle inputDirection;
     int health = 0;
     
     // Start is called before the first frame update
@@ -25,16 +26,15 @@ public class FighterController : MonoBehaviour
         sfx = transform.GetComponent<SfxPlayer>();
         values = transform.GetComponent<FighterValues>();
         InputEvents.JumpButtonPressed += OnJumpButtonPressed;
-        //InputEvents.AttackButtonPressed += OnAttackButtonPressed;
+        InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
-        animator.SetInteger("PlayerId", playerId);
     }
 
     // Update is called once per frame
     void Update()
     {
         animator.SetBool("IsOnGround", IsOnFloor());
-        animator.SetFloat("InputX", Mathf.Abs(direction.x), 0, 1);
+        animator.SetFloat("InputX", Mathf.Abs(joyInput.x), 0, 1);
         animator.SetFloat("JumpTransition", Mathf.Clamp(rb.velocity.y, -1, 1));
     }
 
@@ -50,8 +50,8 @@ public class FighterController : MonoBehaviour
             if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
         
             //player input
-            if ((direction.x > 0 && rb.velocity.x < values.moveSpeed) || (direction.x < 0 && rb.velocity.x > -values.moveSpeed))
-                rb.velocity += new Vector3(direction.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+            if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
+                rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
         }
         
     }
@@ -88,22 +88,29 @@ public class FighterController : MonoBehaviour
     public void OnAttackButtonPressed(object sender, int id)
     {
         if (id != playerId) return;
-        animator.SetTrigger("LightAttack");
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Ready")) return;
+
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.Neutral)
+            animator.SetTrigger("LightAttack");
+        
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.Left || inputDirection == DirectionalEventArgs.JoystickAngle.Right)
+            animator.SetTrigger("HeavyAttack");
         
     }
     
-    public void OnJoystickMoved(object sender, DirectionalEventArgs input)
+    public void OnJoystickMoved(object sender, DirectionalEventArgs inputArgs)
     {
-        if (input.PlayerId != playerId) return;
-        direction = input.JoystickPosition;
+        if (inputArgs.PlayerId != playerId) return;
+        joyInput = inputArgs.JoystickPosition;
+        inputDirection = inputArgs.JoystickDirection;
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.LightAttack")) return;
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Ready")) return;
         //we don't want to rotate the player if they are in an attack
-        if(direction.x > 0)
+        if(joyInput.x > 0)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if(direction.x < 0)
+        else if(joyInput.x < 0)
         {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }

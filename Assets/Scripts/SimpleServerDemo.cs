@@ -77,20 +77,21 @@ public class SimpleServerDemo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F)) InputEvents.JumpButtonPressed?.Invoke(this, 0);
         if (Input.GetKeyDown(KeyCode.G)) InputEvents.AttackButtonPressed?.Invoke(this, 0);
         Vector2 input = Vector2.zero;
-        string direction = "Right";
-        if (Input.GetKey(KeyCode.D)) input.x += 1; direction = "Right";
-        if (Input.GetKey(KeyCode.A)) input.x -= 1; direction = "Left";
-        if (Input.GetKey(KeyCode.W)) input.y += 1; direction = "Up";
-        if (Input.GetKey(KeyCode.S)) input.y -= 1; direction = "Down";
+        string direction = "Neutral";
+        if (Input.GetKey(KeyCode.D)){ input.x += 1; direction = "Right";}
+        if (Input.GetKey(KeyCode.A)){ input.x -= 1; direction = "Left";}
+        if (Input.GetKey(KeyCode.W)){ input.y += 1; direction = "Up";}
+        if (Input.GetKey(KeyCode.S)){ input.y -= 1; direction = "Down";}
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(0, input, direction));
 
         if (Input.GetKeyDown(KeyCode.M)) InputEvents.JumpButtonPressed?.Invoke(this, 1);
         if (Input.GetKeyDown(KeyCode.N)) InputEvents.AttackButtonPressed?.Invoke(this, 1);
         input = Vector2.zero;
-        if (Input.GetKey(KeyCode.RightArrow)) input.x += 1; direction = "Right";
-        if (Input.GetKey(KeyCode.LeftArrow)) input.x -= 1; direction = "Left";
-        if (Input.GetKey(KeyCode.UpArrow)) input.y += 1; direction = "Up";
-        if (Input.GetKey(KeyCode.DownArrow)) input.y -= 1; direction = "Down";
+        direction = "Neutral";
+        if (Input.GetKey(KeyCode.RightArrow)){ input.x += 1; direction = "Right";}
+        if (Input.GetKey(KeyCode.LeftArrow)){ input.x -= 1; direction = "Left";}
+        if (Input.GetKey(KeyCode.UpArrow)){ input.y += 1; direction = "Up";}
+        if (Input.GetKey(KeyCode.DownArrow)){ input.y -= 1; direction = "Down";}
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(1, input, direction));
         /**/
 
