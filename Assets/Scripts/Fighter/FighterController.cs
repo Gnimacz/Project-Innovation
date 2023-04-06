@@ -34,6 +34,8 @@ public class FighterController : MonoBehaviour
     void Update()
     {
         animator.SetBool("IsOnGround", IsOnFloor());
+        animator.SetFloat("InputX", Mathf.Abs(direction.x), 0, 1);
+        animator.SetFloat("JumpTransition", Mathf.Clamp(rb.velocity.y, -1, 1));
     }
 
     private void FixedUpdate()
@@ -118,7 +120,6 @@ public class FighterController : MonoBehaviour
     {
         rb.velocity = new Vector3(rb.velocity.x, values.jumpPower, 0);
         sfx.PlayJumpSound();
-        animator.SetTrigger("Jump");
     }
     
 }
