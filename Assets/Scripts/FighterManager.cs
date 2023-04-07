@@ -6,39 +6,53 @@ using UnityEngine;
 public class FighterManager : MonoBehaviour
 {
     public List<GameObject> fighterPrefabs;
-    public List<GameObject> activeFighters;
+    public Dictionary<GameObject, FighterController> activeFighters = new Dictionary<GameObject, FighterController>();
+
+    //delegates
+    public delegate void FighterHurt(GameObject fighter, int damage);
+    public static FighterHurt OnFighterHurt;
+
+    public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
+    public static onFighterSpawned fighterSpawned;
+
+    void FighterWasHurt(GameObject fighter, int damage)
+    {
+        //TODO(PM): remove debug log statement
+        Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
+        
+        activeFighters[fighter].GetHit(transform.position, damage);
+        SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         //testers for keyboard
-        SpawnFighter(null, 0);
-        SpawnFighter(null, 1);
+        //SpawnFighter(null, 0);
+        //SpawnFighter(null, 1);
         
-        
+        OnFighterHurt += FighterWasHurt;
         //subscribe to events
         InputEvents.ClientConnected += SpawnFighter;
         InputEvents.ClientDisconnected += RemoveFighter;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SpawnFighter(object sender, int fighterId)
     {
         GameObject newFighter = Instantiate(fighterPrefabs[0], transform.position, quaternion.identity);
         newFighter.transform.parent = transform;
-        newFighter.GetComponent<FighterController>().playerId = fighterId;
-        activeFighters.Add(newFighter);
+        activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
+        activeFighters[newFighter].playerId = fighterId;
+        // newFighter.GetComponent<FighterController>().playerId = fighterId;
+        fighterSpawned?.Invoke(newFighter, activeFighters[newFighter]);
     }
     public void RemoveFighter(object sender, int fighterId)
     {
-        foreach (GameObject fighter in activeFighters)
+        Debug.LogWarning("Removing fighter with id: " + fighterId);
+        foreach (GameObject fighter in activeFighters.Keys)
         {
-            if (fighter.GetComponent<FighterController>().playerId == fighterId)
+            if (activeFighters[fighter].playerId == fighterId)
             {
                 activeFighters.Remove(fighter);
                 Destroy(fighter);

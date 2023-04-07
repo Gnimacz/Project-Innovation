@@ -3,6 +3,7 @@ var pressedJump = 0,
 pressedAttack = 0,
 directionX = 0.0,
 directionY = 0.0,
+directionEnum = "Right",
 finalMessage = "";
     // wsUri = "ws://127.0.0.1/",    // works
     // wsUri = "ws://192.168.137.1:8001/",  // This works if this is the LAN address of the web socket server
@@ -13,7 +14,15 @@ document.getElementById("attack").addEventListener("touchstart", onAttackPressed
 document.getElementById("attack").addEventListener("touchend", OnAttackReleased);
 document.getElementById("jump").addEventListener("touchstart", onJumpPressed);
 document.getElementById("jump").addEventListener("touchend", onJumpReleased);
-document.getElementById("fullscreen").addEventListener("click", FullScreen);
+if(/iPad|iPhone|iPod/.test(navigator.userAgent)){
+    document.getElementById("fullscreen").addEventListener("click", IosFullScreen);
+    document.getElementById("exit").addEventListener("click", IosExitFullScreen);
+}
+else{ 
+    document.getElementById("fullscreen").addEventListener("click", FullScreen);
+    document.getElementsByClassName("hide")[0].classList.remove("hide");
+    document.getElementById("exit").addEventListener("click", ExitFullScreen);
+}
 
 function FullScreen(){
     var elem = document.getElementById("Inputs");
@@ -28,12 +37,29 @@ function FullScreen(){
     }
 }
 
-function onClickButton() {
-    var text = textarea.value;
+function IosFullScreen(){
+    var elem = document.getElementById("Inputs");
+    var scrollElem = document.getElementById("jump");
+    // elem.style.visible = "visible";
+    elem.classList.remove("hide");
+    scrollElem.scrollto(elem);
+}
 
-    text && doSend(text);
-    textarea.value = "";
-    textarea.focus();
+function IosExitFullScreen(){   
+    var elem = document.getElementById("Inputs");
+    elem.classList.add("hide");
+}
+
+function ExitFullScreen(){
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) { /* Firefox */
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) { /* IE/Edge */
+        document.msExitFullscreen();
+      }
 }
 
 function onJumpPressed() {
@@ -62,9 +88,16 @@ function onEndFrame() {
 
 function vibrate(number = 30){
     if(!("vibrate" in navigator)){
-     alert("Vibrate not supported!");
+    //  alert("Vibrate not supported!");
       return;
      }
     // navigator.vibrate(30);
     navigator.vibrate(number);
    }
+function vibrate(pattern = [30]){
+    if(!("vibrate" in navigator)){
+    //  alert("Vibrate not supported!");
+      return;
+     }
+    navigator.vibrate(pattern);
+}
