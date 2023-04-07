@@ -142,12 +142,12 @@ public class SimpleServerDemo : MonoBehaviour
 
     void SendToClient(string message, int clientId)
     {
-        Debug.LogError("Sending message to client: " + message + " to client: " + clientId);
+        //Debug.LogError("Sending message to client: " + message + " to client: " + clientId);
         SendToClient(new NetworkPacket(Encoding.UTF8.GetBytes(message)), clientId);
     }
+    
     void SendToClient(NetworkPacket packet, WebSocketConnection client)
     {
-        
         client.Send(packet);
     }
 
