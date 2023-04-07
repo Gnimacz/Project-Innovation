@@ -15,6 +15,7 @@
 <body>
     <h2>WebSocket Test</h2>
     <button id="fullscreen">FullScreen</button>
+    <button id="char_select">Character Selector</button>
     <div class="Inputs hide" id="Inputs">
         <button id="exit" class="exit">Exit</button>
         <div id=zone_joystick class="zone_joystick"></div>
@@ -29,6 +30,24 @@
         <!-- <button id="click">click</button> -->
     </div>
     <div id=output></div>
+    <div class="character_select hide" id="character_select">
+        <div class="ExitBtn">
+            <button id="exit_char" class="exit_char">Exit</button>
+        </div>
+        <div class="CharacterAll">
+            <div class="CharacterLeft">
+                <button id="character_info">*insert info*</button>
+                <div class="Selection">
+                    <button class= "DirectionalArrow" id="left_arrow">Left</button>
+                    <button id="select_btn">SELECT</button>
+                    <button class= "DirectionalArrow" id="right_arrow">Right</button>
+                </div>
+            </div>
+            <div class="CharacterImage">
+                <button id="character_card">*Character*</button>
+            </div>
+        </div>
+    </div>
 
     <!-- <script src="node_modules/nipplejs/dist/nipplejs.js"></script>
 
@@ -38,6 +57,7 @@
     </script> -->
 </body>
 <script src="./scripts/buttonInputs.js"></script>
+<script src="./scripts/characterSelect.js"></script>
 <script src="./scripts/webSocketHandler.js"></script>
 <script type="module" src="./scripts/joystick.js"></script>
 <script src="./scripts/Updated.js"></script>
