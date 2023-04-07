@@ -920,8 +920,8 @@ MonoBehaviour:
   jumpPower: 12
   gravityPower: 30
   groundDetectionradius: 0.2
-  upwardKnockbackMultiplier: 0.5
-  knockbackPower: 10
+  upwardKnockbackMultiplier: 0.6
+  knockbackPower: 30
   upAttackSpeed: 10
 --- !u!114 &7826980268216364302
 MonoBehaviour:

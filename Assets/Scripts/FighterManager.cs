@@ -9,18 +9,18 @@ public class FighterManager : MonoBehaviour
     public Dictionary<GameObject, FighterController> activeFighters = new Dictionary<GameObject, FighterController>();
 
     //delegates
-    public delegate void FighterHurt(GameObject fighter, int damage);
+    public delegate void FighterHurt(Vector3 attackerPosition, GameObject fighter, int damage);
     public static FighterHurt OnFighterHurt;
 
     public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
     public static onFighterSpawned fighterSpawned;
 
-    void FighterWasHurt(GameObject fighter, int damage)
+    void FighterWasHurt(Vector3 attackerPosition, GameObject fighter, int damage)
     {
         //TODO(PM): remove debug log statement
         Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
         
-        activeFighters[fighter].GetHit(transform.position, damage);
+        activeFighters[fighter].GetHit(attackerPosition, damage);
         SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
     }
 

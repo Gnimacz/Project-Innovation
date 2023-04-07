@@ -9,6 +9,6 @@ public class DamageDealer : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        FighterManager.OnFighterHurt?.Invoke(other.gameObject, damage);
+        FighterManager.OnFighterHurt?.Invoke(transform.position, other.gameObject, damage);
     }
 }
