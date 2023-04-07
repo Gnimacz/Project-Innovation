@@ -44,7 +44,7 @@ public class FighterController : MonoBehaviour
         //gravity
         rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
 
-        if (IsOnFloor())
+        if (IsOnFloor() && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
             usedUpAttack = false;
         
         // the player has no input while stunned
@@ -52,10 +52,19 @@ public class FighterController : MonoBehaviour
         {
             //overrider horizontal velocity when on ground so player doesn't slide
             if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
-        
-            //player input
-            if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
-                rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+
+            if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
+            {
+                //dash up with up attack
+                rb.velocity = new Vector3(0, values.upAttackSpeed, 0);
+            }
+            else
+            {
+                //player input
+                if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
+                    rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+            }
+            
         }
         
     }

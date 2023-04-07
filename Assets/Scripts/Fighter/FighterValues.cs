@@ -11,6 +11,7 @@ public class FighterValues : MonoBehaviour
     public float groundDetectionradius = 0.2f;
     public float upwardKnockbackMultiplier = 0.5f;
     public float knockbackPower = 10f;
+    public float upAttackSpeed = 5;
     
     // Start is called before the first frame update
     void Start()
