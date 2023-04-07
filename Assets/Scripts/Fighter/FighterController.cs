@@ -47,7 +47,7 @@ public class FighterController : MonoBehaviour
         if (IsOnFloor() && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
             usedUpAttack = false;
         
-        // the player has no input while stunned
+        // the player has no input while stunned or blocking
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Movement.Stunned"))
         {
             //overrider horizontal velocity when on ground so player doesn't slide
@@ -60,9 +60,13 @@ public class FighterController : MonoBehaviour
             }
             else
             {
-                //player input
-                if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
-                    rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+                //no moving while blocking
+                if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block"))
+                {
+                    //player input
+                    if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
+                        rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+                }
             }
             
         }
@@ -71,6 +75,9 @@ public class FighterController : MonoBehaviour
 
     public void GetHit(Vector3 from, int damage)
     {
+        //don't get hit while blovking
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block")) return;
+        
         health += damage;
         sfx.PlayPunchSound();
 

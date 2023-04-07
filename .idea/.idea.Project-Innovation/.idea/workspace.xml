@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="" />
+    <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Fighter.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Fighter.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/State Machine/Fighter.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/State Machine/Fighter.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/GroundPhysicsMaterial.physicMaterial" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/GroundPhysicsMaterial.physicMaterial" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,6 +113,7 @@
       <workItem from="1680765877792" duration="57000" />
       <workItem from="1680766171707" duration="15125000" />
       <workItem from="1680873029582" duration="1136000" />
+      <workItem from="1680893923431" duration="609000" />
     </task>
     <servers />
   </component>
