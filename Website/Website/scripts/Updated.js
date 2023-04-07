@@ -8,6 +8,7 @@ function update() {
         console.log("Updated: " + finalMessage)
         directionX = 0.0;
         directionY = 0.0;
+        directionEnum = "Neutral";
     }
     else {
         // console.log("Not connected")
