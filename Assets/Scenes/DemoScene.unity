@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18632591, g: 0.2097274, b: 0.24522088, a: 1}
+  m_IndirectSpecularColor: {r: 0.1876927, g: 0.20969933, b: 0.24526708, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -408,7 +408,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fighterPrefabs:
-  - {fileID: 8430827712549120626, guid: 22c48a97eb597e14fb3d4ed0ca6d160d, type: 3}
+  - {fileID: 8430827712549120626, guid: f20519f7fdaca3c4d89a3f35629516b6, type: 3}
+  - {fileID: 8598501545394684914, guid: 7d9b9815d4da3244a99d974da6f45e2d, type: 3}
+  - {fileID: 1245937075592760435, guid: 6faf761eacd444b4787e4db995e42a51, type: 3}
 --- !u!4 &880303706
 Transform:
   m_ObjectHideFlags: 0
