@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 4072853696100573987}
   - component: {fileID: 947749344553903291}
   m_Layer: 10
-  m_Name: DefaultCharacterPrefab
+  m_Name: DefaultCharacter-Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

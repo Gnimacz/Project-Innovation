@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1039307760250312910}
   m_Layer: 0
-  m_Name: RubanPrefab
+  m_Name: Ruban-Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
