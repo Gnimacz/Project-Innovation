@@ -8,72 +8,67 @@ using WebSockets;
 
 public class SimpleServerDemo : MonoBehaviour
 {
-    List<WebSocketConnection> clients;
-    Dictionary<WebSocketConnection, int> clientNames = new Dictionary<WebSocketConnection, int>();
+    /// <summary>
+    /// A list of active connections stored in a tuple with the connection, the client's id, and the character id in that order
+    /// </summary>
+    List<Tuple<WebSocketConnection, int, int>> clientInfoList;
     int currentId = 0;
     WebsocketListener listener;
-    [SerializeField] FighterManager fighterManager;
 
-
+    #region events
     public delegate void MessageReceived(string message);
     public static MessageReceived OnMessageReceived;
 
     public delegate void ServerBroadcastMessage(string message);
     public static ServerBroadcastMessage SendMessageToAll;
 
-    public delegate void  ServerBroadcastMessageToClient(string message, int clientId);
+    public delegate void ServerBroadcastMessageToClient(string message, int clientId);
     public static ServerBroadcastMessageToClient SendMessageToClient;
+
+    public delegate void CharacterSelected(int clientId, int characterId);
+    public static CharacterSelected OnCharacterSelected;
+
+    public delegate void ChangeServerState(ServerState newState);
+    public static ChangeServerState UpdateServerState;
+    #endregion
+    public enum ServerState { MainMenu, CharacterSelect, Game, EndGame }
+    public ServerState serverState { get; private set; }
 
     void Start()
     {
+
+        serverState = ServerState.MainMenu;
         // Create a server that listens for connection requests:
         listener = new WebsocketListener();
         listener.Start();
 
         // Create a list of active connections:
-        clients = new List<WebSocketConnection>();
+        // clients = new List<WebSocketConnection>();
+        clientInfoList = new List<Tuple<WebSocketConnection, int, int>>();
 
         //subscribe to events
         SendMessageToClient += SendToClient;
 
+        DontDestroyOnLoad(this.gameObject);
 
     }
 
-    
+
 
     void Update()
     {
         // Check for new connections:
-        listener.Update();
-        while (listener.Pending())
-        {
-            WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
-            clients.Add(ws);
-            clientNames.Add(ws, currentId);
-            InputEvents.ClientConnected?.Invoke(this, clientNames[ws]);
-            currentId++;
-            Console.WriteLine("A client connected from " + ws.RemoteEndPoint.Address + " with ID: " + clientNames[ws]);
-        }
+        ProcessNewClients();
 
         // Process current connections (this may lead to a callback to OnPacketReceive):
-        for (int i = 0; i < clients.Count; i++)
-        {
-            if (clients[i].Status == ConnectionStatus.Connected)
-            {
-                clients[i].Update();
-            }
-            else
-            {
-                clients.RemoveAt(i);
-                clientNames.Remove(clients[i]);
-                InputEvents.ClientDisconnected?.Invoke(this, clientNames[clients[i]]);
-                Console.WriteLine("Removing disconnected client. #active clients: {0}", clients.Count);
-                i--;
-            }
-        }
+        ProcessCurrentClients();
 
-        //keyboard tester code
-        /**
+
+        KeyboardTesterCode();
+    }
+
+    void KeyboardTesterCode()
+    {
         if (Input.GetKeyDown(KeyCode.F)) InputEvents.JumpButtonPressed?.Invoke(this, 0);
         if (Input.GetKeyDown(KeyCode.G)) InputEvents.AttackButtonPressed?.Invoke(this, 0);
         Vector2 input = Vector2.zero;
@@ -92,53 +87,65 @@ public class SimpleServerDemo : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow)) input.y += 1; direction = "Up";
         if (Input.GetKey(KeyCode.DownArrow)) input.y -= 1; direction = "Down";
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(1, input, direction));
-        /**/
-
     }
 
+    void ProcessNewClients()
+    {
+        listener.Update();
+        while (listener.Pending())
+        {
+            WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
+            clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
+            InputEvents.ClientConnected?.Invoke(this, currentId);
+            currentId++;
+        }
+    }
+
+    void ProcessCurrentClients()
+    {
+        for (int i = 0; i < clientInfoList.Count; i++)
+        {
+            if (clientInfoList[i].Item1.Status == ConnectionStatus.Connected)
+            {
+                clientInfoList[i].Item1.Update();
+            }
+            else
+            {
+                clientInfoList.RemoveAt(i);
+                InputEvents.ClientDisconnected?.Invoke(this, clientInfoList[i].Item2);
+                Console.WriteLine("Removing disconnected client. #active clients: {0}", clientInfoList.Count);
+                i--;
+            }
+        }
+    }
+
+    #region irrelevant functions
     /// <summary>
     /// This method is called by WebSocketConnections when their Update method is called and a packet comes in.
     /// From here you can implement your own server functionality 
     ///   (parse the (string) package data, and depending on contents, call other methods, implement game play rules, etc). 
-    /// Currently it only does some very simple string processing, and echoes and broadcasts a message.
+    /// Currently it prints the received packet to the console and invokes the correct event.
     /// </summary>
     void OnPacketReceive(NetworkPacket packet, WebSocketConnection connection)
     {
         string text = Encoding.UTF8.GetString(packet.Data);
-        Console.WriteLine("Received a packet: {0} from client ID {1}", text, clientNames[connection]);
-        // OnMessageReceived?.Invoke(text);
-        InvokeEvent(text, clientNames[connection]);
-
-        // byte[] bytes;
-
-        // //// echo:
-        // string response = "You said: " + text;
-        // bytes = Encoding.UTF8.GetBytes(response);
-        // connection.Send(new NetworkPacket(bytes));
-
-        // //// broadcast:
-        // string message = connection.RemoteEndPoint.ToString() + " says: " + text;
-        // bytes = Encoding.UTF8.GetBytes(message);
-        // Broadcast(new NetworkPacket(bytes));
+        Tuple<WebSocketConnection, int, int> clientInfo = clientInfoList.Find(x => x.Item1 == connection);
+        Console.WriteLine("Received a packet: {0} from client ID {1}", text, clientInfo.Item2);
+        InvokeInputEvent(text, clientInfo.Item2);
     }
 
     void Broadcast(NetworkPacket packet)
     {
-        foreach (var cl in clients)
+        foreach (var cl in clientInfoList)
         {
-            cl.Send(packet);
+            cl.Item1.Send(packet);
         }
     }
 
-    void SendToClient(NetworkPacket packet, int id){
-        foreach (KeyValuePair<WebSocketConnection, int> client in clientNames)
-        {
-            if(client.Value == id)
-                client.Key.Send(packet);
-                break;
-        }
+    void SendToClient(NetworkPacket packet, int id)
+    {
+        clientInfoList.Find(x => x.Item2 == id).Item1.Send(packet);
     }
-
     void SendToClient(string message, int clientId)
     {
         Debug.LogError("Sending message to client: " + message + " to client: " + clientId);
@@ -146,19 +153,47 @@ public class SimpleServerDemo : MonoBehaviour
     }
     void SendToClient(NetworkPacket packet, WebSocketConnection client)
     {
-        
+
         client.Send(packet);
     }
-
-    //invoke the appropriate events
-    void InvokeEvent(string input, int id)
+    #endregion
+    //invoke the appropriate input events
+    void InvokeInputEvent(string input, int id)
     {
         string[] splitInput = input.Split(' ');
-        float x = float.Parse(splitInput[0]);
-        float y = float.Parse(splitInput[1]);
-        int JumpButtonPressed = int.Parse(splitInput[2]);
-        int AttackButtonPressed = int.Parse(splitInput[3]);
-        string joystickDirection = splitInput[4];
+
+        switch (serverState)
+        {
+            case ServerState.CharacterSelect:
+                CharacterSelectionInputs(splitInput, id);
+                break;
+            case ServerState.Game:
+                GameplayInputs(splitInput, id);
+                break;
+            case ServerState.MainMenu:
+                MainMenuInputs(splitInput, id);
+                break;
+            default:
+                break;
+        }
+    }
+
+    void MainMenuInputs(string[] input, int id)
+    {
+    }
+    void CharacterSelectionInputs(string[] input, int id)
+    {
+        int character = int.Parse(input[0]);
+        int ready = int.Parse(input[1]);
+        OnCharacterSelected?.Invoke(id, character);
+    }
+    void GameplayInputs(string[] input, int id)
+    {
+        float x = float.Parse(input[0]);
+        float y = float.Parse(input[1]);
+        int JumpButtonPressed = int.Parse(input[2]);
+        int AttackButtonPressed = int.Parse(input[3]);
+        string joystickDirection = input[4];
         if (JumpButtonPressed == 1)
         {
             InputEvents.JumpButtonPressed?.Invoke(this, id);

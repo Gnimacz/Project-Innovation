@@ -28,13 +28,10 @@ public class FighterManager : MonoBehaviour
     void Start()
     {
         //testers for keyboard
-        // SpawnFighter(null, 0);
-        // SpawnFighter(null, 1);
+        SpawnFighter(null, 0);
+        SpawnFighter(null, 1);
         
         OnFighterHurt += FighterWasHurt;
-        //subscribe to events
-        InputEvents.ClientConnected += SpawnFighter;
-        InputEvents.ClientDisconnected += RemoveFighter;
     }
 
 

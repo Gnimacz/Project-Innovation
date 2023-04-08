@@ -9,6 +9,15 @@ var button = document.getElementById("jump");
 var output = document.getElementById("output");
 console.log(output);
 
+const serverState = {
+    MainMenu: "MainMenu",
+    CharacterSelect: "CharacterSelect",
+    Game: "Game",
+    GameOver: "GameOver"
+};
+
+var currentServerState = serverState.MainMenu;
+
 // http://www.websocket.org/echo.html
 websocket.onopen = function (e) {
     writeToScreen("CONNECTED");
