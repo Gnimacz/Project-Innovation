@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class RubanAnimationEvents : MonoBehaviour
 {
-    public Rigidbody  laser; // get the ridgetbody of the laser.
-    public Transform spwawnPoint; // the posisition of where it is supposed to spawn
+    public GameObject  laserPrefab; 
+    public Transform spwawnPoint; 
+
+    public float LaserForce;
 
     public void RubanLaserbeamEvent()
     {
-
-    };
+        GameObject Laser = Instantiate(laserPrefab,spwawnPoint.position, spwawnPoint.rotation);
+        Rigidbody rb = laserPrefab.GetComponent<Rigidbody>();
+        rb.AddForce(spwawnPoint.forward * LaserForce, ForceMode.Impulse);
+    }
 }
