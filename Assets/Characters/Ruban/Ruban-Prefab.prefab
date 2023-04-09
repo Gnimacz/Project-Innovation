@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 3215116058193960133}
   - component: {fileID: 401245497170598657}
   - component: {fileID: 1794959507804630323}
+  - component: {fileID: 357518800243394852}
   m_Layer: 10
   m_Name: Ruban-Prefab
   m_TagString: Untagged
@@ -443,7 +444,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d6b1cf39cee254146b646d29fe6825f9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -543,6 +544,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2494751325172241877}
   feet: {fileID: 4682876926030072653}
+--- !u!114 &357518800243394852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8598501545394684914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a228243bd49bbe851ab04abae92d662c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSounds:
+  - {fileID: 8300000, guid: bc332f6eb0e201c5da8c2b96ba06df8d, type: 3}
+  - {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
+  - {fileID: 8300000, guid: 64aa24f7ccdfd4dc795f3d875464218b, type: 3}
+  jumpSounds:
+  - {fileID: 8300000, guid: 6bc38bd6f1877530f919d61e0cee0c12, type: 3}
 --- !u!1001 &1346134263246985245
 PrefabInstance:
   m_ObjectHideFlags: 0

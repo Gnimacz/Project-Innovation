@@ -114,6 +114,7 @@ public class FighterController : MonoBehaviour
 
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Neutral)
             animator.SetTrigger("LightAttack");
+            sfx.PlayPunchSound();
         
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Left || inputDirection == DirectionalEventArgs.JoystickAngle.Right)
             animator.SetTrigger("HeavyAttack");
