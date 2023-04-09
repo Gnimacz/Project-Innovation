@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class FighterController : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
+    [NonSerialized]
     Rigidbody rb;
     SfxPlayer sfx;
     FighterValues values;
@@ -22,7 +23,7 @@ public class FighterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = transform.GetComponent<Animator>();
+        //animator = transform.GetComponent<Animator>();
         rb = transform.GetComponent<Rigidbody>();
         sfx = transform.GetComponent<SfxPlayer>();
         values = transform.GetComponent<FighterValues>();
