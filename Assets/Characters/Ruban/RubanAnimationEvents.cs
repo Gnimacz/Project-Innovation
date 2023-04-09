@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class RubanAnimationEvents : MonoBehaviour
 {
-    public GameObject  laserPrefab; 
-    public Transform spwawnPoint; 
-    public float LaserForce;
+    public Rigidbody bullet;
+    public Transform spawnPoint;
+    public int multiplier;
+    //public GameObject  laserPrefab; 
+    //public Transform spwawnPoint; 
+    //public int LaserForce;
 
 
-    public void RubanLaserbeamEvent()
+
+    public void FireWeapon()
     {
-        GameObject Laser = Instantiate(laserPrefab,spwawnPoint.position, Quaternion.identity);
-        Rigidbody rb = laserPrefab.GetComponent<Rigidbody>();
-        rb.velocity = (Vector3.forward*LaserForce);
-        //Destroy(laserPrefab,30f);
+        Rigidbody bullitInstance;
+        bullitInstance =  Instantiate(bullet, spawnPoint.position, bullet.transform.rotation) as Rigidbody;
+        bullitInstance.AddForce(spawnPoint.forward * multiplier);
+        //Debug.Log("hello 1");
+        //GameObject Laser = Instantiate(laserPrefab,spwawnPoint.position, Quaternion.identity);
+       // Debug.Log("hello 2");
+        //Rigidbody rb = laserPrefab.GetComponent<Rigidbody>();
+       // Debug.Log("hello 3");
+       // rb.velocity = (Vector3.forward*LaserForce);
     }
  
 }

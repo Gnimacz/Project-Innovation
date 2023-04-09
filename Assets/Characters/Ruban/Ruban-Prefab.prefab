@@ -478,7 +478,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 923ea24419cf8874383c85c893ca4615, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.477
+  m_Volume: 0.266
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -591,9 +591,6 @@ MonoBehaviour:
   LightpunchSounds:
   - {fileID: 8300000, guid: bc332f6eb0e201c5da8c2b96ba06df8d, type: 3}
   - {fileID: 8300000, guid: 41c76efa59f7b527390255d8a21fe9eb, type: 3}
-  - {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
-  - {fileID: 8300000, guid: cda53c5e78dd15c388a7ffe453518a08, type: 3}
-  - {fileID: 8300000, guid: 64aa24f7ccdfd4dc795f3d875464218b, type: 3}
   - {fileID: 8300000, guid: 36fa9ef959b8d814b81853227eabf4eb, type: 3}
   - {fileID: 8300000, guid: e6fdc400d5db3e54fbb2b34a1e2e48fc, type: 3}
   HeavyPunchSounds:
@@ -873,7 +870,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 7270533358245722696, guid: a12d7e29ac03a5d40a430c9c95fcf9e9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!4 &1523576252566142966 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a12d7e29ac03a5d40a430c9c95fcf9e9,
@@ -899,7 +896,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 5031389558079968385, guid: a12d7e29ac03a5d40a430c9c95fcf9e9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!1 &2147359092370519068 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1108622513264569345, guid: a12d7e29ac03a5d40a430c9c95fcf9e9,
@@ -919,7 +916,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -6215189330967517563, guid: a12d7e29ac03a5d40a430c9c95fcf9e9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!1 &2192976126565721420 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a12d7e29ac03a5d40a430c9c95fcf9e9,
@@ -972,10 +969,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd63429ddc4d4724cb130949311194f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserPrefab: {fileID: 3690020158791751617, guid: 5e62a574238507747bd5d261f1129891,
-    type: 3}
-  spwawnPoint: {fileID: 5388630798726719485}
-  LaserForce: 20000
+  bullet: {fileID: 3215116058193960133}
+  spawnPoint: {fileID: 5388630798726719485}
+  multiplier: 100
 --- !u!1 &4668802610813356404 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3286353643059293847, guid: a12d7e29ac03a5d40a430c9c95fcf9e9,
@@ -995,7 +991,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -16608033233441620, guid: a12d7e29ac03a5d40a430c9c95fcf9e9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!1 &6822267160713421172 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3745901783181723287, guid: a12d7e29ac03a5d40a430c9c95fcf9e9,
@@ -1015,7 +1011,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -7960525757742055291, guid: a12d7e29ac03a5d40a430c9c95fcf9e9, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!1 &7112880465632594296 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8077323459157889381, guid: a12d7e29ac03a5d40a430c9c95fcf9e9,
@@ -1035,4 +1031,4 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -3295839232606353917, guid: a12d7e29ac03a5d40a430c9c95fcf9e9, type: 3}
+  m_Mesh: {fileID: 0}
