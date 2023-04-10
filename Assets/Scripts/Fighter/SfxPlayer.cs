@@ -7,6 +7,7 @@ public class SfxPlayer : MonoBehaviour
     public AudioClip[] LightpunchSounds;
     public AudioClip[] HeavyPunchSounds;
     public AudioClip[] jumpSounds;
+    public AudioClip[] DamageSounds;
 
     AudioSource audioSource;
     
@@ -23,6 +24,10 @@ public class SfxPlayer : MonoBehaviour
     public void PlayHeavyPunchSound()
     {
         audioSource.PlayOneShot(HeavyPunchSounds[Random.Range(0, HeavyPunchSounds.Length)]);
+    }
+
+    public void PlayDamageSounds(){
+        audioSource.PlayOneShot(DamageSounds [Random.Range(0, DamageSounds.Length)]);
     }
     
     

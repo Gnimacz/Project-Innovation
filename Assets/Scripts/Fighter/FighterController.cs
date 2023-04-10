@@ -80,7 +80,7 @@ public class FighterController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block")) return;
         
         health += damage;
-        sfx.PlaylightPunchSound();
+        sfx.PlayDamageSounds();
 
         Vector3 knockbackDirection = (transform.position - from).normalized;
         Vector3 knockback = knockbackDirection * values.knockbackPower * (health == 0 ? 0 : health / 100f);
