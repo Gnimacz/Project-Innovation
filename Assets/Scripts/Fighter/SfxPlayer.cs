@@ -13,20 +13,24 @@ public class SfxPlayer : MonoBehaviour
     
     public void PlaylightPunchSound()
     {
+        if(LightpunchSounds.Length < 1) return;
         audioSource.PlayOneShot(LightpunchSounds[Random.Range(0, LightpunchSounds.Length)]);
     }
 
     public void PlayJumpSound()
     {
+        if(jumpSounds.Length < 1) return;
         audioSource.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)]);
     }
 
     public void PlayHeavyPunchSound()
     {
+        if(HeavyPunchSounds.Length < 1) return;
         audioSource.PlayOneShot(HeavyPunchSounds[Random.Range(0, HeavyPunchSounds.Length)]);
     }
 
     public void PlayDamageSounds(){
+        if(DamageSounds.Length < 1) return;
         audioSource.PlayOneShot(DamageSounds [Random.Range(0, DamageSounds.Length)]);
     }
     

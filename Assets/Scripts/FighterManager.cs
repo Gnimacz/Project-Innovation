@@ -28,11 +28,7 @@ public class FighterManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        //testers for keyboard
-        SpawnFighter(null, 0);
-        SpawnFighter(null, 1);
-        
+    {        
         OnFighterHurt += FighterWasHurt;
     }
 

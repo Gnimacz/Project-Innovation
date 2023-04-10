@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54e978b5944c1146bd76c1c791a3130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fighterManager: {fileID: 0}
+  serverState: 0

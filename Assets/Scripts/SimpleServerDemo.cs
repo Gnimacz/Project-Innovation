@@ -57,7 +57,7 @@ public class SimpleServerDemo : MonoBehaviour
 
     void Start()
     {
-        serverState = ServerState.MainMenu;
+        // serverState = ServerState.MainMenu;
         // Create a server that listens for connection requests:
         listener = new WebsocketListener();
         listener.Start();
