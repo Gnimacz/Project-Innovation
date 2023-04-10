@@ -127,12 +127,12 @@ function OnAttackReleased() {
   pressedAttack = 0;
 }
 
-function onEndFrame() {
-  finalMessage = "";
-  finalMessage = directionX + " " + directionY + " " + pressedJump;
-  pressedJump = 0;
-  doSend(finalMessage);
-}
+// function onEndFrame() {
+//   finalMessage = "";
+//   finalMessage = directionX + " " + directionY + " " + pressedJump;
+//   pressedJump = 0;
+//   doSend(finalMessage);
+// }
 
 function vibrate(number = 30) {
   if (!("vibrate" in navigator)) {

@@ -9,6 +9,8 @@ function update() {
                 break;
             case serverState.CharacterSelect:
                 console.log("CharacterSelect");
+                finalmessage = selectedCharacter;
+                doSend(finalmessage);
                 break;
             case serverState.Game:
                 console.log("Game");

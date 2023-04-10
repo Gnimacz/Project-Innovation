@@ -1,5 +1,5 @@
 let selectCharacter = false;
-console.log(selectCharacter);
+let selectedCharacter = 0;
 
 let infoCard = document.getElementById("character_info");
 let charPic = document.getElementById("character_card");
@@ -19,8 +19,8 @@ var charInfo1 = "Very yummy";
 var charInfo2 = "Beep boop";
 var charInfo3 = "Loves hugs";
 
-class Character{
-    constructor(name, info, pic, id){
+class Character {
+    constructor(name, info, pic, id) {
         this.name = name;
         this.info = info;
         this.pic = pic;
@@ -38,54 +38,49 @@ document.getElementById("select_btn").addEventListener("click", onSelect);
 
 const characterList = [characterOne, characterTwo, characterThree];
 
-function onScreenOpen(){
+function onScreenOpen() {
     var charImageHolder = document.getElementById("character_card");
-    while(charImageHolder.firstChild){
-      charImageHolder.removeChild(charImageHolder.firstChild);
+    while (charImageHolder.firstChild) {
+        charImageHolder.removeChild(charImageHolder.firstChild);
     }
     i = currentChar;
     infoCard.textContent = characterList[i].info;
     document.getElementById("character_card").appendChild(characterList[i].pic);
-    console.log(infoCard, currentChar);
 }
 
-function onClickBack(){
+function onClickBack() {
     var charImageHolder = document.getElementById("character_card");
-    while(charImageHolder.firstChild){
-      charImageHolder.removeChild(charImageHolder.firstChild);
+    while (charImageHolder.firstChild) {
+        charImageHolder.removeChild(charImageHolder.firstChild);
     }
     i = currentChar;
     i--;
-    if(i < 0){
+    if (i < 0) {
         i = characterList.length - 1;
     }
     infoCard.textContent = characterList[i].info;
     document.getElementById("character_card").appendChild(characterList[i].pic);
     currentChar = i;
-    console.log(infoCard, currentChar);
 }
 
-function onClickNext(){
+function onClickNext() {
     var charImageHolder = document.getElementById("character_card");
-    while(charImageHolder.firstChild){
-      charImageHolder.removeChild(charImageHolder.firstChild);
+    while (charImageHolder.firstChild) {
+        charImageHolder.removeChild(charImageHolder.firstChild);
     }
     i = currentChar;
     i++;
-    if(i >= characterList.length){
+    if (i >= characterList.length) {
         i = 0;
     }
     infoCard.textContent = characterList[i].info;
     document.getElementById("character_card").appendChild(characterList[i].pic);
     currentChar = i;
-    console.log(infoCard, currentChar);
 }
 
-function onSelect(){
-    if(selectCharacter == false){
-        selectCharacter = true;
-    } else{
-        selectCharacter = false;
-    }
+function onSelect() {
+    selectCharacter = !selectCharacter;
+    selectedCharacter = characterList[currentChar].id;
+    if (!selectCharacter) { selectedCharacter = 0; }
     console.log(selectCharacter);
 }
