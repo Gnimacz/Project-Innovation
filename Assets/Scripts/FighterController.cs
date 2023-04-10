@@ -95,7 +95,7 @@ public class FighterController : MonoBehaviour
         if (input.PlayerId != playerId) return;
         direction = input.JoystickPosition;
 
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Base.LightAttack")) return;
+        if (animator != null && animator.GetCurrentAnimatorStateInfo(0).IsName("Base.LightAttack")) return;
         //we don't want to rotate the player if they are in an attack
         if(direction.x > 0)
         {

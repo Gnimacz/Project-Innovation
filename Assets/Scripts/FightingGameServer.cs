@@ -3,15 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+using UnityEngine.SceneManagement;
+
 using System.Text;
 using WebSockets;
 
-public class SimpleServerDemo : MonoBehaviour
+public class FightingGameServer : MonoBehaviour
 {
+
+    #region Singleton
+    public static FightingGameServer instance;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            Debug.LogWarning("Server instance created");
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            Debug.LogError("Server instance already exists! Destroying this one.");
+        }
+    }
+    #endregion
+
     /// <summary>
     /// A list of active connections stored in a tuple with the connection, the client's id, and the character id in that order
+    /// This list is publically accessible to other scripts
     /// </summary>
-    List<Tuple<WebSocketConnection, int, int>> clientInfoList;
+    public List<Tuple<WebSocketConnection, int, int>> clientInfoList;
     int currentId = 0;
     WebsocketListener listener;
 
@@ -32,11 +53,10 @@ public class SimpleServerDemo : MonoBehaviour
     public static ChangeServerState UpdateServerState;
     #endregion
     public enum ServerState { MainMenu, CharacterSelect, Game, EndGame }
-    public ServerState serverState { get; private set; }
+    [SerializeField] private ServerState serverState;
 
     void Start()
     {
-
         serverState = ServerState.MainMenu;
         // Create a server that listens for connection requests:
         listener = new WebsocketListener();
@@ -48,12 +68,12 @@ public class SimpleServerDemo : MonoBehaviour
 
         //subscribe to events
         SendMessageToClient += SendToClient;
+        UpdateServerState += ChangeSelectedState;
+        SendMessageToAll += Broadcast;
 
         DontDestroyOnLoad(this.gameObject);
 
     }
-
-
 
     void Update()
     {
@@ -63,8 +83,9 @@ public class SimpleServerDemo : MonoBehaviour
         // Process current connections (this may lead to a callback to OnPacketReceive):
         ProcessCurrentClients();
 
-
-        KeyboardTesterCode();
+        if(clientInfoList.Count < 1){
+            KeyboardTesterCode();
+        }
     }
 
     void KeyboardTesterCode()
@@ -89,11 +110,57 @@ public class SimpleServerDemo : MonoBehaviour
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(1, input, direction));
     }
 
+    void ChangeSelectedState(ServerState newState)
+    {
+        //switch to the correct scene
+        serverState = newState;
+        switch (serverState)
+        {
+            case ServerState.MainMenu:
+                SceneManager.LoadScene("MainMenu");
+                Broadcast("state MainMenu");
+                Debug.LogWarning("Server state changed to MainMenu");
+                Debug.LogWarning(clientInfoList.Count);
+                break;
+            case ServerState.CharacterSelect:
+                SceneManager.LoadScene("CharacterSelect");
+                Broadcast("state CharacterSelect");
+                Debug.LogWarning("Server state changed to CharacterSelect");
+                break;
+            case ServerState.Game:
+                SceneManager.LoadScene("DemoScene");
+                Broadcast("state Game");
+                Debug.LogWarning("Server state changed to Game");
+                break;
+            case ServerState.EndGame:
+                SceneManager.LoadScene("EndGame");
+                Broadcast("state EndGame");
+                Debug.LogWarning("Server state changed to EndGame");
+                break;
+            default:
+                break;
+        }
+    }
     void ProcessNewClients()
     {
         listener.Update();
         while (listener.Pending())
         {
+            if (serverState != ServerState.MainMenu)
+            {
+                try
+                {
+                    Debug.LogWarning("Game has started!");
+                    WebSocketConnection tempWS = listener.AcceptConnection(OnPacketReceive);
+                    tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game has started!")));
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogError(e);
+                    continue;
+                }
+            }
+
             WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
             clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
             InputEvents.ClientConnected?.Invoke(this, currentId);
@@ -134,6 +201,10 @@ public class SimpleServerDemo : MonoBehaviour
         InvokeInputEvent(text, clientInfo.Item2);
     }
 
+    void Broadcast(string message)
+    {
+        Broadcast(new NetworkPacket(Encoding.UTF8.GetBytes(message)));
+    }
     void Broadcast(NetworkPacket packet)
     {
         foreach (var cl in clientInfoList)

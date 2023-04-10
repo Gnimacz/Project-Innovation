@@ -13,7 +13,7 @@ public class RemoteControlTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SimpleServerDemo.OnMessageReceived += /**/(string message) => {
+        FightingGameServer.OnMessageReceived += /**/(string message) => {
             // RemoteInput = message;
             ParseInput(message);
         };

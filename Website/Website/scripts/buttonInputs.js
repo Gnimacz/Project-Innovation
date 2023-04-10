@@ -44,28 +44,6 @@ function FullScreen() {
   } else if (elem.msRequestFullscreen) { /* IE/Edge */
     elem.msRequestFullscreen();
   }
-
-// function CharSelected() {
-//   //send message to server that character is selected
-//   // doSend("CharSelected");
-//   console.log("CharSelected");
-//   //get the value of the radio buttons
-//   var radios = document.getElementsByName('characters');
-//   for (var i = 0, length = radios.length; i < length; i++) {
-//     if (radios[i].checked) {
-//       // do whatever you want with the checked radio
-//       console.log(radios[i].value);
-//       characterSelected = radios[i].value;
-//       doSend("CharSelected " + characterSelected);
-
-//       // only one radio can be logically checked, don't check the rest
-//       break;
-//     }
-//   }
-//   //send message to server that character is selected
-// }
-
-
 }
 
 function IosFullScreen() {
@@ -91,8 +69,6 @@ function ExitFullScreen() {
   } else if (document.msExitFullscreen) { /* IE/Edge */
     document.msExitFullscreen();
   }
-  var elem = document.getElementsById("Inputs");
-  elem.classList.add("hide");
 }
 
 function CharacterSelector() {
@@ -119,7 +95,7 @@ function ExitCharacterSelector() {
   } else if (document.msExitFullscreen) { /* IE/Edge */
     document.msExitFullscreen();
   }
-  var elem = document.getElementsById("character_select");
+  var elem = document.getElementById("character_select");
   elem.classList.add("hide");
 }
 
