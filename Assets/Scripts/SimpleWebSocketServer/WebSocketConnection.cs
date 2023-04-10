@@ -5,7 +5,7 @@ using System.Net; // For IPEndPoint
 namespace WebSockets {
 	public enum ConnectionStatus { Connecting, Connected, Disconnected };
 
-	class WebSocketConnection {
+	public class WebSocketConnection {
 		public ConnectionStatus Status { get; protected set; }
 
 		const int maxFrameLength = 65535;
