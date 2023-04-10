@@ -593,6 +593,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 41c76efa59f7b527390255d8a21fe9eb, type: 3}
   - {fileID: 8300000, guid: 64aa24f7ccdfd4dc795f3d875464218b, type: 3}
   - {fileID: 8300000, guid: e6fdc400d5db3e54fbb2b34a1e2e48fc, type: 3}
+  - {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
+  - {fileID: 8300000, guid: cda53c5e78dd15c388a7ffe453518a08, type: 3}
   HeavyPunchSounds:
   - {fileID: 8300000, guid: dcbc793df2686084f88c356aef4de4c5, type: 3}
   jumpSounds:
