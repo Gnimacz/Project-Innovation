@@ -408,7 +408,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fighterPrefabs:
-  - {fileID: 8430827712549120626, guid: 22c48a97eb597e14fb3d4ed0ca6d160d, type: 3}
   - {fileID: 8598501545394684914, guid: 7d9b9815d4da3244a99d974da6f45e2d, type: 3}
 --- !u!4 &880303706
 Transform:
