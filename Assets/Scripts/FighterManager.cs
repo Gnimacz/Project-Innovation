@@ -23,7 +23,7 @@ public class FighterManager : MonoBehaviour
         Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
         
         activeFighters[fighter].GetHit(transform.position, damage);
-        FightingGameServer.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
+        SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
     }
 
     // Start is called before the first frame update
@@ -38,13 +38,13 @@ public class FighterManager : MonoBehaviour
 
     void Awake()
     {
-        if(FightingGameServer.instance.clientInfoList.Count < 1){
+        if(SimpleServerDemo.instance.clientInfoList.Count < 1){
             SpawnFighter(null, 0);
             SpawnFighter(null, 1);
             Debug.LogWarning("No Connections found, assuming test scenario. Spawning fighters from awake");
             return;
         }
-        foreach(Tuple<WebSocketConnection, int, int> connection in FightingGameServer.instance.clientInfoList)
+        foreach(Tuple<WebSocketConnection, int, int> connection in SimpleServerDemo.instance.clientInfoList)
         {
             SpawnFighter(connection.Item2, connection.Item3);
         }

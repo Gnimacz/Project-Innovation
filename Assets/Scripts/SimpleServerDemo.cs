@@ -8,11 +8,11 @@ using UnityEngine.SceneManagement;
 using System.Text;
 using WebSockets;
 
-public class FightingGameServer : MonoBehaviour
+public class SimpleServerDemo : MonoBehaviour
 {
 
     #region Singleton
-    public static FightingGameServer instance;
+    public static SimpleServerDemo instance;
     private void Awake()
     {
         if (instance == null)

@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class EventTester : MonoBehaviour
 {
-    public FightingGameServer.ServerState stateToSwitchTo;
+    public SimpleServerDemo.ServerState stateToSwitchTo;
 
     void Update()
     {
         if(Input.GetKeyUp(KeyCode.Space)){
-            FightingGameServer.UpdateServerState?.Invoke(stateToSwitchTo);
+            SimpleServerDemo.UpdateServerState?.Invoke(stateToSwitchTo);
         }
     }
 }
