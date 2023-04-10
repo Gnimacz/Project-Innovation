@@ -73,6 +73,7 @@ function ExitFullScreen() {
 }
 
 function CharacterSelector() {
+  onScreenOpen();
   var elem = document.getElementById("character_select");
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
