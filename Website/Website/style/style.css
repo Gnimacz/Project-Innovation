@@ -208,3 +208,11 @@ button{
     height: 10%;
     width: 100%;
 }
+
+#character_card img{
+    object-fit: contain;
+}
+
+#character_card img{
+    width: 100%;
+}
