@@ -216,6 +216,7 @@ public class SimpleServerDemo : MonoBehaviour
 
     void SendToClient(NetworkPacket packet, int id)
     {
+        if(clientInfoList.Count < 1) return;
         clientInfoList.Find(x => x.Item2 == id).Item1.Send(packet);
     }
     void SendToClient(string message, int clientId)
