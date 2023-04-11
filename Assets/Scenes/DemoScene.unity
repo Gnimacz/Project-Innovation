@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1876927, g: 0.20969933, b: 0.24526708, a: 1}
+  m_IndirectSpecularColor: {r: 0.18632591, g: 0.2097274, b: 0.24522088, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fighterPrefabs:
+  - {fileID: 1245937075592760435, guid: 6faf761eacd444b4787e4db995e42a51, type: 3}
   - {fileID: 8430827712549120626, guid: 22c48a97eb597e14fb3d4ed0ca6d160d, type: 3}
 --- !u!4 &880303706
 Transform:
@@ -381,7 +382,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910912306}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6d71e928e98accac7b973737cda51e63, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
