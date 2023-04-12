@@ -9,13 +9,6 @@ var button = document.getElementById("jump");
 var output = document.getElementById("output");
 console.log(output);
 
-let serverState = {
-    MainMenu: "MainMenu",
-    CharacterSelect: "CharacterSelect",
-    Game: "Game",
-    GameOver: "GameOver"
-};
-
 var currentServerState = serverState.MainMenu;
 
 // http://www.websocket.org/echo.html
