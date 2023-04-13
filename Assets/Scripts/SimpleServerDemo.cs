@@ -56,6 +56,7 @@ public class SimpleServerDemo : MonoBehaviour
     #endregion
     public enum ServerState { MainMenu, CharacterSelect, Game, EndGame }
     [SerializeField] private ServerState serverState;
+    public int MaxPlayerCount = 4;
 
     void Start()
     {
@@ -155,13 +156,14 @@ public class SimpleServerDemo : MonoBehaviour
         listener.Update();
         while (listener.Pending())
         {
-            if (serverState != ServerState.MainMenu)
+            if (serverState != ServerState.MainMenu || clientInfoList.Count >= MaxPlayerCount)
             {
                 try
                 {
                     Debug.LogWarning("Game has started!");
                     WebSocketConnection tempWS = listener.AcceptConnection(OnPacketReceive);
-                    tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game has started!")));
+                    if(clientInfoList.Count >= MaxPlayerCount) tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game is full!")));
+                    else tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game has started!")));
                 }
                 catch (System.Exception e)
                 {

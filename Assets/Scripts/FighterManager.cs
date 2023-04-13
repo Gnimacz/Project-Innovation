@@ -10,37 +10,42 @@ public class FighterManager : MonoBehaviour
     public List<GameObject> fighterPrefabs;
     public Dictionary<GameObject, FighterController> activeFighters = new Dictionary<GameObject, FighterController>();
 
-    //delegates
+    [Header("Screen Bounds")]
+    public Vector4 screenBounds = Vector4.zero;
+
+    #region delegates
     public delegate void FighterHurt(Vector3 attackerPosition, GameObject fighter, int damage);
     public static FighterHurt OnFighterHurt;
 
     public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
     public static onFighterSpawned fighterSpawned;
+    #endregion
 
     void FighterWasHurt(Vector3 attackerPosition, GameObject fighter, int damage)
     {
         //TODO(PM): remove debug log statement
         Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
-        
+
         activeFighters[fighter].GetHit(attackerPosition, damage);
         SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
     }
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
         OnFighterHurt += FighterWasHurt;
     }
 
     void Awake()
     {
-        if(SimpleServerDemo.instance.clientInfoList.Count < 1){
+        if (SimpleServerDemo.instance.clientInfoList.Count < 1)
+        {
             SpawnFighter(null, 0);
             SpawnFighter(null, 1);
             Debug.LogWarning("No Connections found, assuming test scenario. Spawning fighters from awake");
             return;
         }
-        foreach(Tuple<WebSocketConnection, int, int> connection in SimpleServerDemo.instance.clientInfoList)
+        foreach (Tuple<WebSocketConnection, int, int> connection in SimpleServerDemo.instance.clientInfoList)
         {
             SpawnFighter(connection.Item2, connection.Item3 - 1);
         }
@@ -76,6 +81,52 @@ public class FighterManager : MonoBehaviour
                 break;
             }
         }
-        
+
+    }
+    public void RemoveFighter(int fighterId)
+    {
+        Debug.LogWarning("Removing fighter with id: " + fighterId);
+        foreach (GameObject fighter in activeFighters.Keys)
+        {
+            if (activeFighters[fighter].playerId == fighterId)
+            {
+                activeFighters.Remove(fighter);
+                Destroy(fighter);
+                break;
+            }
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.y, 0), new Vector3(transform.position.x + screenBounds.z, transform.position.y + screenBounds.y, 0));
+        Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.w, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.w, 0));
+        Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.y, 0), new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.w, 0));
+        Gizmos.DrawLine(new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.y, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.w, 0));
+        Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.y, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.w, 0));
+        Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.w, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.y, 0));
+    }
+    //kill the fighter if it's outside the screen bounds
+    void Update()
+    {
+        foreach (GameObject fighter in activeFighters.Keys)
+        {
+
+            if (!IsFighterWithinScreenBounds(activeFighters[fighter]))
+            {
+                activeFighters[fighter].transform.position= transform.position;
+            }
+        }
+    }
+    bool IsFighterWithinScreenBounds(FighterController fighter)
+    {
+        return ((fighter.gameObject.transform.position.x > (transform.position.x + screenBounds.x)
+            && fighter.gameObject.transform.position.x < (transform.position.x + screenBounds.z))
+            && (fighter.transform.position.y < transform.position.y + screenBounds.z)
+            && (fighter.transform.position.y > transform.position.y + screenBounds.w));
+        //Vector3 screenPos = Camera.main.WorldToScreenPoint(fighter.transform.position);
+        //return screenPos.x > screenBounds.x && screenPos.x < screenBounds.z && screenPos.y > screenBounds.y && screenPos.y < screenBounds.w;
     }
 }

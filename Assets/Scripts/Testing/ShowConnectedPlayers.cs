@@ -14,6 +14,6 @@ public class ShowConnectedPlayers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerCount.text = "Connected Players: " + SimpleServerDemo.instance.clientInfoList.Count;
+        playerCount.text = "Connected Players: " + SimpleServerDemo.instance.clientInfoList.Count + "/" + SimpleServerDemo.instance.MaxPlayerCount;
     }
 }
