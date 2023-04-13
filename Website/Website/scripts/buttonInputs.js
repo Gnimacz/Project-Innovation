@@ -1,3 +1,4 @@
+//document.getElementById("main_menu").elem.classList.add("hide");
 
 var finalMessage = "",
   pressedJump = 0,
@@ -16,17 +17,21 @@ document.getElementById("attack").addEventListener("touchend", OnAttackReleased)
 document.getElementById("jump").addEventListener("touchstart", onJumpPressed);
 document.getElementById("jump").addEventListener("touchend", onJumpReleased);
 if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-  document.getElementById("fullscreen").addEventListener("click", IosFullScreen);
+  document.getElementById("select_btn").addEventListener("click", IosFullScreen);
   document.getElementById("exit").addEventListener("click", IosExitFullScreen);
-  document.getElementById("char_select").addEventListener("click", IosCharacterSelector);
+  document.getElementById("start_btn").addEventListener("click", IosCharacterSelector);
   document.getElementById("exit_char").addEventListener("click", IosExitCharacterSelector);
+  document.getElementById("main_menu_btn").addEventListener("click", IosMainMenu);
+  document.getElementById("quit_btn").addEventListener("click", IosExitMainMenu);
   console.warn("IOS Detected");
 }
 else {
-  document.getElementById("fullscreen").addEventListener("click", FullScreen);
+  document.getElementById("select_btn").addEventListener("click", FullScreen);
   document.getElementById("exit").addEventListener("click", ExitFullScreen);
   document.getElementById("exit_char").addEventListener("click", ExitCharacterSelector);
-  document.getElementById("char_select").addEventListener("click", CharacterSelector);
+  document.getElementById("start_btn").addEventListener("click", CharacterSelector);
+  document.getElementById("main_menu_btn").addEventListener("click", MainMenu);
+  document.getElementById("quit_btn").addEventListener("click", ExitMainMenu);
   var hiddenElems = document.querySelectorAll(".hide");
     for(var i = 0; i < hiddenElems.length; i++){
         hiddenElems[i].classList.remove("hide");
@@ -107,6 +112,44 @@ function IosCharacterSelector() {
 
 function IosExitCharacterSelector() {
   var elem = document.getElementById("character_select");
+  elem.classList.add("hide");
+}
+
+function MainMenu(){
+  var elem = document.getElementById("main_menu");
+  if (elem.requestFullscreen) {
+    elem.requestFullscreen();
+  } else if (elem.mozrequestFullscreen) {
+    elem.mozrequestFullscreen();
+  } else if (elem.webkitrequestFullscreen) {
+    elem.webkitrequestFullscreen();
+  } else if (elem.msrequestFullscreen) {
+    elem.msrequestFullscreen();
+  }
+  elem.classList.remove("hide");
+}
+
+function ExitMainMenu(){
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.mozCancelFullScreen) { /* Firefox */
+    document.mozCancelFullScreen();
+  } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE/Edge */
+    document.msExitFullscreen();
+  }
+  var elem = document.getElementById("main_menu");
+  elem.classList.add("hide");
+}
+
+function IosMainMenu(){
+  var elem = document.getElementById("main_menu");
+  elem.classList.remove("hide");
+}
+
+function IosExitMainMenu(){
+  var elem = document.getElementById("main_menu");
   elem.classList.add("hide");
 }
 
