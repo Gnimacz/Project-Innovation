@@ -116,7 +116,8 @@ public class FighterManager : MonoBehaviour
 
             if (!IsFighterWithinScreenBounds(activeFighters[fighter]))
             {
-                activeFighters[fighter].transform.position= transform.position;
+                activeFighters[fighter].transform.position = transform.position;
+                activeFighters[fighter].values.lives--;
             }
         }
     }

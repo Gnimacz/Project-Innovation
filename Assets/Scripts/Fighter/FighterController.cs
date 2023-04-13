@@ -9,7 +9,7 @@ public class FighterController : MonoBehaviour
     [NonSerialized]
     Rigidbody rb;
     SfxPlayer sfx;
-    FighterValues values;
+    public FighterValues values;
     public Transform feet;
     [NonSerialized]
     public int playerId;
