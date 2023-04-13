@@ -36,6 +36,9 @@ public class SimpleServerDemo : MonoBehaviour
     int currentId = 0;
     WebsocketListener listener;
 
+    private bool attackHeld = false;
+    private bool jumpHeld = false;
+    
     #region events
     public delegate void MessageReceived(string message);
     public static MessageReceived OnMessageReceived;
@@ -288,14 +291,17 @@ public class SimpleServerDemo : MonoBehaviour
         int JumpButtonPressed = int.Parse(input[2]);
         int AttackButtonPressed = int.Parse(input[3]);
         string joystickDirection = input[4];
-        if (JumpButtonPressed == 1)
+        if (JumpButtonPressed == 1 && !jumpHeld)
         {
             InputEvents.JumpButtonPressed?.Invoke(this, id);
         }
-        if (AttackButtonPressed == 1)
+        if (AttackButtonPressed == 1 && !attackHeld)
         {
             InputEvents.AttackButtonPressed?.Invoke(this, id);
         }
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(id, new Vector2(x, y), joystickDirection));
+
+        jumpHeld = JumpButtonPressed == 0 ? false : true;
+        attackHeld = AttackButtonPressed == 0 ? false : true;
     }
 }
