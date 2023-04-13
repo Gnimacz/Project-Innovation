@@ -12,7 +12,7 @@ public class FighterFollowerArrow : MonoBehaviour
     Vector3 center;
     Image image;
     public float distFromEdge = 50f;
-    public int id = 1;
+    public FighterController fighter;
     
     // Start is called before the first frame update
     void Start()
@@ -36,7 +36,7 @@ public class FighterFollowerArrow : MonoBehaviour
             Mathf.Clamp(targetScreenPos.y, -center.y + distFromEdge, center.y - distFromEdge),
             0);
 
-        image.color = PlayerColors.colors[id];
+        image.color = PlayerColors.colors[fighter.playerId];
         rect.localPosition = limited;
         
         if (Mathf.Abs(targetScreenPos.x) > center.x || Mathf.Abs(targetScreenPos.y) > center.y)

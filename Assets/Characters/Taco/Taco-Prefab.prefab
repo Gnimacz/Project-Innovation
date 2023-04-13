@@ -1395,6 +1395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: {fileID: 4639562751256126480}
+  indicatorImage: {fileID: 8454336719355659403}
   fighterController: {fileID: 8597364617692915505}
 --- !u!1001 &4323720081720112949
 PrefabInstance:
@@ -1513,6 +1514,11 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1245937075592760435}
+    - target: {fileID: 5820108997608908051, guid: 4ffdb921150bfdf29a43e09534cabe4c,
+        type: 3}
+      propertyPath: fighter
+      value: 
+      objectReference: {fileID: 8597364617692915505}
     - target: {fileID: 5820108997608908055, guid: 4ffdb921150bfdf29a43e09534cabe4c,
         type: 3}
       propertyPath: m_Name
