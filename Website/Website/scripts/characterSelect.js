@@ -49,6 +49,7 @@ function onScreenOpen() {
 }
 
 function onClickBack() {
+    if(selectCharacter) return;
     var charImageHolder = document.getElementById("character_card");
     while (charImageHolder.firstChild) {
         charImageHolder.removeChild(charImageHolder.firstChild);
@@ -64,6 +65,7 @@ function onClickBack() {
 }
 
 function onClickNext() {
+    if(selectCharacter) return;
     var charImageHolder = document.getElementById("character_card");
     while (charImageHolder.firstChild) {
         charImageHolder.removeChild(charImageHolder.firstChild);
@@ -80,7 +82,16 @@ function onClickNext() {
 
 function onSelect() {
     selectCharacter = !selectCharacter;
-    selectedCharacter = characterList[currentChar].id;
-    if (!selectCharacter) { selectedCharacter = 0; }
+    if (selectCharacter == false) {
+        selectedCharacter = selectedCharacter = 0;
+        document.getElementById("select_btn").innerHTML = "Select";
+        // document.getElementById("CharacterAll").style.color = rgb(255, 255, 255);
+        document.getElementById("CharacterAll").style.backgroundColor = 'rgb(0,0,0)';
+    }
+    else if (selectCharacter == true) {
+        document.getElementById("select_btn").innerHTML = "Ready";
+        document.getElementById("CharacterAll").style.backgroundColor = 'rgb(150,200,80)';//"blue";
+        selectedCharacter = characterList[currentChar].id;
+    }
     console.log(selectCharacter);
 }

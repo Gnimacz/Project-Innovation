@@ -48,6 +48,8 @@ public class SimpleServerDemo : MonoBehaviour
 
     public delegate void CharacterSelected(int clientId, int characterId);
     public static CharacterSelected OnCharacterSelected;
+    public delegate void CharacterDeselected(int clientId, int characterId);
+    public static CharacterDeselected OnCharacterDeselected;
 
     public delegate void ChangeServerState(ServerState newState);
     public static ChangeServerState UpdateServerState;
@@ -83,7 +85,8 @@ public class SimpleServerDemo : MonoBehaviour
         // Process current connections (this may lead to a callback to OnPacketReceive):
         ProcessCurrentClients();
 
-        if(clientInfoList.Count < 1){
+        if (clientInfoList.Count < 1)
+        {
             KeyboardTesterCode();
         }
     }
@@ -94,27 +97,32 @@ public class SimpleServerDemo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G)) InputEvents.AttackButtonPressed?.Invoke(this, 0);
         Vector2 input = Vector2.zero;
         string direction = "Neutral";
-        if (Input.GetKey(KeyCode.D)){ input.x += 1; direction = "Right";}
-        if (Input.GetKey(KeyCode.A)){ input.x -= 1; direction = "Left";}
-        if (Input.GetKey(KeyCode.W)){ input.y += 1; direction = "Up";}
-        if (Input.GetKey(KeyCode.S)){ input.y -= 1; direction = "Down";}
+        if (Input.GetKey(KeyCode.D)) { input.x += 1; direction = "Right"; }
+        if (Input.GetKey(KeyCode.A)) { input.x -= 1; direction = "Left"; }
+        if (Input.GetKey(KeyCode.W)) { input.y += 1; direction = "Up"; }
+        if (Input.GetKey(KeyCode.S)) { input.y -= 1; direction = "Down"; }
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(0, input, direction));
 
         if (Input.GetKeyDown(KeyCode.M)) InputEvents.JumpButtonPressed?.Invoke(this, 1);
         if (Input.GetKeyDown(KeyCode.N)) InputEvents.AttackButtonPressed?.Invoke(this, 1);
         input = Vector2.zero;
         direction = "Neutral";
-        if (Input.GetKey(KeyCode.RightArrow)){ input.x += 1; direction = "Right";}
-        if (Input.GetKey(KeyCode.LeftArrow)){ input.x -= 1; direction = "Left";}
-        if (Input.GetKey(KeyCode.UpArrow)){ input.y += 1; direction = "Up";}
-        if (Input.GetKey(KeyCode.DownArrow)){ input.y -= 1; direction = "Down";}
+        if (Input.GetKey(KeyCode.RightArrow)) { input.x += 1; direction = "Right"; }
+        if (Input.GetKey(KeyCode.LeftArrow)) { input.x -= 1; direction = "Left"; }
+        if (Input.GetKey(KeyCode.UpArrow)) { input.y += 1; direction = "Up"; }
+        if (Input.GetKey(KeyCode.DownArrow)) { input.y -= 1; direction = "Down"; }
         InputEvents.JoystickMoved?.Invoke(this, new DirectionalEventArgs(1, input, direction));
     }
 
     void ChangeSelectedState(ServerState newState)
     {
         //switch to the correct scene
-        serverState = newState;
+        if (serverState == ServerState.MainMenu && clientInfoList.Count == 0)
+        {
+            Debug.LogWarning("No clients connected! Skipping character selection");
+            serverState = ServerState.Game;
+        }
+        else serverState = newState;
         switch (serverState)
         {
             case ServerState.MainMenu:
@@ -216,7 +224,7 @@ public class SimpleServerDemo : MonoBehaviour
 
     void SendToClient(NetworkPacket packet, int id)
     {
-        if(clientInfoList.Count < 1) return;
+        if (clientInfoList.Count < 1) return;
         clientInfoList.Find(x => x.Item2 == id).Item1.Send(packet);
     }
     void SendToClient(string message, int clientId)
@@ -224,7 +232,7 @@ public class SimpleServerDemo : MonoBehaviour
         //Debug.LogError("Sending message to client: " + message + " to client: " + clientId);
         SendToClient(new NetworkPacket(Encoding.UTF8.GetBytes(message)), clientId);
     }
-    
+
     void SendToClient(NetworkPacket packet, WebSocketConnection client)
     {
         client.Send(packet);
@@ -257,8 +265,19 @@ public class SimpleServerDemo : MonoBehaviour
     void CharacterSelectionInputs(string[] input, int id)
     {
         int character = int.Parse(input[0]);
-        int ready = int.Parse(input[1]);
-        OnCharacterSelected?.Invoke(id, character);
+        // int ready = int.Parse(input[1]);
+        if (character > 0)
+        {
+            OnCharacterSelected?.Invoke(id, character);
+        }
+        else if (character < 1)
+        {
+            OnCharacterDeselected?.Invoke(id, character);
+        }
+        Tuple<WebSocketConnection, int, int> foundClient = clientInfoList.Find(x => x.Item2 == id);
+        Tuple<WebSocketConnection, int, int> replacementClient = new Tuple<WebSocketConnection, int, int>(foundClient.Item1, foundClient.Item2, character);
+        clientInfoList[clientInfoList.IndexOf(foundClient)] = replacementClient;
+        Debug.LogWarning("Character selected: " + replacementClient.Item3);
     }
     void GameplayInputs(string[] input, int id)
     {

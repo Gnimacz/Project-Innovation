@@ -42,7 +42,7 @@ public class FighterManager : MonoBehaviour
         }
         foreach(Tuple<WebSocketConnection, int, int> connection in SimpleServerDemo.instance.clientInfoList)
         {
-            SpawnFighter(connection.Item2, connection.Item3);
+            SpawnFighter(connection.Item2, connection.Item3 - 1);
         }
     }
 

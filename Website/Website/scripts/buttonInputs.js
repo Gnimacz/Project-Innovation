@@ -6,6 +6,13 @@ var finalMessage = "",
   directionY = 0.0,
   directionEnum = "Right",
   characterSelected = 0;
+
+let serverState = {
+  MainMenu: "MainMenu",
+  CharacterSelect: "CharacterSelect",
+  Game: "Game",
+  GameOver: "GameOver"
+};
 // wsUri = "ws://127.0.0.1/",    // works
 // wsUri = "ws://192.168.137.1:8001/",  // This works if this is the LAN address of the web socket server
 
@@ -28,9 +35,9 @@ else {
   document.getElementById("exit_char").addEventListener("click", ExitCharacterSelector);
   document.getElementById("char_select").addEventListener("click", CharacterSelector);
   var hiddenElems = document.querySelectorAll(".hide");
-    for(var i = 0; i < hiddenElems.length; i++){
-        hiddenElems[i].classList.remove("hide");
-    }
+  for (var i = 0; i < hiddenElems.length; i++) {
+    hiddenElems[i].classList.remove("hide");
+  }
 }
 
 function FullScreen() {
