@@ -184,18 +184,23 @@ function IosExitMainMenu() {
 function onJumpPressed() {
   pressedJump = 1;
   vibrate();
+  document.getElementById("jump_img").src = "./images/Jump A.png";
 }
+
 function onJumpReleased() {
   pressedJump = 0;
+  document.getElementById("jump_img").src = "./images/Jump.png";
 }
 
 function onAttackPressed() {
   pressedAttack = 1;
   vibrate();
-
+  document.getElementById("attack_img").src = "./images/Attack A.png";
 }
+
 function OnAttackReleased() {
   pressedAttack = 0;
+  document.getElementById("attack_img").src = "./images/Attack.png";
 }
 
 // function onEndFrame() {

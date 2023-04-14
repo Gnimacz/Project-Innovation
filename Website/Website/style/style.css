@@ -82,7 +82,12 @@ body{
     /* justify-self: center; */
     height: 30%;
     width: 30%;
-    margin-right: 5%;
+    margin-right: 7%;
+}
+
+#attack img{
+    height: 100%;
+    width: 100%;
 }
 
 .JumpButton{
@@ -91,13 +96,19 @@ body{
     /* justify-self: center; */
     height: 30%;
     width: 30%;
-    margin-bottom: 5%;
+    margin-bottom: 7%;
 }
 
-button{
-    background-color: #000000;
-    border: 1px solid #ffffff;
-    color: #ffffff;
+#jump img{
+    height: 100%;
+    width: 100%;
+}
+
+.Inputs button{
+    /* background-color: #000000; */
+    border: 0px;
+    /* color: #ffffff; */
+    background: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     height: 100%;
@@ -227,6 +238,36 @@ button{
     visibility: hidden;
 }
 
+.character_select button{
+    /* background-color: #000000; */
+    border: 0px;
+    /* color: #ffffff; */
+    background: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 100%;
+    width: 100%;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+#left_arrow img{
+    /* height: 50%; */
+    width: 35%;
+}
+
+#right_arrow img{
+    width: 35%;
+}
+
+#select_btn{
+    background-image: url("/images/Player\ cards.png");
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+    font-size: 20px;
+}
+
 .CharacterAll{
     display: flex;
     height: 100%;
@@ -245,7 +286,15 @@ button{
 }
 
 #character_info{
+    background-image: url("/images/Player\ cards.png");
+    background-size: 100% 100%;
     height: 50%;
+    width: 100%;
+    font-size: 70px;
+}
+
+#character_info img{
+    height: 100%;
     width: 100%;
 }
 
@@ -262,6 +311,11 @@ button{
     height: 10%;
     width: 100%;
 }
+
+/* #left_arrow img{
+    height: 10%;
+    width: 10%;
+} */
 
 #character_card img{
     object-fit: contain;
