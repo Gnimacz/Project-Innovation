@@ -189,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3863139385749537822}
   feet: {fileID: 7037896233821158479}
+  attacker: {fileID: 7548566673563799021}
 --- !u!114 &6988204174179928432
 MonoBehaviour:
   m_ObjectHideFlags: 0
