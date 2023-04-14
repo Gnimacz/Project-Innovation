@@ -9,6 +9,7 @@ public class DamageDealer : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
+        Debug.LogError("FIGHTER WAS HIT");
         FighterManager.OnFighterHurt?.Invoke(transform.position, other.gameObject, damage);
     }
 }

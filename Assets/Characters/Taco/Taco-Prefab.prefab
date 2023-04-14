@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 421469979879089850}
   - component: {fileID: 8597364617692915505}
   - component: {fileID: 6988204174179928432}
+  - component: {fileID: 9123091372660717570}
   m_Layer: 10
   m_Name: Taco-Prefab
   m_TagString: Untagged
@@ -301,6 +302,7 @@ MonoBehaviour:
   upwardKnockbackMultiplier: 0.5
   knockbackPower: 10
   upAttackSpeed: 5
+  lives: 1
 --- !u!82 &421469979879089850
 AudioSource:
   m_ObjectHideFlags: 0
@@ -410,6 +412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3863139385749537822}
+  values: {fileID: 0}
   feet: {fileID: 7037896233821158479}
 --- !u!114 &6988204174179928432
 MonoBehaviour:
@@ -433,6 +436,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6bc38bd6f1877530f919d61e0cee0c12, type: 3}
   DamageSounds:
   - {fileID: 8300000, guid: 585a7d8c9a58de04189693c339d8bd27, type: 3}
+--- !u!136 &9123091372660717570
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1245937075592760435}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.2
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1919934734733421677
 GameObject:
   m_ObjectHideFlags: 0

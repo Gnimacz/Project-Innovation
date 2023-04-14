@@ -33,6 +33,7 @@ public class SimpleServerDemo : MonoBehaviour
     /// This list is publically accessible to other scripts
     /// </summary>
     public List<Tuple<WebSocketConnection, int, int>> clientInfoList;
+    public List<int> readyClients;
     int currentId = 0;
     WebsocketListener listener;
 
@@ -71,6 +72,7 @@ public class SimpleServerDemo : MonoBehaviour
         // Create a list of active connections:
         // clients = new List<WebSocketConnection>();
         clientInfoList = new List<Tuple<WebSocketConnection, int, int>>();
+        readyClients = new List<int>();
 
         //subscribe to events
         SendMessageToClient += SendToClient;
@@ -168,9 +170,9 @@ public class SimpleServerDemo : MonoBehaviour
                     if(clientInfoList.Count >= MaxPlayerCount) tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game is full!")));
                     else tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game has started!")));
                 }
-                catch (System.Exception e)
+                catch (System.Exception)
                 {
-                    Debug.LogError(e);
+                    //Debug.LogError(e);
                     continue;
                 }
             }
@@ -266,6 +268,14 @@ public class SimpleServerDemo : MonoBehaviour
 
     void MainMenuInputs(string[] input, int id)
     {
+        switch (input[0].ToLower())
+        {
+            case "play":
+                UpdateServerState?.Invoke(ServerState.CharacterSelect);
+                break;
+            default:
+                break;
+        }
     }
     void CharacterSelectionInputs(string[] input, int id)
     {
@@ -274,15 +284,23 @@ public class SimpleServerDemo : MonoBehaviour
         if (character > 0)
         {
             OnCharacterSelected?.Invoke(id, character);
+            if (!readyClients.Contains(id)) readyClients.Add(id);
         }
         else if (character < 1)
         {
             OnCharacterDeselected?.Invoke(id, character);
+            if (readyClients.Contains(id)) readyClients.Remove(id);
         }
         Tuple<WebSocketConnection, int, int> foundClient = clientInfoList.Find(x => x.Item2 == id);
         Tuple<WebSocketConnection, int, int> replacementClient = new Tuple<WebSocketConnection, int, int>(foundClient.Item1, foundClient.Item2, character);
         clientInfoList[clientInfoList.IndexOf(foundClient)] = replacementClient;
         Debug.LogWarning("Character selected: " + replacementClient.Item3);
+        if (readyClients.Count == clientInfoList.Count)
+        {
+            ChangeSelectedState(ServerState.Game);
+        }
+
+        
     }
     void GameplayInputs(string[] input, int id)
     {

@@ -23,30 +23,46 @@ document.getElementById("attack").addEventListener("touchstart", onAttackPressed
 document.getElementById("attack").addEventListener("touchend", OnAttackReleased);
 document.getElementById("jump").addEventListener("touchstart", onJumpPressed);
 document.getElementById("jump").addEventListener("touchend", onJumpReleased);
-if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-  document.getElementById("select_btn").addEventListener("click", IosFullScreen);
-  document.getElementById("exit").addEventListener("click", IosExitFullScreen);
-  document.getElementById("start_btn").addEventListener("click", IosCharacterSelector);
-  document.getElementById("exit_char").addEventListener("click", IosExitCharacterSelector);
-  document.getElementById("main_menu_btn").addEventListener("click", IosMainMenu);
-  document.getElementById("quit_btn").addEventListener("click", IosExitMainMenu);
-  console.warn("IOS Detected");
-}
-else {
-  document.getElementById("select_btn").addEventListener("click", FullScreen);
-  document.getElementById("exit").addEventListener("click", ExitFullScreen);
-  document.getElementById("exit_char").addEventListener("click", ExitCharacterSelector);
-  document.getElementById("start_btn").addEventListener("click", CharacterSelector);
-  document.getElementById("main_menu_btn").addEventListener("click", MainMenu);
-  document.getElementById("quit_btn").addEventListener("click", ExitMainMenu);
-  var hiddenElems = document.querySelectorAll(".hide");
-  for (var i = 0; i < hiddenElems.length; i++) {
-    hiddenElems[i].classList.remove("hide");
-  }
-}
+document.getElementById("main_menu_btn").addEventListener("click", FullScreen);
+// if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+// document.getElementById("select_btn").addEventListener("click", IosFullScreen);
+document.getElementById("exit").addEventListener("click", IosExitFullScreen);
+document.getElementById("start_btn").addEventListener("click", IosCharacterSelector);
+document.getElementById("exit_char").addEventListener("click", IosExitCharacterSelector);
+document.getElementById("main_menu_btn").addEventListener("click", IosMainMenu);
+document.getElementById("quit_btn").addEventListener("click", IosExitMainMenu);
+
+document.getElementById("fullscreen").addEventListener("click", IosFullScreen);
+document.getElementById("char_select").addEventListener("click", IosCharacterSelector);
+// console.warn("IOS Detected");
+// }
+// else {
+// document.getElementById("select_btn").addEventListener("click", FullScreen);
+// document.getElementById("exit").addEventListener("click", ExitFullScreen);
+// document.getElementById("exit_char").addEventListener("click", ExitCharacterSelector);
+// document.getElementById("start_btn").addEventListener("click", CharacterSelector);
+// document.getElementById("main_menu_btn").addEventListener("click", MainMenu);
+// document.getElementById("quit_btn").addEventListener("click", ExitMainMenu);
+// var hiddenElems = document.querySelectorAll(".hide");
+// for (var i = 0; i < hiddenElems.length; i++) {
+//   hiddenElems[i].classList.remove("hide");
+// }
+// document.getElementById("fullscreen").addEventListener("click", FullScreen);
+// document.getElementById("char_select").addEventListener("click", CharacterSelector);
+// }
 
 function FullScreen() {
-  var elem = document.getElementById("Inputs");
+  // var elem = document.getElementById("Inputs");
+  // if (elem.requestFullscreen) {
+  //   elem.requestFullscreen();
+  // } else if (elem.mozRequestFullScreen) { /* Firefox */
+  //   elem.mozRequestFullScreen();
+  // } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+  //   elem.webkitRequestFullscreen();
+  // } else if (elem.msRequestFullscreen) { /* IE/Edge */
+  //   elem.msRequestFullscreen();
+  // }
+  var elem = document.documentElement;
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
   } else if (elem.mozRequestFullScreen) { /* Firefox */
@@ -55,6 +71,10 @@ function FullScreen() {
     elem.webkitRequestFullscreen();
   } else if (elem.msRequestFullscreen) { /* IE/Edge */
     elem.msRequestFullscreen();
+  }
+  if (websocket.readyState == 1) {
+    doSend("Play");
+    console.log("Play");
   }
 }
 
@@ -113,6 +133,7 @@ function ExitCharacterSelector() {
 }
 
 function IosCharacterSelector() {
+  onScreenOpen();
   var elem = document.getElementById("character_select");
   elem.classList.remove("hide");
 }
@@ -122,7 +143,7 @@ function IosExitCharacterSelector() {
   elem.classList.add("hide");
 }
 
-function MainMenu(){
+function MainMenu() {
   var elem = document.getElementById("main_menu");
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -136,7 +157,7 @@ function MainMenu(){
   elem.classList.remove("hide");
 }
 
-function ExitMainMenu(){
+function ExitMainMenu() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.mozCancelFullScreen) { /* Firefox */
@@ -150,12 +171,12 @@ function ExitMainMenu(){
   elem.classList.add("hide");
 }
 
-function IosMainMenu(){
+function IosMainMenu() {
   var elem = document.getElementById("main_menu");
   elem.classList.remove("hide");
 }
 
-function IosExitMainMenu(){
+function IosExitMainMenu() {
   var elem = document.getElementById("main_menu");
   elem.classList.add("hide");
 }
