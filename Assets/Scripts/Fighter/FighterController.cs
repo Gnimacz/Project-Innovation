@@ -18,7 +18,7 @@ public class FighterController : MonoBehaviour
     bool usedUpAttack = false;
     Vector2 joyInput;
     DirectionalEventArgs.JoystickAngle inputDirection;
-    int health = 0;
+    public int health = 0;
     
     // Start is called before the first frame update
     void Start()

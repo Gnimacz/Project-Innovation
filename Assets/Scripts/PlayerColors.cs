@@ -12,7 +12,8 @@ public class PlayerColors
         Color.yellow,
         Color.green,
         Color.magenta,
-        Color.cyan
+        Color.cyan,
+        Color.white
     };
 
 }

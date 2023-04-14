@@ -120,7 +120,8 @@ button{
     position: absolute;
     top: 0;
     right: 0;
-    display: none;
+    /* display: none;
+    visibility: hidden; */
 }
 
 /* #character_select:not(:fullscreen){
@@ -158,7 +159,8 @@ button{
     position: absolute;
     top: 150px;
     right: 0;
-    display: none;
+    /* display: none;
+    visibility: hidden; */
 }
 .ButtonHolder{
     display: flex;

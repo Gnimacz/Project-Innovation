@@ -67,7 +67,7 @@ function HandleCommand(data) {
                     selectCharacter = false;
                     document.getElementById("select_btn").innerHTML = "Select";
                     // document.getElementById("CharacterAll").style.color = rgb(255, 255, 255);
-                    document.getElementById("CharacterAll").style.backgroundColor = 'rgb(0,0,0)';
+                    document.getElementById("CharacterAll").style.backgroundColor = ogColor;
                     // alert("MainMenu");
                     ExitFullScreen();
                     IosExitFullScreen();
