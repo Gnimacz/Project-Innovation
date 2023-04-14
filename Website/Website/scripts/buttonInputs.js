@@ -6,7 +6,8 @@ var finalMessage = "",
   directionX = 0.0,
   directionY = 0.0,
   directionEnum = "Right",
-  characterSelected = 0;
+  characterSelected = 0,
+  characterColor;
 
 let serverState = {
   MainMenu: "MainMenu",

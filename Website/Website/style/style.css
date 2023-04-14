@@ -159,8 +159,8 @@ button{
     position: absolute;
     top: 150px;
     right: 0;
-    /* display: none;
-    visibility: hidden; */
+    background-color: rgba(11, 146, 188, 0.911);
+    /* visibility: hidden;  */
 }
 .ButtonHolder{
     display: flex;

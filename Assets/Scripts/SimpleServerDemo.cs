@@ -39,7 +39,7 @@ public class SimpleServerDemo : MonoBehaviour
 
     private bool attackHeld = false;
     private bool jumpHeld = false;
-    
+
     #region events
     public delegate void MessageReceived(string message);
     public static MessageReceived OnMessageReceived;
@@ -167,7 +167,7 @@ public class SimpleServerDemo : MonoBehaviour
                 {
                     Debug.LogWarning("Game has started!");
                     WebSocketConnection tempWS = listener.AcceptConnection(OnPacketReceive);
-                    if(clientInfoList.Count >= MaxPlayerCount) tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game is full!")));
+                    if (clientInfoList.Count >= MaxPlayerCount) tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game is full!")));
                     else tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game has started!")));
                 }
                 catch (System.Exception)
@@ -176,11 +176,21 @@ public class SimpleServerDemo : MonoBehaviour
                     continue;
                 }
             }
+            try
+            {
+                WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
+                clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
+                Color playerColor = PlayerColors.colors[currentId];
+                ws.Send(new NetworkPacket(Encoding.UTF8.GetBytes("setColor " + playerColor.r.ToString() + " " + playerColor.g.ToString() + " " + playerColor.b.ToString() + " " + playerColor.a.ToString())));
+                InputEvents.ClientConnected?.Invoke(this, currentId);
 
-            WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
-            clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
-            InputEvents.ClientConnected?.Invoke(this, currentId);
-            currentId++;
+                currentId++;
+            }
+            catch (Exception)
+            {
+                continue;
+            }
+
         }
     }
 
@@ -190,7 +200,18 @@ public class SimpleServerDemo : MonoBehaviour
         {
             if (clientInfoList[i].Item1.Status == ConnectionStatus.Connected)
             {
-                clientInfoList[i].Item1.Update();
+                try
+                {
+                    clientInfoList[i].Item1.Update();
+                }
+                catch (Exception)
+                {
+                    clientInfoList.RemoveAt(i);
+                    InputEvents.ClientDisconnected?.Invoke(this, clientInfoList[i].Item2);
+                    Console.WriteLine("Removing disconnected client. #active clients: {0}", clientInfoList.Count);
+                    i--;
+                    continue;
+                }
             }
             else
             {
@@ -300,7 +321,7 @@ public class SimpleServerDemo : MonoBehaviour
             ChangeSelectedState(ServerState.Game);
         }
 
-        
+
     }
     void GameplayInputs(string[] input, int id)
     {

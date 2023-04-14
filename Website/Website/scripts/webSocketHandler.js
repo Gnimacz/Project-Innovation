@@ -58,6 +58,16 @@ function HandleCommand(data) {
         case 'vibrate':
             PlayerHurt();
             break;
+        case "setColor":
+            const r = Math.round(parseFloat(command[1]) * 255);
+            const g = Math.round(parseFloat(command[2]) * 255);
+            const b = Math.round(parseFloat(command[3]) * 255);
+            const a = Math.round(parseFloat(command[4]) * 255);
+            characterColor = `rgb(${r}, ${g}, ${b})`;
+            document.getElementById("CharacterAll").style.backgroundColor = characterColor;
+            document.getElementById("Inputs").style.backgroundColor = characterColor;
+            // console.log(characterColor);
+            break;
         case "state":
             switch (command[1]) {
                 case "MainMenu":

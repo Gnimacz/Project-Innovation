@@ -1,6 +1,7 @@
 let selectCharacter = false;
 let selectedCharacter = 0;
-var ogColor = document.getElementById("CharacterAll").style.backgroundColor;
+// var ogColor = document.getElementById("CharacterAll").style.backgroundColor;
+var ogColor = characterColor;
 
 let infoCard = document.getElementById("character_info");
 let charPic = document.getElementById("character_card");
