@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 using WebSockets;
@@ -14,20 +15,23 @@ public class FighterManager : MonoBehaviour
     public Vector4 screenBounds = Vector4.zero;
 
     #region delegates
-    public delegate void FighterHurt(Vector3 attackerPosition, GameObject fighter, int damage);
+    public delegate void FighterHurt(GameObject attacker, GameObject victim, int damage);
     public static FighterHurt OnFighterHurt;
 
     public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
     public static onFighterSpawned fighterSpawned;
     #endregion
 
-    void FighterWasHurt(Vector3 attackerPosition, GameObject fighter, int damage)
+    void FighterWasHurt(GameObject attacker, GameObject victim, int damage)
     {
         //TODO(PM): remove debug log statement
-        Debug.LogWarning("Fighter " + fighter + " was hurt for " + damage + " damage!");
 
-        activeFighters[fighter].GetHit(attackerPosition, damage);
-        SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[fighter].playerId);
+        if (attacker == victim) return;
+
+        Debug.LogWarning("Fighter " + victim + " was hurt for " + damage + " damage!");
+        
+        activeFighters[victim].GetHit(attacker.transform.position, damage);
+        SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[victim].playerId);
     }
 
     // Start is called before the first frame update
