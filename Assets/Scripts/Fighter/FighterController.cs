@@ -7,7 +7,7 @@ public class FighterController : MonoBehaviour
 {
     public Animator animator;
     [NonSerialized]
-    Rigidbody rb;
+    public Rigidbody rb;
     SfxPlayer sfx;
     [NonSerialized]
     public FighterValues values;

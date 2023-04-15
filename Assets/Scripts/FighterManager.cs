@@ -13,6 +13,10 @@ public class FighterManager : MonoBehaviour
 
     [Header("Screen Bounds")]
     public Vector4 screenBounds = Vector4.zero;
+    [Header("Fighter Spawn Points")]
+    List<Vector3> SpawnPositions = new List<Vector3>();
+    [Header("Hit Stop Time")]
+    public float hitStopTime = 0.1f;
 
     #region delegates
     public delegate void FighterHurt(GameObject attacker, GameObject victim, int damage);
@@ -34,9 +38,10 @@ public class FighterManager : MonoBehaviour
         //TODO(PM): remove debug log statement
 
         if (attacker == victim) return;
+        HitStop(attacker, victim, damage);
 
         Debug.LogWarning("Fighter " + victim + " was hurt for " + damage + " damage!");
-        
+
         activeFighters[victim].GetHit(attacker.transform.position, damage);
         SimpleServerDemo.SendMessageToClient?.Invoke("vibrate", activeFighters[victim].playerId);
     }
@@ -124,7 +129,7 @@ public class FighterManager : MonoBehaviour
         Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.y, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.w, 0));
         Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.w, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.y, 0));
     }
-    
+
     //kill the fighter if it's outside the screen bounds
     void Update()
     {
@@ -143,7 +148,7 @@ public class FighterManager : MonoBehaviour
             }
         }
 
-        if(activeFighters.Count == 1)
+        if (activeFighters.Count == 1)
         {
             KeyValuePair<GameObject, FighterController> test = activeFighters.First();
             int idOfFighterWon = test.Value.playerId;
@@ -176,4 +181,29 @@ public class FighterManager : MonoBehaviour
             activeFighters[fighter].enabled = true;
         }
     }
+
+    //Functions for hitstop between two fighters
+    public void HitStop(GameObject fighter1, GameObject fighter2, int damage)
+    {
+        StartCoroutine(HitStopCoroutine(activeFighters[fighter1], activeFighters[fighter2]));
+    }
+    IEnumerator HitStopCoroutine(FighterController fighter1, FighterController fighter2)
+    {
+        fighter1.rb.constraints = RigidbodyConstraints.FreezeAll;
+        fighter1.animator.enabled = false;
+        fighter2.rb.constraints = RigidbodyConstraints.FreezeAll;
+        fighter2.animator.enabled = false;
+        yield return new WaitForSecondsRealtime(hitStopTime * fighter2.health / 10f);
+        fighter1.animator.enabled = true;
+        fighter1.rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        
+        fighter2.animator.enabled = true;
+        fighter2.rb.constraints = RigidbodyConstraints.FreezePositionZ;
+        fighter2.rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        fighter2.rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+    }
+
+
 }

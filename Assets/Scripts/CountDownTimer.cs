@@ -17,7 +17,7 @@ public class CountDownTimer : MonoBehaviour
 
     IEnumerator Countdown()
     {
-        yield return new WaitForSeconds(1.0f); // Add a delay of 1 second before starting the countdown
+        yield return new WaitForSeconds(0.2f); // Add a delay of 1 second before starting the countdown
         FighterManager.disableAllFighterInputs?.Invoke();
 
         for (int i = (int)countdownTime; i >= 1; i--)

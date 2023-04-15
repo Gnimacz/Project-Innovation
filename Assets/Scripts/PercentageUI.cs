@@ -29,7 +29,7 @@ public class PercentageUI : MonoBehaviour
     //GameObject attacker, GameObject victim, int damage
     void OnFighterHurt(GameObject attacker, GameObject fighter, int damage)
     {
-        if (fighter.GetComponent<FighterController>().playerId != attachedFighterId) return;
+        if (fighter.GetComponent<FighterController>().playerId != attachedFighterId || attacker == fighter) return;
 
         LeanTween.rotateZ(percentageText.gameObject, Random.value * damage, 0.05f)
             .setOnComplete(() =>
