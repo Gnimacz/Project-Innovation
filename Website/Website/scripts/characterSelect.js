@@ -9,13 +9,13 @@ let charPic = document.getElementById("character_card");
 var currentChar = 0;
 
 var img1 = document.createElement("img");
-img1.src = "./images/Taco.png";
+img1.src = "./images/Taco ch.png";
 
 var img2 = document.createElement("img");
-img2.src = "./images/Ruben.png";
+img2.src = "./images/Ruben Ch.png";
 
 var img3 = document.createElement("img");
-img3.src = "./images/Ruben.png";
+img3.src = "./images/Joeri ch.png";
 
 var charInfo1 = "Very yummy";
 var charInfo2 = "Beep boop";
