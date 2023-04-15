@@ -20,6 +20,13 @@ public class FighterManager : MonoBehaviour
 
     public delegate void onFighterSpawned(GameObject fighter, FighterController fighterController);
     public static onFighterSpawned fighterSpawned;
+
+    public delegate void DisableAllFighterInputs();
+    public static DisableAllFighterInputs disableAllFighterInputs;
+    public delegate void EnableAllFighterInputs();
+    public static EnableAllFighterInputs enableAllFighterInputs;
+    public delegate void PlayerWon(int id);
+    public static PlayerWon OnPlayerWon;
     #endregion
 
     void FighterWasHurt(GameObject attacker, GameObject victim, int damage)
@@ -38,6 +45,9 @@ public class FighterManager : MonoBehaviour
     void Start()
     {
         OnFighterHurt += FighterWasHurt;
+
+        disableAllFighterInputs += DisableAllInputs;
+        enableAllFighterInputs += EnableAllInputs;
     }
 
     void Awake()
@@ -90,15 +100,17 @@ public class FighterManager : MonoBehaviour
     public void RemoveFighter(int fighterId)
     {
         Debug.LogWarning("Removing fighter with id: " + fighterId);
+        Dictionary<GameObject, FighterController> newFighterHolder = activeFighters;
         foreach (GameObject fighter in activeFighters.Keys)
         {
             if (activeFighters[fighter].playerId == fighterId)
             {
-                activeFighters.Remove(fighter);
+                newFighterHolder.Remove(fighter);
                 Destroy(fighter);
                 break;
             }
         }
+        activeFighters = newFighterHolder;
 
     }
 
@@ -112,6 +124,7 @@ public class FighterManager : MonoBehaviour
         Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.y, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.w, 0));
         Gizmos.DrawLine(new Vector3(transform.position.x + screenBounds.x, transform.position.y + screenBounds.w, 0), new Vector3(transform.position.z + screenBounds.z, transform.position.y + screenBounds.y, 0));
     }
+    
     //kill the fighter if it's outside the screen bounds
     void Update()
     {
@@ -122,7 +135,21 @@ public class FighterManager : MonoBehaviour
             {
                 activeFighters[fighter].transform.position = transform.position;
                 activeFighters[fighter].values.lives--;
+                if (activeFighters[fighter].values.lives <= 0)
+                {
+                    RemoveFighter(activeFighters[fighter].playerId);
+                    break;
+                }
             }
+        }
+
+        if(activeFighters.Count == 1)
+        {
+            KeyValuePair<GameObject, FighterController> test = activeFighters.First();
+            int idOfFighterWon = test.Value.playerId;
+            OnPlayerWon?.Invoke(idOfFighterWon);
+            disableAllFighterInputs?.Invoke();
+            RemoveFighter(idOfFighterWon);
         }
     }
     bool IsFighterWithinScreenBounds(FighterController fighter)
@@ -133,5 +160,20 @@ public class FighterManager : MonoBehaviour
             && (fighter.transform.position.y > transform.position.y + screenBounds.w));
         //Vector3 screenPos = Camera.main.WorldToScreenPoint(fighter.transform.position);
         //return screenPos.x > screenBounds.x && screenPos.x < screenBounds.z && screenPos.y > screenBounds.y && screenPos.y < screenBounds.w;
+    }
+
+    public void DisableAllInputs()
+    {
+        foreach (GameObject fighter in activeFighters.Keys)
+        {
+            activeFighters[fighter].enabled = false;
+        }
+    }
+    public void EnableAllInputs()
+    {
+        foreach (GameObject fighter in activeFighters.Keys)
+        {
+            activeFighters[fighter].enabled = true;
+        }
     }
 }

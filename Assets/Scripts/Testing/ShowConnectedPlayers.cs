@@ -6,6 +6,9 @@ using TMPro;
 public class ShowConnectedPlayers : MonoBehaviour
 {
     TextMeshProUGUI playerCount;
+    public RichTextTagAttribute richTextTagAttribute;
+    public string text;
+
     void Start()
     {
         playerCount = GetComponent<TextMeshProUGUI>();
@@ -14,6 +17,6 @@ public class ShowConnectedPlayers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerCount.text = "Connected Players: " + SimpleServerDemo.instance.clientInfoList.Count + "/" + SimpleServerDemo.instance.MaxPlayerCount;
+        playerCount.text = SimpleServerDemo.instance.clientInfoList.Count + "/" + SimpleServerDemo.instance.MaxPlayerCount + " players connected";
     }
 }
