@@ -26,8 +26,8 @@ public class PercentageUI : MonoBehaviour
     {
         FighterManager.OnFighterHurt += OnFighterHurt;
     }
-    
-    void OnFighterHurt(Vector3 attackerPosition, GameObject fighter, int damage)
+    //GameObject attacker, GameObject victim, int damage
+    void OnFighterHurt(GameObject attacker, GameObject fighter, int damage)
     {
         if (fighter.GetComponent<FighterController>().playerId != attachedFighterId) return;
 
