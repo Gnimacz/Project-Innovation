@@ -9,6 +9,8 @@ var button = document.getElementById("jump");
 var output = document.getElementById("output");
 console.log(output);
 
+var currentServerState = serverState.MainMenu;
+
 // http://www.websocket.org/echo.html
 websocket.onopen = function (e) {
     writeToScreen("CONNECTED");
@@ -56,13 +58,30 @@ function HandleCommand(data){
         case 'vibrate':
             PlayerHurt();
             break;
-        case "set":
+        case "state":
             switch(command[1]){
-                case "fullscreen":
-                    FullScreen();
+                case "MainMenu":
+                    currentServerState = serverState.MainMenu;
+                    console.log("MainMenu");
+                    // alert("MainMenu");
+                    // ExitFullScreen();
                     break;
-                case "exitfullscreen":
-                    ExitFullScreen();
+                case "CharacterSelect":
+                    currentServerState = serverState.CharacterSelect;
+                    console.log("CharacterSelect");
+                    // IosCharacterSelector();
+                    // alert("CharacterSelect");
+                    break;
+                case "Game":
+                    currentServerState = serverState.Game;
+                    console.log("Game");
+                    // alert("Game");
+                    // FullScreen();
+                    break;
+                case "EndGame":
+                    currentServerState = serverState.GameOver;
+                    console.log("EndGame");
+                    // alert("EndGame");
                     break;
             }
             break;

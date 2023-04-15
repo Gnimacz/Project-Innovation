@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class SfxPlayer : MonoBehaviour
 {
-    public AudioClip[] punchSounds;
+    public AudioClip[] LightpunchSounds;
+    public AudioClip[] HeavyPunchSounds;
     public AudioClip[] jumpSounds;
+    public AudioClip[] DamageSounds;
 
     AudioSource audioSource;
     
-    public void PlayPunchSound()
+    public void PlaylightPunchSound()
     {
-        audioSource.PlayOneShot(punchSounds[Random.Range(0, punchSounds.Length)]);
+        if(LightpunchSounds.Length < 1) return;
+        audioSource.PlayOneShot(LightpunchSounds[Random.Range(0, LightpunchSounds.Length)]);
     }
 
     public void PlayJumpSound()
     {
+        if(jumpSounds.Length < 1) return;
         audioSource.PlayOneShot(jumpSounds[Random.Range(0, jumpSounds.Length)]);
     }
+
+    public void PlayHeavyPunchSound()
+    {
+        if(HeavyPunchSounds.Length < 1) return;
+        audioSource.PlayOneShot(HeavyPunchSounds[Random.Range(0, HeavyPunchSounds.Length)]);
+    }
+
+    public void PlayDamageSounds(){
+        if(DamageSounds.Length < 1) return;
+        audioSource.PlayOneShot(DamageSounds [Random.Range(0, DamageSounds.Length)]);
+    }
+    
     
     // Start is called before the first frame update
     void Start()

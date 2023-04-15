@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class FighterController : MonoBehaviour
 {
-    Animator animator;
+    public Animator animator;
+    [NonSerialized]
     Rigidbody rb;
     SfxPlayer sfx;
-    FighterValues values;
+    public FighterValues values;
     public Transform feet;
     [NonSerialized]
     public int playerId;
@@ -22,7 +23,7 @@ public class FighterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = transform.GetComponent<Animator>();
+        //animator = transform.GetComponent<Animator>();
         rb = transform.GetComponent<Rigidbody>();
         sfx = transform.GetComponent<SfxPlayer>();
         values = transform.GetComponent<FighterValues>();
@@ -47,7 +48,7 @@ public class FighterController : MonoBehaviour
         if (IsOnFloor() && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
             usedUpAttack = false;
         
-        // the player has no input while stunned
+        // the player has no input while stunned or blocking
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Movement.Stunned"))
         {
             //overrider horizontal velocity when on ground so player doesn't slide
@@ -60,9 +61,13 @@ public class FighterController : MonoBehaviour
             }
             else
             {
-                //player input
-                if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
-                    rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+                //no moving while blocking
+                if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block"))
+                {
+                    //player input
+                    if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
+                        rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+                }
             }
             
         }
@@ -71,8 +76,11 @@ public class FighterController : MonoBehaviour
 
     public void GetHit(Vector3 from, int damage)
     {
+        //don't get hit while blovking
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block")) return;
+        
         health += damage;
-        sfx.PlayPunchSound();
+        sfx.PlayDamageSounds();
 
         Vector3 knockbackDirection = (transform.position - from).normalized;
         Vector3 knockback = knockbackDirection * values.knockbackPower * (health == 0 ? 0 : health / 100f);
@@ -105,10 +113,17 @@ public class FighterController : MonoBehaviour
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Ready")) return;
 
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Neutral)
+        {
             animator.SetTrigger("LightAttack");
+            sfx.PlaylightPunchSound();
+        }
+            
         
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Left || inputDirection == DirectionalEventArgs.JoystickAngle.Right)
+        {
             animator.SetTrigger("HeavyAttack");
+            sfx.PlayHeavyPunchSound();
+        }
         
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && IsOnFloor())
             animator.SetTrigger("Block");
@@ -129,7 +144,8 @@ public class FighterController : MonoBehaviour
         if (inputArgs.PlayerId != playerId) return;
         joyInput = inputArgs.JoystickPosition;
         inputDirection = inputArgs.JoystickDirection;
-
+        //Null check for the animator
+        if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Ready")) return;
         //we don't want to rotate the player if they are in an attack
         if(joyInput.x > 0)
