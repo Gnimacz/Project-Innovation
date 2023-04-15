@@ -48,9 +48,26 @@ public class CardSpawner : MonoBehaviour
 
     void SpawnCard(int playerId, int characterId)
     {
-        //GameObject card = Instantiate(cardPrefab, cardHolder);
-        GameObject card = Instantiate(cardList[characterId], cardHolder);
-        card.GetComponent<PlayerCardValueSetter>().playerText.text = "Player " + (playerId + 1);
+        GameObject card = Instantiate(cardPrefab, cardHolder);
+        //GameObject card = Instantiate(cardList[characterId], cardHolder);
+        PlayerCardValueSetter cardValueSetter = card.GetComponent<PlayerCardValueSetter>();
+        cardValueSetter.playerText.text = "Player " + (playerId + 1);
+        cardValueSetter.yuriImage.SetActive(false);
+        cardValueSetter.rubenImage.SetActive(false);
+        cardValueSetter.tacoImage.SetActive(false);
+        switch (characterId)
+        {
+            case 0:
+                cardValueSetter.yuriImage.SetActive(true);
+                break;
+            case 1:
+                cardValueSetter.rubenImage.SetActive(true);
+                break;
+            case 2:
+                cardValueSetter.tacoImage.SetActive(true);
+                break;
+        }
+
         cards.Add(playerId, new Tuple<int, GameObject>(characterId, card));
 
     }

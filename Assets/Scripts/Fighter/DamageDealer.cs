@@ -2,14 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class DamageDealer : MonoBehaviour
 {
     public int damage = 10;
+    [SerializeField] private VisualEffect VFXToPlay;
     
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogError("FIGHTER WAS HIT");
         FighterManager.OnFighterHurt?.Invoke(transform.position, other.gameObject, damage);
+        if (VFXToPlay == null) return;
+        VFXToPlay.Play();
     }
 }
