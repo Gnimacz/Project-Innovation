@@ -190,6 +190,7 @@ MonoBehaviour:
   animator: {fileID: 3863139385749537822}
   feet: {fileID: 7037896233821158479}
   attacker: {fileID: 0}
+  health: 0
 --- !u!114 &6988204174179928432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,6 +906,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3341768094514661914, guid: ec09b3f60e9e57233a47821339d3e88c,
+        type: 3}
+      propertyPath: VFXToPlay
+      value: 
+      objectReference: {fileID: 5730214070582226546}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec09b3f60e9e57233a47821339d3e88c, type: 3}
 --- !u!111 &1451788955460007587 stripped
@@ -1409,17 +1415,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animations: {fileID: 1451788955460007587}
---- !u!114 &3665959187120774549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5322050007977427198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b79832def9f2f1e4295668f4702f28f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VFX: {fileID: 5730214070582226546}
-  Character: {fileID: 5322050007977427198}

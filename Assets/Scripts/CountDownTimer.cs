@@ -5,7 +5,7 @@ using TMPro;
 
 public class CountDownTimer : MonoBehaviour
 {
-    public float countdownTime = 4.0f; // Time in seconds for countdown, including "GO!"
+    public float countdownTime = 3.0f; // Time in seconds for countdown, including "GO!"
     public float fadeDuration = 0.2f; // Time in seconds for fade animation
     private TextMeshProUGUI countdownText; // TextMeshPro object to display countdown
 
@@ -18,8 +18,9 @@ public class CountDownTimer : MonoBehaviour
     IEnumerator Countdown()
     {
         yield return new WaitForSeconds(1.0f); // Add a delay of 1 second before starting the countdown
+        FighterManager.disableAllFighterInputs?.Invoke();
 
-        for (int i = 3; i >= 1; i--)
+        for (int i = (int)countdownTime; i >= 1; i--)
         {
             countdownText.text = i.ToString();
             countdownText.alpha = 1.0f;
@@ -46,6 +47,7 @@ public class CountDownTimer : MonoBehaviour
 
         // Hide or disable the countdown timer
         countdownText.enabled = false;
+        FighterManager.enableAllFighterInputs?.Invoke();
     }
 
    

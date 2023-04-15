@@ -30,10 +30,10 @@ body{
     display: none;
     visibility: hidden;
 } */
-.Inputs:not(:fullscreen) {
+/* .Inputs:not(:fullscreen) {
     display: none; 
     visibility: hidden;
-}
+} */
 .Inputs{
     
     display: flex;
@@ -120,12 +120,29 @@ button{
     position: absolute;
     top: 0;
     right: 0;
-    display: none;
+    /* display: none;
+    visibility: hidden; */
 }
 
-#character_select:not(:fullscreen){
+/* #character_select:not(:fullscreen){
     visibility: hidden;
     display: none;
+} */
+
+#character_select{
+    position:fixed;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    overflow:hidden;
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: burlywood;
 }
 
 #char_select{
@@ -142,9 +159,17 @@ button{
     position: absolute;
     top: 150px;
     right: 0;
-    display: none;
+    background-color: rgba(11, 146, 188, 0.911);
+    /* visibility: hidden;  */
 }
-
+.ButtonHolder{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
 #main_menu_btn{
     background-color: #ef0000;
     border: 1px solid #ffffff;
@@ -153,12 +178,14 @@ button{
     font-size: 12px;
     height: 20%;
     width: 20%;
-    margin: 5px;
+    /* margin: 5px; */
     padding: 0;
     border-radius: 10px;
-    position: absolute;
-    top: 0px;
-    right: 0;
+    /* justify-self: center; */
+    /* position: absolute; */
+    /* top: 50%; */
+    /* right: 50%; */
+    /* display: none; */
 }
 
 #main_menu:not(:fullscreen){
@@ -180,6 +207,8 @@ button{
     position: absolute;
     top: 0;
     right: 10%;
+    display:none;
+    visibility: hidden;
 }
 
 .exit_char{
@@ -194,6 +223,8 @@ button{
     padding: 0;
     border-radius: 10px;
     position: absolute;
+    display: none;
+    visibility: hidden;
 }
 
 .CharacterAll{

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ShieldShader
+  m_Name: Shader Graphs_ShieldShader 1
   m_Shader: {fileID: -6465566751694194690, guid: e447ba47b6933fa45b76cce8633bb7c4,
     type: 3}
   m_ValidKeywords: []
@@ -22,7 +22,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTexture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 2a56dfa99f536794cbe1819dcc62eb6e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -39,13 +39,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _FresnelPower: 3.47
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _BackColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FrontColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BackColor: {r: 0.03039216, g: 0.02843137, b: 0.05784314, a: 0.7019608}
+    - _FresnelColor: {r: 7.999999, g: 0, b: 6.324607, a: 1}
+    - _FrontColor: {r: 0.7092809, g: 8.07344, b: 11.56673, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2923497680363363294
+--- !u!114 &3568334522348769512
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
