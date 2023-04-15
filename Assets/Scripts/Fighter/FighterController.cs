@@ -9,11 +9,14 @@ public class FighterController : MonoBehaviour
     [NonSerialized]
     Rigidbody rb;
     SfxPlayer sfx;
+    [NonSerialized]
     public FighterValues values;
     public Transform feet;
     [NonSerialized]
     public int playerId;
-    
+
+    public Attacker attacker; //TODO: temporary, remove when up and down attack animations are implemented
+
     bool usedDoubleJump = false;
     bool usedUpAttack = false;
     Vector2 joyInput;
@@ -127,14 +130,18 @@ public class FighterController : MonoBehaviour
         
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && IsOnFloor())
             animator.SetTrigger("Block");
-        
+
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && !IsOnFloor())
+        {
             animator.SetTrigger("DownAttack");
+            attacker.DoDownAttack();//TODO: temporary, remove when up and down attack animations are implemented
+        }
 
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Up && !usedUpAttack)
         {
             animator.SetTrigger("UpAttack");
             usedUpAttack = true;
+            attacker.DoUpAttack();//TODO: temporary, remove when up and down attack animations are implemented
         }
         
     }
