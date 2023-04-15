@@ -85,7 +85,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3111871020522126275}
-  - component: {fileID: 4092713053695732656}
   m_Layer: 5
   m_Name: Player card
   m_TagString: Untagged
@@ -118,9 +117,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -26}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
-<<<<<<< HEAD:Assets/Prefabs/UIPrefabs/CharacterCards/Player card.prefab
---- !u!114 &4092713053695732656
-=======
 --- !u!1 &4270578465485243108
 GameObject:
   m_ObjectHideFlags: 0
@@ -168,21 +164,11 @@ CanvasRenderer:
   m_GameObject: {fileID: 4270578465485243108}
   m_CullTransparentMesh: 1
 --- !u!114 &8921237314310202849
->>>>>>> Natas-computer-Ui:Assets/Prefabs/Player card.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/Prefabs/UIPrefabs/CharacterCards/Player card.prefab
-  m_GameObject: {fileID: 4138681401414801862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be3a5efd295dfc14a8620d2997a16a2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerText: {fileID: 7950682285582578089}
-=======
   m_GameObject: {fileID: 4270578465485243108}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -207,7 +193,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
->>>>>>> Natas-computer-Ui:Assets/Prefabs/Player card.prefab
 --- !u!1 &4488048819371315836
 GameObject:
   m_ObjectHideFlags: 0
