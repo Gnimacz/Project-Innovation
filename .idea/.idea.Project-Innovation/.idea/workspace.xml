@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-AnimationController.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-AnimationController.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Characters/Ruban/Animations Ruban/Down attack/Ruban-Breakdance 1990 (Down Attack).anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Ruban/Animations Ruban/Down attack/Ruban-Breakdance 1990 (Down Attack).anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Characters/Taco/Animations Taco/Down attack/Taco-Breakdance.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Taco/Animations Taco/Down attack/Taco-Breakdance.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Characters/Taco/Animations Taco/Up attack/Taco-Back flip Uppercut.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Taco/Animations Taco/Up attack/Taco-Back flip Uppercut.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Characters/Yuri/Animations/Down attack/Yuri-Breakdace1990(Down attack).anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Yuri/Animations/Down attack/Yuri-Breakdace1990(Down attack).anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputEvents.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputEvents.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

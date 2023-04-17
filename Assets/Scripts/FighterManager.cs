@@ -67,8 +67,8 @@ public class FighterManager : MonoBehaviour
     {
         if (SimpleServerDemo.instance.clientInfoList.Count < 1)
         {
-            SpawnFighter(null, 0);
-            SpawnFighter(null, 1);
+            SpawnFighter(0, 1);
+            SpawnFighter(1, 2);
             Debug.LogWarning("No Connections found, assuming test scenario. Spawning fighters from awake");
             return;
         }
