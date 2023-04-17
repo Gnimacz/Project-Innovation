@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using System.Linq;
 using UnityEngine.SceneManagement;
 
 using System.Text;
@@ -36,7 +36,6 @@ public class SimpleServerDemo : MonoBehaviour
     public List<Tuple<WebSocketConnection, int, int>> clientInfoList;
     public List<WebSocketConnection> faultyClients = new List<WebSocketConnection>();
     public List<int> readyClients;
-    int currentId = 0;
     WebsocketListener listener;
 
     private bool attackHeld = false;
@@ -181,12 +180,11 @@ public class SimpleServerDemo : MonoBehaviour
                 }
 
                 WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
-                clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
-                Color playerColor = PlayerColors.colors[currentId];
+                int newID = GetUniqueId();
+                clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, newID, 0));
+                Color playerColor = PlayerColors.colors[newID];
                 ws.Send(new NetworkPacket(Encoding.UTF8.GetBytes("setColor " + playerColor.r.ToString() + " " + playerColor.g.ToString() + " " + playerColor.b.ToString() + " " + playerColor.a.ToString())));
-                InputEvents.ClientConnected?.Invoke(this, currentId);
-
-                currentId++;
+                InputEvents.ClientConnected?.Invoke(this, newID);
             }
             catch(Exception e)
             {
@@ -371,4 +369,16 @@ public class SimpleServerDemo : MonoBehaviour
         jumpHeld = JumpButtonPressed == 0 ? false : true;
         attackHeld = AttackButtonPressed == 0 ? false : true;
     }
+
+    int GetUniqueId()
+    {
+        int newID = 0;
+        while (clientInfoList.Where(x => x.Item2 == newID).Count() > 0)
+        {
+            newID += 1;
+        }
+
+        return newID;
+    }
+    
 }

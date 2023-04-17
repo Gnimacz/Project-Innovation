@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Attacker.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Attacker.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-Prefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-Prefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterValues.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterValues.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SimpleServerDemo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SimpleServerDemo.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +117,7 @@
       <workItem from="1681208147606" duration="875000" />
       <workItem from="1681209158423" duration="2491000" />
       <workItem from="1681321081526" duration="8764000" />
-      <workItem from="1681727202791" duration="3117000" />
+      <workItem from="1681727202791" duration="4503000" />
     </task>
     <servers />
   </component>
