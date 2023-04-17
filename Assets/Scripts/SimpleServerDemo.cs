@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 using System.Text;
 using WebSockets;
+using System.Net.Sockets;
 
 public class SimpleServerDemo : MonoBehaviour
 {
@@ -33,6 +34,7 @@ public class SimpleServerDemo : MonoBehaviour
     /// This list is publically accessible to other scripts
     /// </summary>
     public List<Tuple<WebSocketConnection, int, int>> clientInfoList;
+    public List<WebSocketConnection> faultyClients = new List<WebSocketConnection>();
     public List<int> readyClients;
     int currentId = 0;
     WebsocketListener listener;
@@ -90,6 +92,13 @@ public class SimpleServerDemo : MonoBehaviour
 
         // Process current connections (this may lead to a callback to OnPacketReceive):
         ProcessCurrentClients();
+
+        if (serverState == ServerState.MainMenu)
+        {
+            // Process faulty connections
+            RemoveFaultyClients();
+        }
+
 
         if (clientInfoList.Count < 1)
         {
@@ -161,23 +170,16 @@ public class SimpleServerDemo : MonoBehaviour
         listener.Update();
         while (listener.Pending())
         {
-            if (serverState != ServerState.MainMenu || clientInfoList.Count >= MaxPlayerCount)
+            try
             {
-                try
+                if (serverState != ServerState.MainMenu || clientInfoList.Count >= MaxPlayerCount)
                 {
-                    Debug.LogWarning("Game has started!");
                     WebSocketConnection tempWS = listener.AcceptConnection(OnPacketReceive);
                     if (clientInfoList.Count >= MaxPlayerCount) tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game is full!")));
                     else tempWS.Send(new NetworkPacket(Encoding.UTF8.GetBytes("Game has started!")));
+
                 }
-                catch (System.Exception)
-                {
-                    //Debug.LogError(e);
-                    continue;
-                }
-            }
-            try
-            {
+
                 WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
                 clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
                 Color playerColor = PlayerColors.colors[currentId];
@@ -186,11 +188,10 @@ public class SimpleServerDemo : MonoBehaviour
 
                 currentId++;
             }
-            catch (Exception)
+            catch(Exception e)
             {
-                continue;
+                //Debug.LogWarning("Error accepting new client: " + e.Message);
             }
-
         }
     }
 
@@ -200,27 +201,47 @@ public class SimpleServerDemo : MonoBehaviour
         {
             if (clientInfoList[i].Item1.Status == ConnectionStatus.Connected)
             {
-                try
-                {
-                    clientInfoList[i].Item1.Update();
-                }
-                catch (Exception)
-                {
-                    clientInfoList.RemoveAt(i);
-                    InputEvents.ClientDisconnected?.Invoke(this, clientInfoList[i].Item2);
-                    Console.WriteLine("Removing disconnected client. #active clients: {0}", clientInfoList.Count);
-                    i--;
-                    continue;
-                }
+                clientInfoList[i].Item1.Update();
             }
             else
             {
-                clientInfoList.RemoveAt(i);
-                InputEvents.ClientDisconnected?.Invoke(this, clientInfoList[i].Item2);
-                Console.WriteLine("Removing disconnected client. #active clients: {0}", clientInfoList.Count);
-                i--;
+                Debug.LogWarning("CLIENT NOT CONNECTED, MARKED AS FAULTY");
+                MarkFaulty(clientInfoList[i].Item1);
             }
         }
+    }
+
+    void RemoveFaultyClients()
+    {
+        foreach (Tuple<WebSocketConnection, int, int> connectionToCheck in clientInfoList)
+        {
+            try
+            {
+                connectionToCheck.Item1.Send(new NetworkPacket(Encoding.UTF8.GetBytes("alive")));
+            }
+            catch (Exception)
+            {
+                MarkFaulty(connectionToCheck.Item1);
+            }
+        }
+        if (faultyClients.Count == 0) return;
+        foreach (WebSocketConnection connection in faultyClients)
+        {
+            Tuple<WebSocketConnection, int, int> clientInfo = clientInfoList.Find(x => x.Item1 == connection);
+            InputEvents.ClientDisconnected?.Invoke(this, clientInfo.Item2);
+            clientInfoList.Remove(clientInfo);
+            Console.WriteLine("Removing faulty client. #active clients: {0}", clientInfoList.Count);
+        }
+        faultyClients.Clear();
+    }
+    void MarkFaulty(WebSocketConnection faultyClient)
+    {
+        if (faultyClients.Contains(faultyClient)) return;
+        faultyClients.Add(faultyClient);
+    }
+    void MarkFaulty(int id)
+    {
+        MarkFaulty(clientInfoList.Find(x => x.Item2 == id).Item1);
     }
 
     #region irrelevant functions
@@ -269,21 +290,28 @@ public class SimpleServerDemo : MonoBehaviour
     //invoke the appropriate input events
     void InvokeInputEvent(string input, int id)
     {
-        string[] splitInput = input.Split(' ');
-
-        switch (serverState)
+        try
         {
-            case ServerState.CharacterSelect:
-                CharacterSelectionInputs(splitInput, id);
-                break;
-            case ServerState.Game:
-                GameplayInputs(splitInput, id);
-                break;
-            case ServerState.MainMenu:
-                MainMenuInputs(splitInput, id);
-                break;
-            default:
-                break;
+
+            string[] splitInput = input.Split(' ');
+
+            switch (serverState)
+            {
+                case ServerState.CharacterSelect:
+                    CharacterSelectionInputs(splitInput, id);
+                    break;
+                case ServerState.Game:
+                    GameplayInputs(splitInput, id);
+                    break;
+                case ServerState.MainMenu:
+                    MainMenuInputs(splitInput, id);
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch
+        {
         }
     }
 

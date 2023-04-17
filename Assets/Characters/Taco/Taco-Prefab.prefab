@@ -188,6 +188,7 @@ MonoBehaviour:
   upwardKnockbackMultiplier: 0.5
   knockbackPower: 10
   upAttackSpeed: 5
+  heavyAttackDashPower: 7
   lives: 3
 --- !u!82 &421469979879089850
 AudioSource:
