@@ -16,8 +16,6 @@ public class FighterController : MonoBehaviour
     public int playerId;
     public int selectedCharacterId = 0;
 
-    public Attacker attacker; //TODO: temporary, remove when up and down attack animations are implemented
-
     bool usedDoubleJump = false;
     bool usedHeavyAttack = false;
     bool usedUpAttack = false;
@@ -152,14 +150,12 @@ public class FighterController : MonoBehaviour
         if (inputDirection == DirectionalEventArgs.JoystickAngle.down && !IsOnFloor())
         {
             animator.SetTrigger("DownAttack");
-            attacker.DoDownAttack();//TODO: temporary, remove when up and down attack animations are implemented
         }
 
         if (inputDirection == DirectionalEventArgs.JoystickAngle.up && !usedUpAttack)
         {
             animator.SetTrigger("UpAttack");
             usedUpAttack = true;
-            attacker.DoUpAttack();//TODO: temporary, remove when up and down attack animations are implemented
         }
         
     }
