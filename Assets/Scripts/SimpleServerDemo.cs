@@ -185,7 +185,7 @@ public class SimpleServerDemo : MonoBehaviour
                 WebSocketConnection ws = listener.AcceptConnection(OnPacketReceive);
                 clientInfoList.Add(new Tuple<WebSocketConnection, int, int>(ws, currentId, 0));
                 Color playerColor = PlayerColors.colors[currentId];
-                ws.Send(new NetworkPacket(Encoding.UTF8.GetBytes("setColor " + playerColor.r.ToString() + " " + playerColor.g.ToString() + " " + playerColor.b.ToString() + " " + playerColor.a.ToString())));
+                ws.Send(new NetworkPacket(Encoding.UTF8.GetBytes("setColor " + playerColor.r.ToString() + " " + playerColor.g.ToString() + " " + playerColor.b.ToString() + " " + playerColor.a.ToString() + " " + currentId)));
                 InputEvents.ClientConnected?.Invoke(this, currentId);
 
                 currentId++;
