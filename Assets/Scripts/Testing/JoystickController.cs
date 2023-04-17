@@ -21,6 +21,7 @@ public class JoystickController : MonoBehaviour
         if (playerId == randomPlayerId)
         {
             randomPlayerId = Random.Range(0, activeFighters.Count);
+            animator.SetTrigger("Death");
         }
     }
 

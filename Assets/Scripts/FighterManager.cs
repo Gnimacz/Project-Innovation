@@ -126,8 +126,8 @@ public class FighterManager : MonoBehaviour
                 break;
             }
         }
-        OnPlayerLost?.Invoke(fighterId, newFighterHolder);
         activeFighters = newFighterHolder;
+        OnPlayerLost?.Invoke(fighterId, newFighterHolder);
 
     }
 
