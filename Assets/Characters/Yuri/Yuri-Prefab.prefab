@@ -402,7 +402,7 @@ MonoBehaviour:
   gravityPower: 10
   groundDetectionradius: 0.2
   upwardKnockbackMultiplier: 0.5
-  knockbackPower: 50
+  knockbackPower: 10
   upAttackSpeed: 5
   heavyAttackDashPower: 7
   lives: 3
@@ -517,7 +517,6 @@ MonoBehaviour:
   animator: {fileID: 6691020975092823586}
   feet: {fileID: 3568644182455583899}
   selectedCharacterId: 0
-  attacker: {fileID: 9196429547523456792}
   health: 0
 --- !u!114 &6670888589977585276
 MonoBehaviour:

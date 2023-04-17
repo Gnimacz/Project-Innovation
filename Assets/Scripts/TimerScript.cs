@@ -9,6 +9,9 @@ public class TimerScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     float currentTime = 0;
     [SerializeField] float startTime = 600;
+    bool hasBeenInvoked = false;
+    public delegate void OnTimerEnd();
+    public static OnTimerEnd OnTimerEndEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +38,12 @@ public class TimerScript : MonoBehaviour
         if (timeLeft < 0)
         {
             timeLeft = 0;
+
+            if (!hasBeenInvoked)
+            {
+                OnTimerEndEvent?.Invoke();
+                hasBeenInvoked = true;
+            }
         }
 
         float minutes = Mathf.FloorToInt(timeLeft / 60);

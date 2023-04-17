@@ -9,12 +9,14 @@ public class WinScreenPopUp : MonoBehaviour
     public TextMeshProUGUI Text;
     public RectTransform uiElement;
 
+
     // Start is called before the first frame update
     private void Start()
     {
         //uiElement.localScale = Vector3.zero;
         uiElement.transform.localScale = Vector3.zero;
         FighterManager.OnPlayerWon += OnPlayerWon;
+        TimerScript.OnTimerEndEvent += OnTimerEnd;
 
     }
 
@@ -22,6 +24,28 @@ public class WinScreenPopUp : MonoBehaviour
     //{
     //    gameObject.SetActive(false);
     //}
+
+    private void OnTimerEnd()
+    {
+        if (uiElement == null) return;
+        FighterManager.OnPlayerWon -= OnPlayerWon;
+        Text.text = "Time's Up!\nDraw!";
+        LeanTween.scale(uiElement, Vector3.one, 0.8f)
+                 .setEaseOutExpo()
+                 .setOnComplete(() =>
+                 {
+                     LeanTween.delayedCall(5, () =>
+                     {
+                         LeanTween.scale(uiElement, Vector3.zero, 0.8f)
+                         .setEaseOutExpo()
+                         .setOnComplete(() =>
+                         {
+                             SimpleServerDemo.UpdateServerState?.Invoke(SimpleServerDemo.ServerState.MainMenu);
+                             //UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+                         });
+                     });
+                 });
+    }
 
     private void OnPlayerWon(int id)
     {

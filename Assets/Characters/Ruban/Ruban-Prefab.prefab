@@ -739,7 +739,6 @@ MonoBehaviour:
   animator: {fileID: 2494751325172241877}
   feet: {fileID: 4682876926030072653}
   selectedCharacterId: 0
-  attacker: {fileID: 4193651344539327422}
   health: 0
 --- !u!114 &357518800243394852
 MonoBehaviour:
