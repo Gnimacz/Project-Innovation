@@ -131,8 +131,8 @@ body{
     position: absolute;
     top: 0;
     right: 0;
-    /* display: none;
-    visibility: hidden; */
+    display: none;
+    visibility: hidden; 
 }
 
 /* #character_select:not(:fullscreen){
@@ -171,7 +171,8 @@ body{
     top: 150px;
     right: 0;
     background-color: rgba(11, 146, 188, 0.911);
-    /* visibility: hidden;  */
+    display: none;
+    visibility: hidden; 
 }
 .ButtonHolder{
     display: flex;
@@ -180,15 +181,24 @@ body{
     align-items: center;
     height: 100vh;
     width: 100vw;
+    /* background-image: url("/images/Background.png");
+    background-size: 100%; */
+    background-color: rgb(185, 238, 160);
 }
+
+.ButtonHolder #output{
+    display: none;
+    visibility: hidden; 
+}
+
 #main_menu_btn{
-    background-color: #ef0000;
-    border: 1px solid #ffffff;
-    color: #ffffff;
+    /* background-color: #ef0000; */
+    /* border: 1px solid #ffffff; */
+    /* color: #ffffff; */
     font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
-    height: 20%;
-    width: 20%;
+    height: 40%;
+    width: 40%;
     /* margin: 5px; */
     padding: 0;
     border-radius: 10px;
@@ -197,6 +207,11 @@ body{
     /* top: 50%; */
     /* right: 50%; */
     /* display: none; */
+    background: none;
+    border: none;
+    background-image: url("/images/Button\ .png");
+    background-size: 100% 100%;
+    font-size: 500%;
 }
 
 #main_menu:not(:fullscreen){
@@ -343,3 +358,4 @@ body{
     height: 20%;
     width: 25%;
 } */
+
