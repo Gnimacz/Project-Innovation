@@ -7,6 +7,7 @@ public class SfxPlayer : MonoBehaviour
     public AudioClip[] LightpunchSounds;
     public AudioClip[] HeavyPunchSounds;
     public AudioClip[] jumpSounds;
+    public AudioClip[] UppercutSounds;
     public AudioClip[] DamageSounds;
 
     AudioSource audioSource;
@@ -33,8 +34,13 @@ public class SfxPlayer : MonoBehaviour
         if(DamageSounds.Length < 1) return;
         audioSource.PlayOneShot(DamageSounds [Random.Range(0, DamageSounds.Length)]);
     }
-    
-    
+
+    public void PlayUppercutSounds(){
+        if (UppercutSounds.Length < 1) return;
+        audioSource.PlayOneShot(UppercutSounds[Random.Range(0, UppercutSounds.Length)]);
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {

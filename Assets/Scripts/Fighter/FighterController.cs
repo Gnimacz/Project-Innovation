@@ -142,6 +142,7 @@ public class FighterController : MonoBehaviour
             animator.SetTrigger("UpAttack");
             usedUpAttack = true;
             attacker.DoUpAttack();//TODO: temporary, remove when up and down attack animations are implemented
+            sfx.PlayUppercutSounds();
         }
         
     }
