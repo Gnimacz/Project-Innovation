@@ -76,6 +76,7 @@ public class FighterManager : MonoBehaviour
         newFighter.transform.parent = transform;
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
+        activeFighters[newFighter].selectedCharacterId = fighterType;
         // newFighter.GetComponent<FighterController>().playerId = fighterId;
         fighterSpawned?.Invoke(newFighter, activeFighters[newFighter]);
     }
@@ -140,6 +141,8 @@ public class FighterManager : MonoBehaviour
             {
                 activeFighters[fighter].transform.position = transform.position;
                 activeFighters[fighter].values.lives--;
+                activeFighters[fighter].health = 0;
+                OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);
                 if (activeFighters[fighter].values.lives <= 0)
                 {
                     RemoveFighter(activeFighters[fighter].playerId);

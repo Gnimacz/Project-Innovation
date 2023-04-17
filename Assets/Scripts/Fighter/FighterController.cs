@@ -14,6 +14,7 @@ public class FighterController : MonoBehaviour
     public Transform feet;
     [NonSerialized]
     public int playerId;
+    public int selectedCharacterId = 0;
 
     public Attacker attacker; //TODO: temporary, remove when up and down attack animations are implemented
 
