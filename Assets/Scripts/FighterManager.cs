@@ -32,6 +32,8 @@ public class FighterManager : MonoBehaviour
     public static EnableAllFighterInputs enableAllFighterInputs;
     public delegate void PlayerWon(int id);
     public static PlayerWon OnPlayerWon;
+    public delegate void PlayerLost(int id, Dictionary<GameObject, FighterController> activefighters);
+    public static PlayerLost OnPlayerLost;
     #endregion
 
     void FighterWasHurt(GameObject attacker, GameObject victim, int damage)
@@ -124,6 +126,7 @@ public class FighterManager : MonoBehaviour
                 break;
             }
         }
+        OnPlayerLost?.Invoke(fighterId, newFighterHolder);
         activeFighters = newFighterHolder;
 
     }
