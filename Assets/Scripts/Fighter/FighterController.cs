@@ -48,8 +48,9 @@ public class FighterController : MonoBehaviour
     {
         bool isOnFloor = IsOnFloor();
 
-        //this has to be here because unity is stupid and locking doesn't work
+        //this has to be here because unity is stupid and locking the rigidbody doesn't work
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); 
         
         //gravity
         rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
