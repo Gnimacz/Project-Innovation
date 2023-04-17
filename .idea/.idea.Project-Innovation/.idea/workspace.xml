@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-Prefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-Prefab.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/AC/AC_lambert1_Normal.tif.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/AC/AC_lambert1_Normal.tif.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Onion/OnionBottom_lambert1_Normal.tif.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Onion/OnionBottom_lambert1_Normal.tif.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/Onion/VentLP_lambert1_Normal.tif.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Onion/VentLP_lambert1_Normal.tif.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DemoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DemoScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/FighterManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FighterManager.cs" afterDir="false" />
     </list>
