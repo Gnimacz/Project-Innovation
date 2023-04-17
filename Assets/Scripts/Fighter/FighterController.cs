@@ -36,6 +36,12 @@ public class FighterController : MonoBehaviour
         InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
     }
+    private void OnDestroy()
+    {
+        InputEvents.JumpButtonPressed -= OnJumpButtonPressed;
+        InputEvents.AttackButtonPressed -= OnAttackButtonPressed;
+        InputEvents.JoystickMoved -= OnJoystickMoved;
+    }
 
     // Update is called once per frame
     void Update()
@@ -126,30 +132,30 @@ public class FighterController : MonoBehaviour
         if (id != playerId) return;
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Ready")) return;
 
-        if (inputDirection == DirectionalEventArgs.JoystickAngle.Neutral)
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.neutral)
         {
             animator.SetTrigger("LightAttack");
             sfx.PlaylightPunchSound();
         }
             
         
-        if (inputDirection == DirectionalEventArgs.JoystickAngle.Left || inputDirection == DirectionalEventArgs.JoystickAngle.Right)
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.left || inputDirection == DirectionalEventArgs.JoystickAngle.right)
         {
             animator.SetTrigger("HeavyAttack");
             sfx.PlayHeavyPunchSound();
             rb.velocity = new Vector3(joyInput.x, 0, 0).normalized * values.heavyAttackDashPower;
         }
         
-        if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && IsOnFloor())
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.down && IsOnFloor())
             animator.SetTrigger("Block");
 
-        if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && !IsOnFloor())
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.down && !IsOnFloor())
         {
             animator.SetTrigger("DownAttack");
             attacker.DoDownAttack();//TODO: temporary, remove when up and down attack animations are implemented
         }
 
-        if (inputDirection == DirectionalEventArgs.JoystickAngle.Up && !usedUpAttack)
+        if (inputDirection == DirectionalEventArgs.JoystickAngle.up && !usedUpAttack)
         {
             animator.SetTrigger("UpAttack");
             usedUpAttack = true;

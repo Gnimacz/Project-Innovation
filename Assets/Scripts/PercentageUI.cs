@@ -30,6 +30,10 @@ public class PercentageUI : MonoBehaviour
     {
         FighterManager.OnFighterHurt += OnFighterHurt;
     }
+    private void OnDestroy()
+    {
+        FighterManager.OnFighterHurt -= OnFighterHurt;
+    }
     //GameObject attacker, GameObject victim, int damage
     void OnFighterHurt(GameObject attacker, GameObject fighter, int damage)
     {

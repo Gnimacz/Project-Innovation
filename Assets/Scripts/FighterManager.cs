@@ -10,6 +10,7 @@ public class FighterManager : MonoBehaviour
 {
     public List<GameObject> fighterPrefabs;
     public Dictionary<GameObject, FighterController> activeFighters = new Dictionary<GameObject, FighterController>();
+    public List<Transform> spawnPositions;
 
     [Header("Screen Bounds")]
     public Vector4 screenBounds = Vector4.zero;
@@ -54,6 +55,13 @@ public class FighterManager : MonoBehaviour
         disableAllFighterInputs += DisableAllInputs;
         enableAllFighterInputs += EnableAllInputs;
     }
+    private void OnDestroy()
+    {
+        OnFighterHurt -= FighterWasHurt;
+
+        disableAllFighterInputs -= DisableAllInputs;
+        enableAllFighterInputs -= EnableAllInputs;
+    }
 
     void Awake()
     {
@@ -72,7 +80,7 @@ public class FighterManager : MonoBehaviour
 
     public void SpawnFighter(int fighterId, int fighterType)
     {
-        GameObject newFighter = Instantiate(fighterPrefabs[fighterType], transform.position, quaternion.identity);
+        GameObject newFighter = Instantiate(fighterPrefabs[fighterType], spawnPositions[fighterId].position, quaternion.identity);
         newFighter.transform.parent = transform;
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
@@ -82,7 +90,7 @@ public class FighterManager : MonoBehaviour
     }
     public void SpawnFighter(object sender, int fighterId)
     {
-        GameObject newFighter = Instantiate(fighterPrefabs[0], transform.position, quaternion.identity);
+        GameObject newFighter = Instantiate(fighterPrefabs[0], spawnPositions[fighterId].position, quaternion.identity);
         newFighter.transform.parent = transform;
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
@@ -139,10 +147,15 @@ public class FighterManager : MonoBehaviour
 
             if (!IsFighterWithinScreenBounds(activeFighters[fighter]))
             {
-                activeFighters[fighter].transform.position = transform.position;
+                activeFighters[fighter].transform.position = spawnPositions[activeFighters[fighter].playerId].position;
+                activeFighters[fighter].GetComponent<Rigidbody>().velocity = Vector3.zero;
                 activeFighters[fighter].values.lives--;
                 activeFighters[fighter].health = 0;
-                OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);
+                try
+                {
+                    OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);
+                }
+                catch { }
                 if (activeFighters[fighter].values.lives <= 0)
                 {
                     RemoveFighter(activeFighters[fighter].playerId);
@@ -198,15 +211,15 @@ public class FighterManager : MonoBehaviour
         fighter2.rb.constraints = RigidbodyConstraints.FreezeAll;
         fighter2.animator.enabled = false;
         Vector3 storedVelocity2 = fighter2.GetComponent<Rigidbody>().velocity;
-        
+
         yield return new WaitForSecondsRealtime(hitStopTime * fighter2.health / 100f);
-        
+
         fighter1.animator.enabled = true;
         fighter1.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationX;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationZ;
         fighter1.GetComponent<Rigidbody>().velocity = storedVelocity1;
-        
+
         fighter2.animator.enabled = true;
         fighter2.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter2.rb.constraints = RigidbodyConstraints.FreezeRotationX;
