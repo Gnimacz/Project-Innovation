@@ -58,13 +58,13 @@ public class CardSpawner : MonoBehaviour
         switch (characterId)
         {
             case 0:
-                cardValueSetter.yuriImage.SetActive(true);
+                cardValueSetter.tacoImage.SetActive(true);
                 break;
             case 1:
                 cardValueSetter.rubenImage.SetActive(true);
                 break;
             case 2:
-                cardValueSetter.tacoImage.SetActive(true);
+                cardValueSetter.yuriImage.SetActive(true);
                 break;
         }
 
