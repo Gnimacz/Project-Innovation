@@ -186,7 +186,7 @@ MonoBehaviour:
   gravityPower: 10
   groundDetectionradius: 0.2
   upwardKnockbackMultiplier: 0.5
-  knockbackPower: 10
+  knockbackPower: 50
   upAttackSpeed: 5
   heavyAttackDashPower: 7
   lives: 3
@@ -794,7 +794,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8100652426548460681}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6d71e928e98accac7b973737cda51e63, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.37
@@ -1017,11 +1017,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2812653951529367552, guid: ec09b3f60e9e57233a47821339d3e88c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3341768094514661914, guid: ec09b3f60e9e57233a47821339d3e88c,
         type: 3}
       propertyPath: VFXToPlay
       value: 
       objectReference: {fileID: 5730214070582226546}
+    - target: {fileID: 5279027337216224140, guid: ec09b3f60e9e57233a47821339d3e88c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183720800659898750, guid: ec09b3f60e9e57233a47821339d3e88c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec09b3f60e9e57233a47821339d3e88c, type: 3}
 --- !u!111 &1451788955460007587 stripped
