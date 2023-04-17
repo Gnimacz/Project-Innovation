@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Attacker : MonoBehaviour
 {
     public Animation animations;
-
+  
+    
     public void DoLightAttack()
     {
         animations.Play("DoLightAttack");

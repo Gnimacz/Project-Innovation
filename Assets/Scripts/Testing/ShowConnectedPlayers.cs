@@ -7,7 +7,7 @@ public class ShowConnectedPlayers : MonoBehaviour
 {
     TextMeshProUGUI playerCount;
     public RichTextTagAttribute richTextTagAttribute;
-    public string text;
+    private string text;
 
     void Start()
     {
