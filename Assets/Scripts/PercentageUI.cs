@@ -8,6 +8,7 @@ public class PercentageUI : MonoBehaviour
 {
     public TextMeshProUGUI percentageText;
     public TextMeshProUGUI playerText;
+    public TextMeshProUGUI livesText;
     public Image guiImage;
     private int attachedFighterId = 0;
     public List<GameObject> fighterImages = new List<GameObject>();
@@ -16,12 +17,15 @@ public class PercentageUI : MonoBehaviour
 
     public void SetValues(FighterController fighter)
     {
-        playerText.text = "Player " + (fighter.playerId + 1).ToString();
+        playerText.text = "P" + (fighter.playerId + 1).ToString();
         playerText.color = PlayerColors.colors[fighter.playerId];
         percentageText.color = PlayerColors.colors[fighter.playerId];
+        livesText.color = PlayerColors.colors[fighter.playerId];
+
         //guiImage.color = PlayerColors.colors[fighter.playerId];
         //guiImage.GetComponent<Image>().color = PlayerColors.colors[fighter.playerId];
         attachedFighterId = fighter.playerId;
+
         //Debug.Log(SimpleServerDemo.instance.clientInfoList.Find(x => x.Item2 == fighter).Item3);
         fighterImages[fighter.selectedCharacterId].SetActive(true);
     }
@@ -53,5 +57,6 @@ public class PercentageUI : MonoBehaviour
                 LeanTween.scale(percentageText.gameObject, Vector3.one, 0.1f).setEaseInOutBounce();
             });
         percentageText.text = fighter.GetComponent<FighterController>().health + " \u0027 /.";
+        livesText.text = "Lives: " + fighter.GetComponent<FighterController>().values.lives.ToString();
     }
 }
