@@ -193,7 +193,7 @@ public class FighterManager : MonoBehaviour
         fighter1.animator.enabled = false;
         fighter2.rb.constraints = RigidbodyConstraints.FreezeAll;
         fighter2.animator.enabled = false;
-        yield return new WaitForSecondsRealtime(hitStopTime * fighter2.health / 10f);
+        yield return new WaitForSecondsRealtime(hitStopTime * fighter2.health / 100f);
         fighter1.animator.enabled = true;
         fighter1.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationX;
