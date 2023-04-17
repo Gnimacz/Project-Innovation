@@ -14,6 +14,6 @@ public class DamageDealer : MonoBehaviour
         FighterManager.OnFighterHurt?.Invoke(transform.parent.parent.gameObject, other.gameObject.transform.parent.gameObject, damage);
         // FighterManager.OnFighterHurt?.Invoke(transform.position, other.gameObject, damage);
         if (VFXToPlay == null) return;
-        VFXToPlay.Play();
+        VFXToPlay.Play();     
     }
 }
