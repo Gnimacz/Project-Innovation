@@ -23,17 +23,17 @@ public class DirectionalEventArgs : EventArgs
     public JoystickAngle JoystickDirection { get; set; }
     public enum JoystickAngle
     {
-        Up,
-        Down,
-        Left,
-        Right,
-        Neutral
+        up,
+        down,
+        left,
+        right,
+        neutral
     }
 
     public DirectionalEventArgs(int playerId, Vector2 joystickPosition, string joystickDirection)
     {
         PlayerId = playerId;
         JoystickPosition = joystickPosition;
-        JoystickDirection = Enum.TryParse<JoystickAngle>(joystickDirection, out var result) ? result : JoystickAngle.Neutral;
+        JoystickDirection = Enum.TryParse<JoystickAngle>(joystickDirection, out var result) ? result : JoystickAngle.neutral;
     }
 }
