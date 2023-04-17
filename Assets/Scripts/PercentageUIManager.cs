@@ -12,7 +12,7 @@ public class PercentageUIManager : MonoBehaviour
         foreach (FighterController fighter in manager.activeFighters.Values)
         {
             PercentageUI characterUI = Instantiate(PercentageUIui, transform).GetComponent<PercentageUI>();
-            characterUI.SetValues(fighter.playerId);
+            characterUI.SetValues(fighter);
         }
     }
 }
