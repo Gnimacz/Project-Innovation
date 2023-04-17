@@ -8,12 +8,12 @@ public class PlayerColors
     public static Color[] colors =
     {
         Color.red,
-        Color.blue,
+        new Color(0, 127, 255),
         Color.yellow,
         Color.green,
-        Color.magenta,
-        Color.cyan,
-        Color.white
+        //Color.magenta,
+        //Color.cyan,
+        //Color.white
     };
 
 }

@@ -555,6 +555,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7496157242124981916, guid: 798c3f6e39593a14e815421024926639,
+        type: 3}
+      propertyPath: m_fontSizeBase
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7496157242124981916, guid: 798c3f6e39593a14e815421024926639,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 7496157243751102366, guid: 798c3f6e39593a14e815421024926639,
         type: 3}
       propertyPath: m_Pivot.x
