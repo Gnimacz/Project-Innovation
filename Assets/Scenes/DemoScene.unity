@@ -541,6 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 864018101}
+  startTime: 600
 --- !u!114 &864018101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -669,8 +670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fighterPrefabs:
   - {fileID: 1245937075592760435, guid: 6faf761eacd444b4787e4db995e42a51, type: 3}
-  - {fileID: 6516860184982807705, guid: 7280a6a3345c5574886659a9fed5ec10, type: 3}
   - {fileID: 8598501545394684914, guid: 7d9b9815d4da3244a99d974da6f45e2d, type: 3}
+  - {fileID: 6516860184982807705, guid: 7280a6a3345c5574886659a9fed5ec10, type: 3}
   - {fileID: 8430827712549120626, guid: 22c48a97eb597e14fb3d4ed0ca6d160d, type: 3}
   spawnPositions:
   - {fileID: 1671575965}

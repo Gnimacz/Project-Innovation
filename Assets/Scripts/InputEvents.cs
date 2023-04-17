@@ -13,7 +13,7 @@ public static class InputEvents
     public static EventHandler<DirectionalEventArgs> JoystickMoved;
     public static EventHandler<int> ClientConnected;
     public static EventHandler<int> ClientDisconnected;
-    
+
 }
 
 public class DirectionalEventArgs : EventArgs

@@ -36,6 +36,12 @@ public class FighterController : MonoBehaviour
         InputEvents.AttackButtonPressed += OnAttackButtonPressed;
         InputEvents.JoystickMoved += OnJoystickMoved;
     }
+    private void OnDestroy()
+    {
+        InputEvents.JumpButtonPressed -= OnJumpButtonPressed;
+        InputEvents.AttackButtonPressed -= OnAttackButtonPressed;
+        InputEvents.JoystickMoved -= OnJoystickMoved;
+    }
 
     // Update is called once per frame
     void Update()

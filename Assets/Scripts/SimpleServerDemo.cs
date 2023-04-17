@@ -143,6 +143,8 @@ public class SimpleServerDemo : MonoBehaviour
             case ServerState.MainMenu:
                 SceneManager.LoadScene("MainMenu");
                 Broadcast("state MainMenu");
+                readyClients.Clear();
+
                 Debug.LogWarning("Server state changed to MainMenu");
                 Debug.LogWarning(clientInfoList.Count);
                 break;

@@ -55,6 +55,13 @@ public class FighterManager : MonoBehaviour
         disableAllFighterInputs += DisableAllInputs;
         enableAllFighterInputs += EnableAllInputs;
     }
+    private void OnDestroy()
+    {
+        OnFighterHurt -= FighterWasHurt;
+
+        disableAllFighterInputs -= DisableAllInputs;
+        enableAllFighterInputs -= EnableAllInputs;
+    }
 
     void Awake()
     {
@@ -144,7 +151,11 @@ public class FighterManager : MonoBehaviour
                 activeFighters[fighter].GetComponent<Rigidbody>().velocity = Vector3.zero;
                 activeFighters[fighter].values.lives--;
                 activeFighters[fighter].health = 0;
-                OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);
+                try
+                {
+                    OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);
+                }
+                catch { }
                 if (activeFighters[fighter].values.lives <= 0)
                 {
                     RemoveFighter(activeFighters[fighter].playerId);
@@ -200,15 +211,15 @@ public class FighterManager : MonoBehaviour
         fighter2.rb.constraints = RigidbodyConstraints.FreezeAll;
         fighter2.animator.enabled = false;
         Vector3 storedVelocity2 = fighter2.GetComponent<Rigidbody>().velocity;
-        
+
         yield return new WaitForSecondsRealtime(hitStopTime * fighter2.health / 100f);
-        
+
         fighter1.animator.enabled = true;
         fighter1.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationX;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationZ;
         fighter1.GetComponent<Rigidbody>().velocity = storedVelocity1;
-        
+
         fighter2.animator.enabled = true;
         fighter2.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter2.rb.constraints = RigidbodyConstraints.FreezeRotationX;
