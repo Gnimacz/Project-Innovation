@@ -78,6 +78,7 @@ MonoBehaviour:
   upwardKnockbackMultiplier: 0.5
   knockbackPower: 10
   upAttackSpeed: 5
+  heavyAttackDashPower: 7
   lives: 3
 --- !u!82 &421469979879089850
 AudioSource:
@@ -190,6 +191,7 @@ MonoBehaviour:
   animator: {fileID: 3863139385749537822}
   feet: {fileID: 7037896233821158479}
   attacker: {fileID: 7548566673563799021}
+  health: 0
 --- !u!114 &6988204174179928432
 MonoBehaviour:
   m_ObjectHideFlags: 0

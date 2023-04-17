@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="" />
+    <list default="true" id="8c593bfa-9b97-4ec5-adb6-366266eb7f42" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Project-Innovation/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Attacker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Attacker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-Prefab.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Characters/Taco/Taco-Prefab.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterValues.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Fighter/FighterValues.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +21,6 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/61f111bab25a43d1832dbc4e16cbe89a1a000/5d/11b7a397/Collider.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d8e40667a04f4ebea32807892bd421f3159c00/c7/2ef8f52d/ScriptableObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/edd90d1db1a249b9888afb32e307380327000/70/7463a8ca/StateMachineBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Attacker.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/FighterManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputEvents.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerColors.cs" root0="FORCE_HIGHLIGHTING" />
@@ -115,6 +121,7 @@
       <workItem from="1681208147606" duration="875000" />
       <workItem from="1681209158423" duration="2491000" />
       <workItem from="1681321081526" duration="8764000" />
+      <workItem from="1681727202791" duration="3117000" />
     </task>
     <servers />
   </component>
