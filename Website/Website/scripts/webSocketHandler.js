@@ -28,7 +28,7 @@ websocket.onmessage = function (e) {
     } else if (data instanceof ArrayBuffer) {
         console.log("arraybuffer data: " + data);
     }
-    else{
+    else {
         alert("Unknown data type received");
     }
 
@@ -52,29 +52,58 @@ writeToScreen("Websocket address: " + wsUri);
 writeToScreen(origin);
 
 // command handlers
-function HandleCommand(data){
+function HandleCommand(data) {
     var command = data.split(" ");
-    switch(command[0]){
+    switch (command[0]) {
         case 'vibrate':
             PlayerHurt();
             break;
+        case "setColor":
+            const r = Math.round(parseFloat(command[1]) * 255);
+            const g = Math.round(parseFloat(command[2]) * 255);
+            const b = Math.round(parseFloat(command[3]) * 255);
+            const a = Math.round(parseFloat(command[4]) * 255);
+            characterColor = `rgb(${r}, ${g}, ${b})`;
+            document.getElementById("CharacterAll").style.backgroundColor = characterColor;
+            document.getElementById("Inputs").style.backgroundColor = characterColor;
+            // console.log(characterColor);
+            break;
         case "state":
-            switch(command[1]){
+            switch (command[1]) {
                 case "MainMenu":
                     currentServerState = serverState.MainMenu;
                     console.log("MainMenu");
+                    selectedCharacter = selectedCharacter = 0;
+                    selectCharacter = false;
+                    document.getElementById("select_btn").innerHTML = "Select";
+                    // document.getElementById("CharacterAll").style.color = rgb(255, 255, 255);
+                    document.getElementById("CharacterAll").style.backgroundColor = ogColor;
                     // alert("MainMenu");
-                    // ExitFullScreen();
+                    ExitFullScreen();
+                    IosExitFullScreen();
+                    IosExitCharacterSelector();
+
+                    document.getElementById("main_menu_btn").style.display = "block";
+                    document.getElementById("main_menu_btn").style.visibility = "visible";
                     break;
                 case "CharacterSelect":
                     currentServerState = serverState.CharacterSelect;
                     console.log("CharacterSelect");
-                    // IosCharacterSelector();
+                    IosCharacterSelector();
+                    IosExitFullScreen();
                     // alert("CharacterSelect");
+
+                    document.getElementById("main_menu_btn").style.display = "none";
+                    document.getElementById("main_menu_btn").style.visibility = "hidden";
                     break;
                 case "Game":
                     currentServerState = serverState.Game;
                     console.log("Game");
+                    IosExitCharacterSelector();
+                    IosFullScreen();
+
+                    document.getElementById("main_menu_btn").style.display = "none";
+                    document.getElementById("main_menu_btn").style.visibility = "hidden";
                     // alert("Game");
                     // FullScreen();
                     break;
@@ -94,6 +123,6 @@ function PlayerHurt() {
     var originalColor = element.style.backgroundColor;
     element.style.backgroundColor = 'red';
     setTimeout(() => {
-      element.style.backgroundColor = originalColor;
+        element.style.backgroundColor = originalColor;
     }, 100);
-  }
+}

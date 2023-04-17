@@ -9,29 +9,70 @@ public class WinScreenPopUp : MonoBehaviour
     public TextMeshProUGUI Text;
     public RectTransform uiElement;
 
-    private bool isAnimating = false;
-
     // Start is called before the first frame update
     private void Start()
     {
-        uiElement.localScale = Vector3.zero;
-        Text = FindAnyObjectByType<TextMeshProUGUI>();
+        //uiElement.localScale = Vector3.zero;
+        uiElement.transform.localScale = Vector3.zero;
+        FighterManager.OnPlayerWon += OnPlayerWon;
 
     }
-    
-    private void Update()
+
+    //private void Awake()
+    //{
+    //    gameObject.SetActive(false);
+    //}
+
+    private void OnPlayerWon(int id)
     {
-        Text.text = "Player _ won!";
-
-        if (Input.GetKeyDown(KeyCode.Space) && !isAnimating)
-        {
-            isAnimating = true;
-
-            LeanTween.scale(uiElement, Vector3.one, 0.8f)
-                .setEaseOutExpo()
-                .setOnComplete(() => {
-                    isAnimating = false;
-                });
-        }
+        if (uiElement == null) return;
+        FighterManager.OnPlayerWon -= OnPlayerWon;
+        Text.text = "Player " + (id + 1).ToString() + " Wins!";
+        LeanTween.scale(uiElement, Vector3.one, 0.8f)
+                 .setEaseOutExpo()
+                 .setOnComplete(() =>
+                 {
+                     LeanTween.delayedCall(5, () =>
+                     {
+                         LeanTween.scale(uiElement, Vector3.zero, 0.8f)
+                         .setEaseOutExpo()
+                         .setOnComplete(() =>
+                         {
+                             SimpleServerDemo.UpdateServerState?.Invoke(SimpleServerDemo.ServerState.MainMenu);
+                             //UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+                         });
+                     });
+                 });
     }
+
+    //private void Update()
+    //{
+    //    Text.text = "Player _ won!";
+
+    //    if (Input.GetKeyDown(KeyCode.Space) && !isAnimating)
+    //    {
+    //        isAnimating = true;
+
+    //        LeanTween.scale(uiElement, Vector3.one, 0.8f)
+    //            .setEaseOutExpo()
+    //            .setOnComplete(() => {
+    //                isAnimating = false;
+    //            });
+    //    }
+    //}
+
+    //private void OnEnable()
+    //{
+    //    LeanTween.scale(uiElement, Vector3.one, 0.8f)
+    //             .setEaseOutExpo();
+    //}
+    //private void OnDisable()
+    //{
+    //    LeanTween.scale(uiElement, Vector3.zero, 0.8f)
+    //             .setEaseOutExpo()
+    //             .setOnComplete(() =>
+    //             {
+    //                 gameObject.SetActive(false);
+    //             });
+    //}
 }

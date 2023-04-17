@@ -7,18 +7,22 @@ public class FighterController : MonoBehaviour
 {
     public Animator animator;
     [NonSerialized]
-    Rigidbody rb;
+    public Rigidbody rb;
     SfxPlayer sfx;
-    FighterValues values;
+    [NonSerialized]
+    public FighterValues values;
     public Transform feet;
     [NonSerialized]
     public int playerId;
-    
+
+    public Attacker attacker; //TODO: temporary, remove when up and down attack animations are implemented
+
     bool usedDoubleJump = false;
+    bool usedHeavyAttack = false;
     bool usedUpAttack = false;
     Vector2 joyInput;
     DirectionalEventArgs.JoystickAngle inputDirection;
-    int health = 0;
+    public int health = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -42,17 +46,26 @@ public class FighterController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        bool isOnFloor = IsOnFloor();
+
+        //this has to be here because unity is stupid and locking the rigidbody doesn't work
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); 
+        
         //gravity
         rb.AddForce(new Vector3(0, -values.gravityPower, 0), ForceMode.Acceleration);
 
-        if (IsOnFloor() && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
+        if (isOnFloor && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
             usedUpAttack = false;
+
+        if (isOnFloor && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.HeavyAttack"))
+            usedHeavyAttack = false;
         
         // the player has no input while stunned or blocking
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Movement.Stunned"))
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Movement.Stunned") && !animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.HeavyAttack"))
         {
             //overrider horizontal velocity when on ground so player doesn't slide
-            if (IsOnFloor()) rb.velocity = new Vector3(0, rb.velocity.y, 0);
+            if (isOnFloor) rb.velocity = new Vector3(0, rb.velocity.y, 0);
 
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.UpAttack"))
             {
@@ -66,7 +79,7 @@ public class FighterController : MonoBehaviour
                 {
                     //player input
                     if ((joyInput.x > 0 && rb.velocity.x < values.moveSpeed) || (joyInput.x < 0 && rb.velocity.x > -values.moveSpeed))
-                        rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (IsOnFloor() ? 1 : values.airControlStrength), 0, 0);
+                        rb.velocity += new Vector3(joyInput.x * values.moveSpeed * (isOnFloor ? 1 : values.airControlStrength), 0, 0);
                 }
             }
             
@@ -123,18 +136,23 @@ public class FighterController : MonoBehaviour
         {
             animator.SetTrigger("HeavyAttack");
             sfx.PlayHeavyPunchSound();
+            rb.velocity = new Vector3(joyInput.x, 0, 0).normalized * values.heavyAttackDashPower;
         }
         
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && IsOnFloor())
             animator.SetTrigger("Block");
-        
+
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Down && !IsOnFloor())
+        {
             animator.SetTrigger("DownAttack");
+            attacker.DoDownAttack();//TODO: temporary, remove when up and down attack animations are implemented
+        }
 
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Up && !usedUpAttack)
         {
             animator.SetTrigger("UpAttack");
             usedUpAttack = true;
+            attacker.DoUpAttack();//TODO: temporary, remove when up and down attack animations are implemented
         }
         
     }

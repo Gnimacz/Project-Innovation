@@ -1,5 +1,7 @@
 let selectCharacter = false;
 let selectedCharacter = 0;
+// var ogColor = document.getElementById("CharacterAll").style.backgroundColor;
+var ogColor = characterColor;
 
 let infoCard = document.getElementById("character_info");
 let charPic = document.getElementById("character_card");
@@ -7,13 +9,13 @@ let charPic = document.getElementById("character_card");
 var currentChar = 0;
 
 var img1 = document.createElement("img");
-img1.src = "./images/Taco.png";
+img1.src = "./images/Taco ch.png";
 
 var img2 = document.createElement("img");
-img2.src = "./images/Ruben.png";
+img2.src = "./images/Ruben Ch.png";
 
 var img3 = document.createElement("img");
-img3.src = "./images/Ruben.png";
+img3.src = "./images/Joeri ch.png";
 
 var charInfo1 = "Very yummy";
 var charInfo2 = "Beep boop";
@@ -86,11 +88,11 @@ function onSelect() {
         selectedCharacter = selectedCharacter = 0;
         document.getElementById("select_btn").innerHTML = "Select";
         // document.getElementById("CharacterAll").style.color = rgb(255, 255, 255);
-        document.getElementById("CharacterAll").style.backgroundColor = 'rgb(0,0,0)';
+        document.getElementById("CharacterAll").style.backgroundColor = ogColor;
     }
     else if (selectCharacter == true) {
         document.getElementById("select_btn").innerHTML = "Ready";
-        document.getElementById("CharacterAll").style.backgroundColor = 'rgb(150,200,80)';//"blue";
+        document.getElementById("CharacterAll").style.backgroundColor = 'rgb(150,200,80)';//green;
         selectedCharacter = characterList[currentChar].id;
     }
     console.log(selectCharacter);
