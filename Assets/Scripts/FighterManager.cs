@@ -10,6 +10,7 @@ public class FighterManager : MonoBehaviour
 {
     public List<GameObject> fighterPrefabs;
     public Dictionary<GameObject, FighterController> activeFighters = new Dictionary<GameObject, FighterController>();
+    public List<Transform> spawnPositions;
 
     [Header("Screen Bounds")]
     public Vector4 screenBounds = Vector4.zero;
@@ -72,7 +73,7 @@ public class FighterManager : MonoBehaviour
 
     public void SpawnFighter(int fighterId, int fighterType)
     {
-        GameObject newFighter = Instantiate(fighterPrefabs[fighterType], transform.position, quaternion.identity);
+        GameObject newFighter = Instantiate(fighterPrefabs[fighterType], spawnPositions[fighterId].position, quaternion.identity);
         newFighter.transform.parent = transform;
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
@@ -82,7 +83,7 @@ public class FighterManager : MonoBehaviour
     }
     public void SpawnFighter(object sender, int fighterId)
     {
-        GameObject newFighter = Instantiate(fighterPrefabs[0], transform.position, quaternion.identity);
+        GameObject newFighter = Instantiate(fighterPrefabs[0], spawnPositions[fighterId].position, quaternion.identity);
         newFighter.transform.parent = transform;
         activeFighters.Add(newFighter, newFighter.GetComponent<FighterController>());
         activeFighters[newFighter].playerId = fighterId;
@@ -139,7 +140,8 @@ public class FighterManager : MonoBehaviour
 
             if (!IsFighterWithinScreenBounds(activeFighters[fighter]))
             {
-                activeFighters[fighter].transform.position = transform.position;
+                activeFighters[fighter].transform.position = spawnPositions[activeFighters[fighter].playerId].position;
+                activeFighters[fighter].GetComponent<Rigidbody>().velocity = Vector3.zero;
                 activeFighters[fighter].values.lives--;
                 activeFighters[fighter].health = 0;
                 OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);
