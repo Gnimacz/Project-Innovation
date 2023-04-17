@@ -185,24 +185,30 @@ public class FighterManager : MonoBehaviour
     //Functions for hitstop between two fighters
     public void HitStop(GameObject fighter1, GameObject fighter2, int damage)
     {
-        StartCoroutine(HitStopCoroutine(activeFighters[fighter1], activeFighters[fighter2]));
+        //StartCoroutine(HitStopCoroutine(activeFighters[fighter1], activeFighters[fighter2]));
     }
     IEnumerator HitStopCoroutine(FighterController fighter1, FighterController fighter2)
     {
         fighter1.rb.constraints = RigidbodyConstraints.FreezeAll;
         fighter1.animator.enabled = false;
+        Vector3 storedVelocity1 = fighter1.GetComponent<Rigidbody>().velocity;
         fighter2.rb.constraints = RigidbodyConstraints.FreezeAll;
         fighter2.animator.enabled = false;
+        Vector3 storedVelocity2 = fighter2.GetComponent<Rigidbody>().velocity;
+        
         yield return new WaitForSecondsRealtime(hitStopTime * fighter2.health / 100f);
+        
         fighter1.animator.enabled = true;
         fighter1.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationX;
         fighter1.rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        fighter1.GetComponent<Rigidbody>().velocity = storedVelocity1;
         
         fighter2.animator.enabled = true;
         fighter2.rb.constraints = RigidbodyConstraints.FreezePositionZ;
         fighter2.rb.constraints = RigidbodyConstraints.FreezeRotationX;
         fighter2.rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        fighter2.GetComponent<Rigidbody>().velocity = storedVelocity2;
     }
 
 
