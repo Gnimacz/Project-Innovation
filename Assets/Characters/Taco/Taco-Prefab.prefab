@@ -300,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3863139385749537822}
   feet: {fileID: 7037896233821158479}
-  attacker: {fileID: 0}
+  attacker: {fileID: 3306469389556417058}
   health: 0
 --- !u!114 &6988204174179928432
 MonoBehaviour:
