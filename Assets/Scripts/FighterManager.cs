@@ -32,6 +32,8 @@ public class FighterManager : MonoBehaviour
     public static EnableAllFighterInputs enableAllFighterInputs;
     public delegate void PlayerWon(int id);
     public static PlayerWon OnPlayerWon;
+    public delegate void PlayerLost(int id, Dictionary<GameObject, FighterController> activefighters);
+    public static PlayerLost OnPlayerLost;
     #endregion
 
     void FighterWasHurt(GameObject attacker, GameObject victim, int damage)
@@ -67,8 +69,9 @@ public class FighterManager : MonoBehaviour
     {
         if (SimpleServerDemo.instance.clientInfoList.Count < 1)
         {
-            SpawnFighter(0, 1);
-            SpawnFighter(1, 2);
+            SpawnFighter(null, 0);
+            SpawnFighter(null, 1);
+            SpawnFighter(null, 2);
             Debug.LogWarning("No Connections found, assuming test scenario. Spawning fighters from awake");
             return;
         }
@@ -125,6 +128,7 @@ public class FighterManager : MonoBehaviour
             }
         }
         activeFighters = newFighterHolder;
+        OnPlayerLost?.Invoke(fighterId, newFighterHolder);
 
     }
 
