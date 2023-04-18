@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class FighterController : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class FighterController : MonoBehaviour
     [NonSerialized]
     public int playerId;
     public int selectedCharacterId = 0;
+    
+    public VisualEffect RunVfx;
 
     bool usedDoubleJump = false;
     bool usedHeavyAttack = false;
@@ -53,6 +56,11 @@ public class FighterController : MonoBehaviour
     {
         bool isOnFloor = IsOnFloor();
 
+        if (isOnFloor && Mathf.Abs(rb.velocity.x) > 1)
+            RunVfx.enabled = true;
+        else
+            RunVfx.enabled = false;
+        
         //this has to be here because unity is stupid and locking the rigidbody doesn't work
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0); 
