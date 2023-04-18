@@ -753,17 +753,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightpunchSounds:
-  - {fileID: 8300000, guid: bc332f6eb0e201c5da8c2b96ba06df8d, type: 3}
-  - {fileID: 8300000, guid: 41c76efa59f7b527390255d8a21fe9eb, type: 3}
-  - {fileID: 8300000, guid: 64aa24f7ccdfd4dc795f3d875464218b, type: 3}
-  - {fileID: 8300000, guid: e6fdc400d5db3e54fbb2b34a1e2e48fc, type: 3}
-  - {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
-  - {fileID: 8300000, guid: cda53c5e78dd15c388a7ffe453518a08, type: 3}
+  - {fileID: 8300000, guid: 4d3520260fac6fe4f9e871cc69ef7c98, type: 3}
+  - {fileID: 8300000, guid: fed9ea74efb515547af3ee944c18448c, type: 3}
+  - {fileID: 8300000, guid: 16f5be22358392e46b421c932b0759b4, type: 3}
+  - {fileID: 8300000, guid: 3df10ce52f7d00843ac5c192ef207109, type: 3}
+  - {fileID: 8300000, guid: 3f969e2d76dfa85498a39106ed650f1d, type: 3}
   HeavyPunchSounds:
-  - {fileID: 8300000, guid: dcbc793df2686084f88c356aef4de4c5, type: 3}
+  - {fileID: 8300000, guid: 67b7261d740741d4e9a141149ffc08b4, type: 3}
+  - {fileID: 8300000, guid: d3d5ef50a20678b4598bdb931a8f57dc, type: 3}
+  - {fileID: 8300000, guid: 0b343eabafddc774e817fcf3ce30b42a, type: 3}
   jumpSounds:
-  - {fileID: 8300000, guid: 6bc38bd6f1877530f919d61e0cee0c12, type: 3}
-  DamageSounds: []
+  - {fileID: 8300000, guid: ffe5bf2e58064d84b97d9d7d88f998fb, type: 3}
+  UppercutSounds:
+  - {fileID: 8300000, guid: 1d5656abcbee81d499717ab6fc7a7431, type: 3}
+  DamageSounds:
+  - {fileID: 8300000, guid: 54511b43853465a46b7f1243f743a15a, type: 3}
+  - {fileID: 8300000, guid: bc47e6465fd0c7646939d2d39bb4b2bb, type: 3}
+  - {fileID: 8300000, guid: ca3f47d0d5551cd45bcf48e5a479edf0, type: 3}
+  BlockingSounds:
+  - {fileID: 8300000, guid: 5f1c39ce14a15e54aae79622fbfcef3f, type: 3}
+  - {fileID: 8300000, guid: 72a220efddfead14995de568130f2a39, type: 3}
+  - {fileID: 8300000, guid: 166a810d26244e54db76f8cae189efae, type: 3}
 --- !u!1001 &1346134263246985245
 PrefabInstance:
   m_ObjectHideFlags: 0
