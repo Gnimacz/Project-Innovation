@@ -301,6 +301,7 @@ MonoBehaviour:
   animator: {fileID: 3863139385749537822}
   feet: {fileID: 7037896233821158479}
   selectedCharacterId: 0
+  attacker: {fileID: 3306469389556417058}
   health: 0
 --- !u!114 &6988204174179928432
 MonoBehaviour:
@@ -315,15 +316,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LightpunchSounds:
-  - {fileID: 8300000, guid: bc332f6eb0e201c5da8c2b96ba06df8d, type: 3}
-  - {fileID: 8300000, guid: 41c76efa59f7b527390255d8a21fe9eb, type: 3}
-  - {fileID: 8300000, guid: 13c340223384a0b89b4bb7fad971526e, type: 3}
+  - {fileID: 8300000, guid: 4d3520260fac6fe4f9e871cc69ef7c98, type: 3}
+  - {fileID: 8300000, guid: fed9ea74efb515547af3ee944c18448c, type: 3}
+  - {fileID: 8300000, guid: 16f5be22358392e46b421c932b0759b4, type: 3}
+  - {fileID: 8300000, guid: 3df10ce52f7d00843ac5c192ef207109, type: 3}
+  - {fileID: 8300000, guid: 3f969e2d76dfa85498a39106ed650f1d, type: 3}
   HeavyPunchSounds:
-  - {fileID: 8300000, guid: a8c69d8142f5c76489952bab09bb683c, type: 3}
+  - {fileID: 8300000, guid: 67b7261d740741d4e9a141149ffc08b4, type: 3}
+  - {fileID: 8300000, guid: d3d5ef50a20678b4598bdb931a8f57dc, type: 3}
+  - {fileID: 8300000, guid: 0b343eabafddc774e817fcf3ce30b42a, type: 3}
   jumpSounds:
-  - {fileID: 8300000, guid: 6bc38bd6f1877530f919d61e0cee0c12, type: 3}
+  - {fileID: 8300000, guid: ffe5bf2e58064d84b97d9d7d88f998fb, type: 3}
+  UppercutSounds:
+  - {fileID: 8300000, guid: 1d5656abcbee81d499717ab6fc7a7431, type: 3}
   DamageSounds:
-  - {fileID: 8300000, guid: 585a7d8c9a58de04189693c339d8bd27, type: 3}
+  - {fileID: 8300000, guid: 27161cd4e717d35418963a7f7b188d11, type: 3}
+  - {fileID: 8300000, guid: e12a1f5c6608b12418e475553e7fd7b7, type: 3}
+  - {fileID: 8300000, guid: 758ee37c532c3df4baa6fa493fb03bed, type: 3}
+  BlockingSounds:
+  - {fileID: 8300000, guid: 94347cb63434b7d4fb8baf8f6345f807, type: 3}
+  - {fileID: 8300000, guid: 3d3c09e441cab4a479ece04134cabe9f, type: 3}
 --- !u!1 &2247974117109194458
 GameObject:
   m_ObjectHideFlags: 0
