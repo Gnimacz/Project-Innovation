@@ -1219,7 +1219,7 @@ MonoBehaviour:
   screenBounds: {x: -16, y: 16, z: 16, w: -11}
   hitStopTime: 0.01
   source: {fileID: 880303707}
-  deathSound: {fileID: 8300000, guid: b90eebe8eb03800458ed56cd053e5015, type: 3}
+  deathSound: {fileID: 8300000, guid: e80f04e6e9f8a2c4ebb226407a593ab0, type: 3}
 --- !u!4 &880303706
 Transform:
   m_ObjectHideFlags: 0
