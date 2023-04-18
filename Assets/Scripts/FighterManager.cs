@@ -71,6 +71,7 @@ public class FighterManager : MonoBehaviour
         {
             SpawnFighter(null, 0);
             SpawnFighter(null, 1);
+            SpawnFighter(null, 2);
             Debug.LogWarning("No Connections found, assuming test scenario. Spawning fighters from awake");
             return;
         }
