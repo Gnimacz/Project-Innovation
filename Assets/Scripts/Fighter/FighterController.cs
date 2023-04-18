@@ -90,7 +90,11 @@ public class FighterController : MonoBehaviour
     public void GetHit(Vector3 from, int damage)
     {
         //don't get hit while blovking
-        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block")) return;
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Attacking.Block"))
+        { sfx.PlayBlockingSounds();
+            return;
+        
+        }
         
         health += damage;
         sfx.PlayDamageSounds();
@@ -151,9 +155,10 @@ public class FighterController : MonoBehaviour
         if (inputDirection == DirectionalEventArgs.JoystickAngle.Up && !usedUpAttack)
         {
             animator.SetTrigger("UpAttack");
+            sfx.PlayUppercutSounds();
             usedUpAttack = true;
             attacker.DoUpAttack();//TODO: temporary, remove when up and down attack animations are implemented
-            sfx.PlayUppercutSounds();
+            
         }
         
     }

@@ -9,6 +9,7 @@ public class SfxPlayer : MonoBehaviour
     public AudioClip[] jumpSounds;
     public AudioClip[] UppercutSounds;
     public AudioClip[] DamageSounds;
+    public AudioClip[] BlockingSounds;
 
     AudioSource audioSource;
     
@@ -38,6 +39,11 @@ public class SfxPlayer : MonoBehaviour
     public void PlayUppercutSounds(){
         if (UppercutSounds.Length < 1) return;
         audioSource.PlayOneShot(UppercutSounds[Random.Range(0, UppercutSounds.Length)]);
+    }
+    public void PlayBlockingSounds()
+    {
+        if (BlockingSounds.Length < 1) return;
+        audioSource.PlayOneShot(BlockingSounds[Random.Range(0, BlockingSounds.Length)]);
     }
 
 
