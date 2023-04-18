@@ -18,6 +18,9 @@ public class FighterManager : MonoBehaviour
     List<Vector3> SpawnPositions = new List<Vector3>();
     [Header("Hit Stop Time")]
     public float hitStopTime = 0.1f;
+    public AudioSource source;
+    public AudioClip deathSound;
+    
 
     #region delegates
     public delegate void FighterHurt(GameObject attacker, GameObject victim, int damage);
@@ -130,6 +133,7 @@ public class FighterManager : MonoBehaviour
         activeFighters = newFighterHolder;
         OnPlayerLost?.Invoke(fighterId, newFighterHolder);
 
+
     }
 
     private void OnDrawGizmos()
@@ -155,6 +159,7 @@ public class FighterManager : MonoBehaviour
                 activeFighters[fighter].GetComponent<Rigidbody>().velocity = Vector3.zero;
                 activeFighters[fighter].values.lives--;
                 activeFighters[fighter].health = 0;
+                source.PlayOneShot(deathSound);
                 try
                 {
                     OnFighterHurt?.Invoke(activeFighters[fighter].gameObject, activeFighters[fighter].gameObject, -activeFighters[fighter].health);

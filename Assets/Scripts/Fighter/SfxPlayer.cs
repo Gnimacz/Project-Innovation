@@ -10,6 +10,7 @@ public class SfxPlayer : MonoBehaviour
     public AudioClip[] UppercutSounds;
     public AudioClip[] DamageSounds;
     public AudioClip[] BlockingSounds;
+    public AudioClip[] DeathSound;
 
     AudioSource audioSource;
     
@@ -45,6 +46,7 @@ public class SfxPlayer : MonoBehaviour
         if (BlockingSounds.Length < 1) return;
         audioSource.PlayOneShot(BlockingSounds[Random.Range(0, BlockingSounds.Length)]);
     }
+   
 
 
     // Start is called before the first frame update
